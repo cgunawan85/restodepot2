@@ -19,11 +19,11 @@ import deviceStorage from '../services/deviceStorage';
 
 require('firebase/auth');
 
-function renderErrorMessage(errorMessage) {
+function renderMessage(errorMessage) {
 	return Toast.show({
 		text: errorMessage,
 		duration: 3000,
-		buttonText: 'Try again!'
+		buttonText: 'Got it!'
 	});
 }
 
@@ -55,6 +55,7 @@ export const passwordChanged = (text) => {
 	};
 };
 
+/*
 export const loginUser = ({ email, password }) => {
 	return (dispatch) => {
 		dispatch({ type: LOGIN_USER });
@@ -69,36 +70,35 @@ export const loginUser = ({ email, password }) => {
 		});
 	};
 };
+*/
 
-/*
-export const loginUserTest = ({ email, password }) => {
+export const loginUser = ({ email, password }) => {
 	return (dispatch) => {
 		dispatch({ type: LOGIN_USER });
-		axios.post('https://www.restodepot.id/api/v1/signin', { email: email, password: password })
+		axios.post('https://restodepot.id/api/auth/signin', { username: email, password: password })
 			.then((response) => {
-				deviceStorage.saveKey('id_token', response.data.jwt);
+				console.log(response);
+				deviceStorage.saveItem('id_token', response.data.token);
 				dispatch({ type: LOGIN_USER_SUCCESS, payload: response });
-				//modify reducer case to add response.jwt and response.user
 				NavigationService.navigate('Main');
 			})
 			.catch((error) => {
-				renderErrorMessage(error.message);
+				renderMessage(error.message);
 				dispatch({ type: LOGIN_USER_FAIL });
 			});
 	};
 };
-*/
 
 export const registerUser = ({ email, password }) => {
 	return (dispatch) => {
-		dispatch({ type: REGISTER_USER }); // for loading spinner
+		dispatch({ type: REGISTER_USER });
 		firebase.auth().createUserWithEmailAndPassword(email, password)
 		.then(user => { 
 			dispatch({ type: REGISTER_USER_SUCCESS, payload: user });
 			NavigationService.navigate('Main');
 		})
 		.catch((error) => {
-			renderErrorMessage(error.message);
+			renderMessage(error.message);
 			dispatch({ type: REGISTER_USER_FAIL });
 		});
 	};
@@ -106,19 +106,8 @@ export const registerUser = ({ email, password }) => {
 
 export const signOut = () => {
 	return (dispatch) => {
-		firebase.auth().signOut().then(() => {
-			dispatch({ type: LOGOUT_SUCCESS });
-			NavigationService.navigate('AuthStack');
-		});
-	};
-};
-
-/*
-export const signOutTest = () => {
-	return (dispatch) => {
 		dispatch({ type: LOGOUT_SUCCESS });
 		deviceStorage.removeJWT();
 		NavigationService.navigate('AuthStack');
 	};
 };
-*/

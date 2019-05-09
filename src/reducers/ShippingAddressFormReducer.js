@@ -4,6 +4,7 @@ import {
 	RESET_STATE, 
 	UPDATE_LONGITUDE_LATITUDE,
 	UPDATE_ADDRESS_QUERY,
+	EMPLOYEES_FETCH_SUCCESS
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -18,10 +19,13 @@ const INITIAL_STATE = {
 	latitude: null,
 	longitude: null,
 	address_query: '',
+	shipping_addresses: []
 };
 
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
+		case EMPLOYEES_FETCH_SUCCESS:
+			return { ...state, shipping_addresses: action.payload };
 		case SHIPPING_ADDRESS_FORM_UPDATE:
 			return { ...state, [action.payload.prop]: action.payload.value };
 		case UPDATE_LONGITUDE_LATITUDE:

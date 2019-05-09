@@ -4,6 +4,7 @@ import {
   StatusBar,
   View
 } from 'react-native';
+import { connect } from 'react-redux';
 import firebase from 'firebase/app';
 import deviceStorage from '../services/deviceStorage';
 
@@ -21,11 +22,15 @@ class AuthLoadingScreen extends Component {
 		};
 		firebase.initializeApp(config);
 
+		/*
 		firebase.auth().onAuthStateChanged((user) => { 
 			this.props.navigation.navigate(user ? 'Main' : 'AuthStack');
 		});
+		*/
 
-		// deviceStorage.loadJWT() here? if failed, then direct to AUTH
+		deviceStorage.loadJWT().then(() => {
+			this.props.navigation.navigate(this.props.jwt ? 'Main' : 'AuthStack');
+		});
 	}
 
 	render() {
@@ -46,4 +51,11 @@ const styles = {
 	}
 };
 
-export default AuthLoadingScreen;
+const mapStateToProps = state => {
+	return {
+		user: state.auth.user,
+		jwt: state.auth.jwt
+	};
+};
+
+export default connect(mapStateToProps)(AuthLoadingScreen);

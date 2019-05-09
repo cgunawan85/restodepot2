@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
-import { store } from '../App';
-import { LOAD_JWT, REMOVE_JWT } from '../actions/';
+import { LOAD_JWT, REMOVE_JWT } from '../actions/types';
+import store from '../store';
 
 const deviceStorage = {
 	async saveItem(key, value) {

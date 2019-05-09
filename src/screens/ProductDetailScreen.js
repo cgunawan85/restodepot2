@@ -11,7 +11,8 @@ import {
 	Body, 
 	Title, 
 	Icon,
-	Right
+	Right,
+	Toast
 } from 'native-base';
 import { withNavigation } from 'react-navigation';
 import ProductImage from '../components/ProductImage';
@@ -46,6 +47,12 @@ class ProductDetailScreen extends Component {
 	}
 
 	onAccept() {
+		this.setState({ modalVisible: false });
+		return Toast.show({
+			text: 'Added to cart!',
+			duration: 3000,
+			buttonText: 'Got it!'
+		});
 	}
 
 	showDescription() {

@@ -31,10 +31,11 @@ import VendorScreen from './screens/VendorScreen';
 import ReviewsScreen from './screens/ReviewsScreen';
 import PinLocationMapScreen from './screens/PinLocationMapScreen';
 import NavigationService from './services/NavigationService';
+import store from './store';
 
 class App extends Component {
 	render() {
-		const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+		// const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 		return (
 			<Provider store={store}>
 				<Root>

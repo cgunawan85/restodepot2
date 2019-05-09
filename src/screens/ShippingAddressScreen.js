@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Container, Content, List, Button, Icon } from 'native-base';
 import ShippingAddressList from '../components/ShippingAddressList';
-
+import { shippingAddressesFetch } from '../actions/';
 
 class ShippingAddressScreen extends Component {
 	static navigationOptions = ({ navigation }) => ({
@@ -19,6 +20,12 @@ class ShippingAddressScreen extends Component {
 		},
 	});
 
+	constructor() {
+		super();
+		// pass user id to this action creator
+		this.props.shippingAddressesFetch(this.props.jwt);
+	}
+
 	render() {
 		return (
 			<Container>
@@ -32,4 +39,12 @@ class ShippingAddressScreen extends Component {
 	}
 }
 
-export default ShippingAddressScreen;
+const mapStateToProps = state => {
+	return {
+		shipping_addresses: state.shippingAddressForm.shipping_addresses,
+		user: state.auth.user,
+		jwt: state.auth.jwt
+	};
+};
+
+export default connect(mapStateToProps, { shippingAddressesFetch })(ShippingAddressScreen);

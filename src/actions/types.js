@@ -21,6 +21,7 @@ export const RESET_LOCATION = 'reset_location';
 export const RESET_STATE = 'reset_state';
 export const UPDATE_LONGITUDE_LATITUDE = 'update_longitude_latitude';
 export const UPDATE_ADDRESS_QUERY = 'update_address_query';
+export const EMPLOYEES_FETCH_SUCCESS = 'employees_fetch_success';
 
 // orders actions
 
