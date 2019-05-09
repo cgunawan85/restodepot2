@@ -35,11 +35,12 @@ class RegisterScreen extends Component {
 		this.props.passwordChanged(text);
 	}
 
-	//add first name last name
 	onRegisterButtonPress() {
 		this.props.registerUser({ 
+			firstName: this.props.firstName,
+			lastName: this.props.lastName,
 			email: this.props.email, 
-			password: this.props.password 
+			password: this.props.password,
 		});
 	}
 
@@ -49,7 +50,7 @@ class RegisterScreen extends Component {
 		}
 		return (
 			<Button 
-				block
+				full
 				onPress={this.onRegisterButtonPress.bind(this)}
 			>
 				<Text style={{ color: 'white' }}>Register</Text>
@@ -58,7 +59,6 @@ class RegisterScreen extends Component {
 	}
 
 	render() {
-		console.log(this.props.lastName);
 		return (
 			<Container>
 				<Content>

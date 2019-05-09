@@ -3,7 +3,8 @@ import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content, Button, Spinner } from 'native-base';
 import CredentialForm from '../components/CredentialForm';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
+import ForgetYourPasswordModal from '../components/ForgetYourPasswordModal';
+import { emailChanged, passwordChanged, loginUser, forgetEmailChanged } from '../actions';
 
 class LoginScreen extends Component {
 	static navigationOptions = {
@@ -13,12 +14,30 @@ class LoginScreen extends Component {
 		},
 	};
 
+	constructor() {
+		super();
+		this.state = { modalVisible: false };
+	}
+
+	onDecline() {
+		this.setState({ modalVisible: false });
+	}
+
+	onAccept() {
+		// call reset password action creator here
+		this.setState({ modalVisible: false });
+	}
+
 	onEmailChanged(text) {
 		this.props.emailChanged(text);
 	}
 
 	onPasswordChanged(text) {
 		this.props.passwordChanged(text);
+	}
+
+	onForgetEmailChanged(text) {
+		this.props.forgetEmailChanged(text);
 	}
 
 	onLoginButtonPress() {
@@ -35,7 +54,7 @@ class LoginScreen extends Component {
 		}
 		return ( 
 			<Button
-				block
+				full
 				onPress={this.onLoginButtonPress.bind(this)}
 			>
 				<Text style={{ color: 'white' }}>Login</Text>
@@ -44,7 +63,8 @@ class LoginScreen extends Component {
 	}
 
 	render() {
-		const { textStyle, registerTextStyle } = styles;
+		console.log(this.props.forget_email);
+		const { textStyle, linkTextStyle } = styles;
 		return (
 			<Container>
 				<Content>
@@ -53,13 +73,24 @@ class LoginScreen extends Component {
 							onPasswordChanged={this.onPasswordChanged.bind(this)}
 						/>
 						{this.renderLoginButtonOrSpinner()}
+						<Text 
+							style={linkTextStyle}
+							onPress={() => this.setState({ modalVisible: true })}
+						>
+							Forgot your password?
+						</Text>
 						<Text style={textStyle}>Don't have an account yet?</Text>
 						<Text 
-							style={registerTextStyle}
+							style={linkTextStyle}
 							onPress={this.onRegisterButtonPress.bind(this)}
 						>
 							Register here
 						</Text>
+						<ForgetYourPasswordModal 
+							modalVisible={this.state.modalVisible}
+							onDecline={this.onDecline.bind(this)}
+							onForgetEmailChanged={this.onForgetEmailChanged.bind(this)} 
+						/>
 				</Content>
 			</Container>
 		);
@@ -72,12 +103,12 @@ const styles = {
 	},
 	textStyle: {
 		alignSelf: 'center',
+	},
+	linkTextStyle: {
+		textAlign: 'center',
+		color: 'blue',
 		paddingTop: 20,
 		paddingBottom: 20
-	},
-	registerTextStyle: {
-		textAlign: 'center',
-		color: 'blue'
 	}
 };
 
@@ -85,10 +116,16 @@ const mapStateToProps = state => {
 	return {
 		email: state.auth.email,
 		password: state.auth.password,
+		forget_email: state.auth.forget_email,
 		loading: state.auth.loading,
 		error: state.auth.error,
 		user: state.auth.user
 	};
 };
 
-export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(LoginScreen);
+export default connect(mapStateToProps, { 
+	emailChanged, 
+	passwordChanged, 
+	loginUser, 
+	forgetEmailChanged 
+})(LoginScreen);

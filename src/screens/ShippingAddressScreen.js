@@ -22,8 +22,9 @@ class ShippingAddressScreen extends Component {
 
 	constructor() {
 		super();
-		// pass user id to this action creator
+		/* pass user id to this action creator
 		this.props.shippingAddressesFetch(this.props.jwt);
+		*/
 	}
 
 	render() {

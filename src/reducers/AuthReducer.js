@@ -2,7 +2,8 @@ import {
 	FIRST_NAME_CHANGED,
 	LAST_NAME_CHANGED,
 	EMAIL_CHANGED, 
-	PASSWORD_CHANGED, 
+	PASSWORD_CHANGED,
+	FORGET_EMAIL_CHANGED, 
 	LOGIN_USER, 
 	LOGIN_USER_SUCCESS, 
 	LOGIN_USER_FAIL,
@@ -19,6 +20,7 @@ const INITIAL_STATE = {
 	lastName: '',
 	email: '',
 	password: '',
+	forget_email: '',
 	user: '',
 	jwt: '',
 	error: '',
@@ -35,6 +37,8 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, email: action.payload };
 		case PASSWORD_CHANGED:
 			return { ...state, password: action.payload };
+		case FORGET_EMAIL_CHANGED:
+			return { ...state, forget_email: action.payload };
 		case LOGIN_USER:
 			return { ...state, loading: true };
 		case LOGIN_USER_SUCCESS:
@@ -51,9 +55,9 @@ export default (state = INITIAL_STATE, action) => {
 		case REGISTER_USER:
 			return { ...state, loading: true };
 		case REGISTER_USER_SUCCESS:
-			return { ...INITIAL_STATE, user: action.payload };
+			return { ...INITIAL_STATE };
 		case REGISTER_USER_FAIL:
-			return { ...state, email: '', password: '', loading: false };
+			return { ...state, loading: false };
 		case LOAD_JWT:
 			return { ...state, jwt: action.payload };
 		case REMOVE_JWT:
