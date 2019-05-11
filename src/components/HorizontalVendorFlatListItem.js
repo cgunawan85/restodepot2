@@ -40,7 +40,7 @@ class HorizontalVendorFlatListItem extends Component {
 	}
 
 	render() {
-		const { logo, name } = this.props.vendor;
+		const { logo, company_name } = this.props.vendor;
 		const { 
 			cardStyle, 
 			contentContainerStyle, 
@@ -57,12 +57,12 @@ class HorizontalVendorFlatListItem extends Component {
 						<Thumbnail 
 							large 
 							square 
-							source={{ uri: logo }} 
+							source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${logo}` }} 
 							defaultSource={LOADING_IMAGE}
 						/>
 					</View>
 					<View style={textContainerStyle}>
-						<Text numberOfLines={1} style={vendorNameTextStyle}>{name}</Text>
+						<Text numberOfLines={1} style={vendorNameTextStyle}>{company_name}</Text>
 						{this.renderRatingWithBadge()}
 					</View>
 					<View style={buttonContainerStyle}>

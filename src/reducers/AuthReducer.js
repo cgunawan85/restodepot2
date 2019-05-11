@@ -12,7 +12,8 @@ import {
 	REGISTER_USER_SUCCESS,
 	REGISTER_USER_FAIL,
 	LOAD_JWT,
-	REMOVE_JWT
+	REMOVE_JWT,
+	RESET_PASSWORD_EMAIL_SENT
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -62,6 +63,8 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, jwt: action.payload };
 		case REMOVE_JWT:
 			return { ...state, jwt: '' };
+		case RESET_PASSWORD_EMAIL_SENT:
+			return { ...INITIAL_STATE };
 		default:
 			return state;
 	}

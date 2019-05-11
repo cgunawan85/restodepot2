@@ -9,39 +9,39 @@ class CategoryTable extends Component {
 			<View style={containerStyle}>
 				<CategoryButton 
 					buttonColors={['#1488CC', '#2B32B2']}
-					category='Food & Beverages'
+					categoryID={1291}
 				>
 					Food & Beverages
 				</CategoryButton>
 				<CategoryButton 
 					buttonColors={['#1488CC', '#2B32B2']}
-					category='Equipment'
+					categoryID={1}
 				>
-					Equipment
+					Restaurant Equipment
 				</CategoryButton>
 				<CategoryButton 
 					buttonColors={['#1488CC', '#2B32B2']}
-					category='Cleaning Supplies'
+					categoryID={1529}
 				>
-					Cleaning Supplies
+					Smallwares
 				</CategoryButton>
 				<CategoryButton 
 					buttonColors={['#1488CC', '#2B32B2']}
-					category='Coffee'
+					categoryID={2333}
 				>
-					Coffee
+					Coffee Supplies
 				</CategoryButton>
 				<CategoryButton 
 					buttonColors={['#1488CC', '#2B32B2']}
-					category='Disposables'
+					categoryID={877}
 				>
 					Disposables
 				</CategoryButton>
 				<CategoryButton 
 					buttonColors={['#1488CC', '#2B32B2']}
-					category='Test Category'
+					categoryID={571}
 				>
-					Test Category
+					Tabletop
 				</CategoryButton>
 			</View>
 		);

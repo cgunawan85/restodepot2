@@ -13,7 +13,8 @@ import {
 	LOGOUT_SUCCESS,
 	REGISTER_USER,
 	REGISTER_USER_SUCCESS,
-	REGISTER_USER_FAIL
+	REGISTER_USER_FAIL,
+	RESET_PASSWORD_EMAIL_SENT
 } from './types';
 import NavigationService from '../services/NavigationService';
 import deviceStorage from '../services/deviceStorage';
@@ -133,7 +134,18 @@ export const registerUser = ({ firstName, lastName, email, password }) => {
 	};
 };
 
-//password reset action creator
+export const resetPasswordEmailSend = ({ email }) => {
+	return (dispatch) => {
+		axios.post(`https://restodepot.id/api/auth/password-reset-send?email=${email}`)
+			.then((response) => {
+				dispatch({ type: RESET_PASSWORD_EMAIL_SENT, payload: response });
+				renderMessage(response.message);
+			})
+			.catch((error) => {
+				renderMessage(error.response.data.error);
+			});
+	};
+};
 
 export const signOut = () => {
 	return (dispatch) => {

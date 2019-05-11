@@ -13,7 +13,7 @@ class ReviewsList extends Component {
 		return (
 			<View>
 				<FlatList 
-					data={reviews} //can use SLICE to limit number of items in data set
+					data={reviews}
 					renderItem={this.renderCardItem}
 					keyExtractor={(review) => review.id.toString()}
 				/>

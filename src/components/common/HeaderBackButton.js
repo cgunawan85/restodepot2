@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Icon, Button } from 'native-base';
-import { resetState } from '../../actions';
+import { resetForm } from '../../actions';
 
 class HeaderBackButton extends Component {
 	render() {
@@ -9,7 +9,7 @@ class HeaderBackButton extends Component {
 			<Button
 				transparent
 				onPress={() => {
-					this.props.resetState(); 
+					this.props.resetForm(); 
 					this.props.navigation.goBack();
 				}}
 			>
@@ -19,4 +19,4 @@ class HeaderBackButton extends Component {
 	}
 }
 
-export default connect(null, { resetState })(HeaderBackButton);
+export default connect(null, { resetForm })(HeaderBackButton);

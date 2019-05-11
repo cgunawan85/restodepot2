@@ -4,17 +4,17 @@ import HorizontalVendorFlatListItem from './HorizontalVendorFlatListItem';
 
 class HorizontalVendorFlatList extends Component {
 	renderCardItem(vendor) {
-		return <HorizontalVendorFlatListItem vendor={vendor.item} />;
+		return <HorizontalVendorFlatListItem vendor={vendor} />;
 	}
 
 	render() {
 		return (
 			<View>
 				<FlatList 
-					data={this.props.vendors}
-					renderItem={this.renderCardItem}
+					data={this.props.vendors.slice(0, 10)}
+					renderItem={({ item }) => this.renderCardItem(item)}
 					horizontal
-					keyExtractor={(vendor) => vendor.id.toString()}
+					keyExtractor={(vendor) => vendor.id_vendor.toString()}
 					style={{ paddingBottom: 10 }}
 				/>
 			</View>

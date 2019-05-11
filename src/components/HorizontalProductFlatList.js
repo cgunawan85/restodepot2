@@ -4,7 +4,7 @@ import HorizontalProductFlatListItem from './HorizontalProductFlatListItem';
 
 class HorizontalProductFlatList extends Component {
 	renderCardItem(product) {
-		return <HorizontalProductFlatListItem product={product.item} />;
+		return <HorizontalProductFlatListItem product={product} />;
 	}
 
 	render() {
@@ -12,7 +12,7 @@ class HorizontalProductFlatList extends Component {
 			<View>
 				<FlatList 
 					data={this.props.products}
-					renderItem={this.renderCardItem}
+					renderItem={({ item }) => this.renderCardItem(item)}
 					horizontal
 					keyExtractor={(product) => product.id.toString()}
 					style={{ paddingBottom: 10 }}

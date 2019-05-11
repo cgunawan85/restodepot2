@@ -4,7 +4,13 @@ import { connect } from 'react-redux';
 import { Container, Content, Button, Spinner } from 'native-base';
 import CredentialForm from '../components/CredentialForm';
 import ForgetYourPasswordModal from '../components/ForgetYourPasswordModal';
-import { emailChanged, passwordChanged, loginUser, forgetEmailChanged } from '../actions';
+import { 
+	emailChanged, 
+	passwordChanged, 
+	loginUser, 
+	forgetEmailChanged, 
+	resetPasswordEmailSend 
+} from '../actions';
 
 class LoginScreen extends Component {
 	static navigationOptions = {
@@ -24,7 +30,7 @@ class LoginScreen extends Component {
 	}
 
 	onAccept() {
-		// call reset password action creator here
+		this.props.resetPasswordEmailSend({ email: this.state.forget_email });
 		this.setState({ modalVisible: false });
 	}
 
@@ -63,7 +69,6 @@ class LoginScreen extends Component {
 	}
 
 	render() {
-		console.log(this.props.forget_email);
 		const { textStyle, linkTextStyle } = styles;
 		return (
 			<Container>
@@ -89,6 +94,7 @@ class LoginScreen extends Component {
 						<ForgetYourPasswordModal 
 							modalVisible={this.state.modalVisible}
 							onDecline={this.onDecline.bind(this)}
+							onAccept={this.onAccept.bind(this)}
 							onForgetEmailChanged={this.onForgetEmailChanged.bind(this)} 
 						/>
 				</Content>
@@ -127,5 +133,6 @@ export default connect(mapStateToProps, {
 	emailChanged, 
 	passwordChanged, 
 	loginUser, 
-	forgetEmailChanged 
+	forgetEmailChanged,
+	resetPasswordEmailSend
 })(LoginScreen);

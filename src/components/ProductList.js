@@ -17,6 +17,7 @@ class ProductList extends Component {
 					style={{ paddingBottom: 10 }}
 					numColumns={2}
 					columnWrapperStyle={{ flex: 1, justifyContent: 'space-around' }}
+					initialNumToRender={20}
 				/>
 			</View>
 		);

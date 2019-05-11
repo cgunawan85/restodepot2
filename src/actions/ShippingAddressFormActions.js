@@ -1,9 +1,13 @@
 import {
 	SHIPPING_ADDRESS_FORM_UPDATE, 
-	RESET_LOCATION, RESET_STATE, 
+	RESET_LOCATION, 
+	RESET_FORM, 
 	UPDATE_LONGITUDE_LATITUDE,
 	UPDATE_ADDRESS_QUERY,
-	EMPLOYEES_FETCH_SUCCESS
+	FETCH_SHIPPING_ADDRESSES,
+	FETCH_SHIPPING_ADDRESSES_SUCCESS,
+	FETCH_SHIPPING_ADDRESS_FAIL,
+	LOAD_SHIPPING_ADDRESS_FORM
 } from './types';
 
 const axios = require('axios');
@@ -28,9 +32,9 @@ export const resetLocation = () => {
 	};
 };
 
-export const resetState = () => {
+export const resetForm = () => {
 	return {
-		type: RESET_STATE
+		type: RESET_FORM
 	};
 };
 
@@ -44,7 +48,8 @@ export const updateAddressQuery = (text) => {
 // need to pass the id resto into fetch
 export const shippingAddressesFetch = (token) => {
 	return function (dispatch) {
-		axios.get('https://api.restodepot.id/shipping_addresses', {
+		dispatch({ type: FETCH_SHIPPING_ADDRESSES });
+		axios.get('http://localhost:8080/shipping_addresses', {
 			params: { 
 				id_resto: 87
 			},
@@ -53,8 +58,22 @@ export const shippingAddressesFetch = (token) => {
 			} 
 		})
 		.then((response) => {
-			dispatch({ type: EMPLOYEES_FETCH_SUCCESS, payload: response.data });
+			dispatch({ type: FETCH_SHIPPING_ADDRESSES_SUCCESS, payload: response });
 		})
-		.catch((error) => console.log(error));
+		.catch((error) => {
+			console.log(error);
+			dispatch({ type: FETCH_SHIPPING_ADDRESS_FAIL });
+		});
 	};
 };
+
+export const loadShippingAddressForm = (shippingAddress) => {
+	return {
+		type: LOAD_SHIPPING_ADDRESS_FORM,
+		payload: shippingAddress
+	};
+};
+
+//create action creator for creating shipping address
+//create action creator for updating shipping address
+//create action creator for deleting shipping address
