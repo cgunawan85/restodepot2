@@ -11,6 +11,15 @@ const deviceStorage = {
 		}
 	},
 
+	async getItem(key) {
+		try {
+			const item = await AsyncStorage.getItem(key);
+			return item;
+		} catch (error) {
+			console.log(error);
+		}
+	},
+
 	async loadJWT() {
 		try {
 			const value = await AsyncStorage.getItem('id_token');

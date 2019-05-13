@@ -6,6 +6,7 @@ function ConfirmDeleteModal({ modalVisible, onAccept, onDecline }) {
 	const { 
 		containerStyle, 
 		textStyle, 
+		subTextStyle,
 		cardStyle,
 		buttonContainerStyle,
 		buttonStyle, 
@@ -23,6 +24,7 @@ function ConfirmDeleteModal({ modalVisible, onAccept, onDecline }) {
 			<View style={containerStyle}>
 				<Card style={cardStyle}>
 					<Text style={textStyle}>Are you sure you want to delete?</Text>
+					<Text style={subTextStyle}>This process cannot be undone</Text>
 					<View style={buttonContainerStyle}>
 						<Button 
 							bordered 
@@ -56,6 +58,10 @@ const styles = {
 		textAlign: 'center',
 		paddingTop: 20,
 		lineHeight: 40
+	},
+	subTextStyle: {
+		color: '#444444', 
+		textAlign: 'center'
 	},
 	containerStyle: {
 		backgroundColor: 'rgba(0, 0, 0, 0.75)',

@@ -89,7 +89,7 @@ export const loginUser = ({ email, password }) => {
 				console.log(response);
 				deviceStorage.saveItem('id_token', response.data.token);
 				dispatch({ type: LOGIN_USER_SUCCESS, payload: response });
-				NavigationService.navigate('Main');
+				NavigationService.navigate('Home');
 			})
 			.catch((error) => {
 				renderMessage(error.response.data.error);

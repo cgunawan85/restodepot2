@@ -9,10 +9,13 @@ import {
 	Left, 
 	Right, 
 	Body, 
-	Title 
+	Title,
+	Spinner 
 } from 'native-base';
+import { connect } from 'react-redux';
 import ShippingAddressForm from '../components/ShippingAddressForm';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
+import { deleteShippingAddress, updateShippingAddress } from '../actions/';
 
 
 class EditShippingAddressScreen extends Component {
@@ -29,8 +32,59 @@ class EditShippingAddressScreen extends Component {
 		this.state = { modalVisible: false };
 	}
 
+	onAccept() {
+		const shippingAddressId = this.props.navigation.getParam('id');
+		this.props.deleteShippingAddress(shippingAddressId);
+		this.setState({ modalVisible: false });
+	}
+
 	onDecline() {
 		this.setState({ modalVisible: false });
+	}
+
+	onSaveChangesButtonPress() {
+		const shippingAddressId = this.props.navigation.getParam('id');
+		this.props.updateShippingAddress({
+			id: shippingAddressId,
+			title: this.props.title,
+			address: this.props.address,
+			province: this.props.province,
+			city: this.props.province,
+			postal_code: this.props.postal_code,
+			pic_name: this.props.pic,
+			pic_phone: this.props.pic_phone_number,
+			lat: this.props.latitude,
+			lng: this.props.longitude,
+		});
+	}
+
+	renderDeleteButtonOrSpinner() {
+		if (this.props.loading) {
+			return <Spinner />;
+		}
+		return (
+			<Button 
+				transparent
+				onPress={() => this.setState({ modalVisible: true })}
+			>
+				<Icon name='trash' style={{ fontSize: 24 }} />
+			</Button>
+		);
+	}
+
+	renderSaveChangesOrSpinner() {
+		if (this.props.loading) {
+			return <Spinner />;
+		}
+		return (
+			<Button 
+				full 
+				success
+				onPress={() => this.onSaveChangesButtonPress()}
+			>
+				<Text>Save Changes</Text>
+			</Button>
+		);
 	}
 
 	render() {
@@ -49,21 +103,15 @@ class EditShippingAddressScreen extends Component {
 						<Title style={{ color: '#2077be' }}>Edit Address</Title>
 					</Body>
 					<Right>
-						<Button 
-							transparent
-							onPress={() => this.setState({ modalVisible: true })}
-						>
-							<Icon name='trash' style={{ fontSize: 24 }} />
-						</Button>
+						{this.renderDeleteButtonOrSpinner()}
 					</Right>
 				</Header>
 				<Content>
 					<ShippingAddressForm />
-				<Button full success>
-					<Text>Save Changes</Text>
-				</Button>
+					{this.renderSaveChangesOrSpinner()}
 				<ConfirmDeleteModal 
-					modalVisible={this.state.modalVisible} 
+					modalVisible={this.state.modalVisible}
+					onAccept={this.onAccept.bind(this)} 
 					onDecline={this.onDecline.bind(this)}
 				/>
 				</Content>
@@ -72,4 +120,38 @@ class EditShippingAddressScreen extends Component {
 	}
 }
 
-export default EditShippingAddressScreen;
+const mapStateToProps = (state) => {
+	const { 
+		title, 
+		address, 
+		province, 
+		city, 
+		postal_code, 
+		pic, 
+		pic_phone_number,
+		error,
+		longitude,
+		latitude,
+		shipping_addresses,
+		loading
+	} = state.shippingAddressForm;
+	return { 
+		title, 
+		address, 
+		province, 
+		city, 
+		postal_code, 
+		pic, 
+		pic_phone_number, 
+		error, 
+		longitude,
+		loading, 
+		latitude,
+		shipping_addresses
+	};
+};
+
+export default connect(mapStateToProps, { 
+	deleteShippingAddress, 
+	updateShippingAddress 
+})(EditShippingAddressScreen);

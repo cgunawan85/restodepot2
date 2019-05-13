@@ -38,12 +38,6 @@ class PinLocationMapScreen extends Component {
 		this.props.navigation.goBack();
 	}
 
-	/*
-	onSearchButtonPress() {
-		this.props.lookupCoordinates(this.props.address_query);
-	}
-	*/
-
 	renderNewRegionWithAddress(address) {
 		const GEOCODE_API_KEY = 'AIzaSyAcwn0XXXM1hoSGSDQiF7h9eHMkIo2gDVc';
 		const parsed_address = address.split(' ').join('+');
@@ -100,12 +94,6 @@ class PinLocationMapScreen extends Component {
 			<Container>
 				<Content contentContainerStyle={{ flex: 1 }}>
 					<View style={{ flexDirection: 'row' }}>
-						{/*
-						<Input 
-							placeholder="Enter your address" 
-							onChangeText={(text) => this.props.updateAddressQuery(text)}
-						/>
-						*/}
 						<MapInput />
 						<View style={{ justifyContent: 'center' }}>
 							{this.renderSpinnerOrSearchButton()}

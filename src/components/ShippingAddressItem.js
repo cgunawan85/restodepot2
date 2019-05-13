@@ -12,7 +12,10 @@ class ShippingAddressItem extends Component {
 				button 
 				onPress={() => {
 					this.props.loadShippingAddressForm(this.props.shippingAddress);
-					this.props.navigation.navigate('EditShippingAddressScreen');
+					this.props.navigation.navigate(
+						'EditShippingAddressScreen', 
+						{ id: this.props.shippingAddress.id }
+					);
 				}}
 			>
 				<Body>

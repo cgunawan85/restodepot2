@@ -27,6 +27,15 @@ export const FETCH_SHIPPING_ADDRESSES = 'fetch_shipping_address';
 export const FETCH_SHIPPING_ADDRESSES_SUCCESS = 'fetch_shipping_address_success';
 export const FETCH_SHIPPING_ADDRESS_FAIL = 'fetch_shipping_address_fail';
 export const LOAD_SHIPPING_ADDRESS_FORM = 'load_shipping_address_form';
+export const ADD_SHIPPING_ADDRESS = 'add_shipping_address';
+export const ADD_SHIPPING_ADDRESS_SUCCESS = 'add_shipping_address_success';
+export const ADD_SHIPPING_ADDRESS_FAIL = 'add_shipping_address_fail';
+export const DELETE_SHIPPING_ADDRESS = 'delete_shipping_address';
+export const DELETE_SHIPPING_ADDRESS_SUCCESS = 'delete_shipping_address_success';
+export const DELETE_SHIPPING_ADDRESS_FAIL = 'delete_shipping_address_fail';
+export const UPDATE_SHIPPING_ADDRESS = 'update_shipping_address';
+export const UPDATE_SHIPPING_ADDRESS_SUCCESS = 'update_shipping_address_success';
+export const UPDATE_SHIPPING_ADDRESS_FAIL = 'update_shipping_address_fail';
 
 // orders actions
 

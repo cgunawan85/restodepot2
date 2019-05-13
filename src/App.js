@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import ReduxThunk from 'redux-thunk';
 import { 
 	createBottomTabNavigator, 
 	createStackNavigator, 
@@ -9,7 +7,7 @@ import {
 	createAppContainer
 } from 'react-navigation';
 import { Root, Icon, StyleProvider, getTheme } from 'native-base';
-import reducers from './reducers';
+import axios from 'axios';
 
 import HomeScreen from './screens/HomeScreen';
 import OrdersScreen from './screens/OrdersScreen';
@@ -31,6 +29,8 @@ import VendorScreen from './screens/VendorScreen';
 import ReviewsScreen from './screens/ReviewsScreen';
 import PinLocationMapScreen from './screens/PinLocationMapScreen';
 import NavigationService from './services/NavigationService';
+import { LOGOUT_SUCCESS } from './actions/types';
+import deviceStorage from './services/deviceStorage';
 import store from './store';
 
 class App extends Component {
@@ -149,5 +149,30 @@ const AppSwitchNavigator = createSwitchNavigator(
 );
 
 const AppContainer = createAppContainer(AppSwitchNavigator);
+
+// Axios Interceptors
+
+axios.interceptors.request.use((config) => {
+	// const token = store.getState().auth.jwt;
+	const token = store.getState().auth.jwt;
+	if (token != null) {
+		config.headers.Authorization = `Bearer ${token}`;
+	}
+	return config;
+}, (error) => {
+	console.log(error);
+	return Promise.reject(error);	
+});
+
+axios.interceptors.response.use((response) => {
+	return response;
+}, (error) => {
+	if (error.response.status === 401) {
+		deviceStorage.removeJWT();
+		store.dispatch({ type: LOGOUT_SUCCESS });
+	} else {
+		return Promise.reject(error);
+	}
+});
 
 export default App;

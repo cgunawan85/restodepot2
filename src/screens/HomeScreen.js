@@ -12,6 +12,7 @@ import CategoryTable from '../components/CategoryTable';
 import SearchBar from '../components/SearchBar';
 import ProductList from '../components/ProductList';
 import Seperator from '../components/common/Seperator';
+import deviceStorage from '../services/deviceStorage';
 
 class HomeScreen extends Component {
 	static navigationOptions = {
@@ -19,9 +20,17 @@ class HomeScreen extends Component {
 		title: 'RestoDepot'
 	};
 
+	/*
 	constructor(props) {
 		super(props);
-		this.props.fetchHome(this.props.jwt);
+		this.willFocus = this.props.navigation.addListener('willFocus', () => {
+			this.props.fetchHome(this.props.jwt);
+		});
+	}
+	*/
+
+	async componentDidMount() {
+		await this.props.fetchHome(this.props.jwt);
 	}
 
 	render() {

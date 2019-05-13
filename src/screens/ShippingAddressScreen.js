@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content, List, Button, Icon, Spinner } from 'native-base';
 import ShippingAddressList from '../components/ShippingAddressList';
@@ -28,7 +29,9 @@ class ShippingAddressScreen extends Component {
 
 	constructor(props) {
 		super(props);
-		this.props.shippingAddressesFetch(this.props.jwt);
+		this.willFocus = this.props.navigation.addListener('willFocus', () => {
+			this.props.shippingAddressesFetch();
+		});
 	}
 
 	componentDidMount() {
@@ -39,7 +42,11 @@ class ShippingAddressScreen extends Component {
 
 	renderListOrActivityIndicator() {
 		if (this.props.loading) {
-			return <Spinner />;
+			return (
+				<View style={{ flex: 1, justifyContent: 'center' }}>
+					<Spinner />
+				</View>
+				);
 		}
 		return <ShippingAddressList shippingAddresses={this.props.shipping_addresses} />;
 	}
@@ -47,8 +54,8 @@ class ShippingAddressScreen extends Component {
 	render() {
 		return (
 			<Container>
-				<Content>
-					<List>
+				<Content contentContainerStyle={{ flex: 1 }}>
+					<List style={{ flex: 1 }}>
 						{this.renderListOrActivityIndicator()}
 					</List>
 				</Content>

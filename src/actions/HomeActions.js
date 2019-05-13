@@ -5,15 +5,13 @@ import {
 	FETCH_HOME_SUCCESS
 } from './types';
 
-export const fetchHome = (token) => {
+export const fetchHome = () => {
 	return (dispatch) => {
 		dispatch({ type: START_FETCH_HOME });
-		axios.get('https://restodepot.id/api/home', {
-			headers: { Authorization: `Bearer ${token}` }
-		})
+		axios.get('http://localhost:8080/home')
 			.then((response) => {
 				dispatch({ type: FETCH_HOME_SUCCESS, payload: response });
-		})
+			})
 			.catch((error) => console.log(error));
 	};
 };
