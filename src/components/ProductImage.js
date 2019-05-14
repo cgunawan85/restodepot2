@@ -5,13 +5,13 @@ import { LOADING_IMAGE } from '../images/';
 
 class ProductImage extends Component {
 	render() {
-		const { photo } = this.props.product;
+		const { product_photo } = this.props.product;
 		const { cardStyle, imageStyle } = styles;
 		return (
 			<Card style={cardStyle}>
 				<Image 
 					style={imageStyle} 
-					source={{ uri: photo }} 
+					source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${product_photo}` }} 
 					resizeMode='cover'
 					defaultSource={LOADING_IMAGE}
 				/>

@@ -10,8 +10,12 @@ import { withNavigation } from 'react-navigation';
 import { LOADING_IMAGE } from '../images/';
 
 class ProductListItem extends Component {
+	numberWithCommas(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	}
+
 	render() {
-		const { photo, brand, name, price } = this.props.product;
+		const { product_photo, name, price_regular } = this.props.product;
 
 		const { 
 			cardStyle, 
@@ -29,7 +33,7 @@ class ProductListItem extends Component {
 				<Card style={cardStyle}>
 					<CardItem cardBody>
 						<Image 
-							source={{ uri: photo }} 
+							source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${product_photo}` }} 
 							style={imageStyle}
 							defaultSource={LOADING_IMAGE} 
 						/>
@@ -40,7 +44,7 @@ class ProductListItem extends Component {
 								style={vendorNameTextStyle}
 								numberOfLines={1}
 							>
-								{brand}
+								Test Brand
 							</Text>
 							<Text 
 								style={productNameTextStyle}
@@ -52,7 +56,7 @@ class ProductListItem extends Component {
 								style={priceTextStyle}
 								numberOfLines={1}
 							>
-								{`IDR ${price.toLocaleString()}`}
+								{`IDR ${this.numberWithCommas(price_regular)}`}
 							</Text>
 						</Body>
 					</CardItem>

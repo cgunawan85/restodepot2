@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Text, Card, Thumbnail, Button } from 'native-base';
 import { withNavigation } from 'react-navigation';
-import { vendors } from '../data/vendorData';
 import { LOADING_IMAGE } from '../images/';
 
 class ProductVendor extends Component {
 	render() {
 		const { cardStyle, vendorNameSectionStyle, vendorLogoContainerStyle } = styles;
 		const product = this.props.navigation.getParam('product');
-		const vendor = vendors[0];
 		
 		return (
 			<Card 
@@ -21,18 +19,18 @@ class ProductVendor extends Component {
 						<Thumbnail 
 							square
 							defaultSource={LOADING_IMAGE}
-							source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/coldmoo-f07a2.appspot.com/o/photo1.JPG?alt=media&token=7d9ae1f8-f2b0-4133-b61c-2fd536cdac20' }} 
+							source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${product.vendor_logo}` }} 
 						/>
 					</View>
 					<View style={vendorNameSectionStyle}>
 						<Text note>Sold By</Text>
-						<Text style={{ fontSize: 14 }}>{product.vendor}</Text>
+						<Text style={{ fontSize: 14 }}>{product.vendor_name}</Text>
 					</View>
 					<View style={{ justifyContent: 'center' }}>
 						<Button 
 							small 
 							bordered 
-							onPress={() => this.props.navigation.navigate('VendorScreen', { vendor: vendor })}
+							onPress={() => this.props.navigation.navigate('VendorScreen', { vendorId: product.id_vendor })}
 						>
 							<Text>View Vendor</Text>
 						</Button>

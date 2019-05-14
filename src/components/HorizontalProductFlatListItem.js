@@ -33,7 +33,7 @@ class HorizontalProductFlatListItem extends Component {
 				<Card style={cardStyle}>
 					<CardItem cardBody>
 						<Image 
-							source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${product_photo}`}} 
+							source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${product_photo}` }} 
 							style={imageStyle}
 							defaultSource={LOADING_IMAGE} 
 						/>

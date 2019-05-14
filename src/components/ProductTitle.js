@@ -3,6 +3,10 @@ import { View } from 'react-native';
 import { Card, H1, Text, Icon } from 'native-base';
 
 class ProductTitle extends Component {
+	numberWithCommas(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	}
+
 	render() {
 		const { 
 			cardStyle, 
@@ -13,7 +17,7 @@ class ProductTitle extends Component {
 			starIconStyle, 
 			reviewsTextStyle 
 		} = styles;
-		const { brand, name, price, rating, review_count } = this.props.product;
+		const { name, price_regular, rating_average, rating_total } = this.props.product;
 		
 		return (
 			<Card 
@@ -21,11 +25,11 @@ class ProductTitle extends Component {
 				style={cardStyle}
 			>
 				<View style={containerStyle}>
-					<Text note>{brand}</Text>
+					<Text note>Test Brand</Text>
 					<H1 style={{ fontWeight: '600' }}>{name}</H1>
 					<View style={priceContainerStyle}>
 						<Text style={priceTextStyle}>
-							{`IDR ${price.toLocaleString()}`}
+							{`IDR ${this.numberWithCommas(price_regular)}`}
 						</Text>
 						<Text 
 							note 
@@ -39,8 +43,8 @@ class ProductTitle extends Component {
 					</View>
 					<View style={ratingContainerStyle}>
 						<Icon name='star' style={starIconStyle} />
-						<Text style={{ color: '#FFD700' }}> {rating}</Text>
-						<Text style={reviewsTextStyle}>  {`${review_count} Reviews`}</Text>
+						<Text style={{ color: '#FFD700' }}> {rating_average}</Text>
+						<Text style={reviewsTextStyle}>  {`${rating_total} Reviews`}</Text>
 					</View>
 				</View>
 			</Card>

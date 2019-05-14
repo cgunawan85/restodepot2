@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
+import { Spinner } from 'native-base';
 import HorizontalProductFlatListItem from './HorizontalProductFlatListItem';
 
 class HorizontalProductFlatList extends Component {
@@ -7,7 +8,10 @@ class HorizontalProductFlatList extends Component {
 		return <HorizontalProductFlatListItem product={product} />;
 	}
 
-	render() {
+	renderFlatListOrSpinner() {
+		if (this.props.loading) {
+			return <Spinner size='small' />;
+		}
 		return (
 			<View>
 				<FlatList 
@@ -19,6 +23,10 @@ class HorizontalProductFlatList extends Component {
 				/>
 			</View>
 		);
+	}
+
+	render() {
+		return this.renderFlatListOrSpinner();
 	}
 }
 

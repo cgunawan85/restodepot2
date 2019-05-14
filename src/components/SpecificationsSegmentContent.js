@@ -3,7 +3,10 @@ import { View, Text } from 'react-native';
 import { Icon, StyleProvider, getTheme } from 'native-base';
 
 class SpecificationsSegmentContent extends Component {
-	//2077be RestoDepot Blue
+	numberWithCommas(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	}
+
 	render() {
 		const { product } = this.props;
 		const { contentContainerStyle, textStyle } = styles;
@@ -18,7 +21,7 @@ class SpecificationsSegmentContent extends Component {
 						/>
 					</StyleProvider>
 					<Text style={textStyle}>
-						{ `${product.length}cm (L) x ${product.width}cm (W) x ${product.height}cm (H)` }
+						{`${product.dimension_length}cm (L) x ${product.dimension_width}cm (W) x ${product.dimension_height}cm (H)`}
 					</Text>
 				</View>
 
@@ -29,7 +32,7 @@ class SpecificationsSegmentContent extends Component {
 							style={{ fontSize: 16 }} 
 						/>
 					</StyleProvider>
-					<Text style={textStyle}>{ `${product.weight.toLocaleString()} grams` }</Text>
+					<Text style={textStyle}>{ `${this.numberWithCommas(product.weight)} grams` }</Text>
 				</View>
 			</View>
 		);

@@ -96,9 +96,7 @@ class ProductDetailScreen extends Component {
 			segmentContent = (
 				<View style={{ paddingTop: 10, paddingBottom: 30 }}>
 					<Text style={{ color: '#444444' }}>
-						This is where description goes. This is where description goes.
-						This is where description goes. This is where description goes.
-						This is where description goes.
+						{product.description}
 					</Text>
 				</View>
 			);

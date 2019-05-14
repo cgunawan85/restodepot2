@@ -86,7 +86,6 @@ export const loginUser = ({ email, password }) => {
 		dispatch({ type: LOGIN_USER });
 		axios.post('https://restodepot.id/api/auth/signin', { username: email, password: password })
 			.then((response) => {
-				console.log(response);
 				deviceStorage.saveItem('id_token', response.data.token);
 				dispatch({ type: LOGIN_USER_SUCCESS, payload: response });
 				NavigationService.navigate('Home');

@@ -8,6 +8,7 @@ const INITIAL_STATE = {
 	best_sellers: [],
 	best_deals: [],
 	rd_approved: [],
+	products: [],
 	loading: false,
 };
 
@@ -23,6 +24,7 @@ export default (state = INITIAL_STATE, action) => {
 				best_sellers: action.payload.data.data.best_seller, 
 				best_deals: action.payload.data.data.best_deals,
 				rd_approved: action.payload.data.data.approved_product,
+				products: action.payload.data.data.products
 			};
 		default:
 			return state;

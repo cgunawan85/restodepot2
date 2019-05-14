@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Container, Content, Button } from 'native-base';
 import { signOut, fetchHome } from '../actions';
 
-import { products } from '../data/productData';
 import HorizontalProductFlatList from '../components/HorizontalProductFlatList';
 import HorizontalVendorFlatList from '../components/HorizontalVendorFlatList';
 import BannerCarousel from '../components/BannerCarousel';
@@ -12,22 +11,12 @@ import CategoryTable from '../components/CategoryTable';
 import SearchBar from '../components/SearchBar';
 import ProductList from '../components/ProductList';
 import Seperator from '../components/common/Seperator';
-import deviceStorage from '../services/deviceStorage';
 
 class HomeScreen extends Component {
 	static navigationOptions = {
 		header: null,
 		title: 'RestoDepot'
 	};
-
-	/*
-	constructor(props) {
-		super(props);
-		this.willFocus = this.props.navigation.addListener('willFocus', () => {
-			this.props.fetchHome(this.props.jwt);
-		});
-	}
-	*/
 
 	async componentDidMount() {
 		await this.props.fetchHome(this.props.jwt);
@@ -63,7 +52,8 @@ class HomeScreen extends Component {
 					</View>
 					<HorizontalProductFlatList 
 						products={this.props.best_sellers} 
-						navigation={this.props.navigation} 
+						navigation={this.props.navigation}
+						loading={this.props.loading}
 					/>
 					<Seperator />
 					<View style={titleContainerStyle}>
@@ -80,6 +70,7 @@ class HomeScreen extends Component {
 					<HorizontalProductFlatList 
 						products={this.props.rd_approved}
 						navigation={this.props.navigation} 
+						loading={this.props.loading}
 					/>
 					<Seperator />
 					<View style={titleContainerStyle}>
@@ -96,6 +87,7 @@ class HomeScreen extends Component {
 					<HorizontalProductFlatList 
 						products={this.props.best_deals} 
 						navigation={this.props.navigation}
+						loading={this.props.loading}
 					/>
 					<Seperator />
 					<View style={titleContainerStyle}>
@@ -106,7 +98,10 @@ class HomeScreen extends Component {
 							</Button>
 						</View>
 					</View>
-					<HorizontalVendorFlatList vendors={this.props.featured_vendors} />
+					<HorizontalVendorFlatList 
+						vendors={this.props.featured_vendors} 
+						loading={this.props.loading}
+					/>
 					<Seperator />
 					<View style={titleContainerStyle}>
 						<Text style={titleTextStyle}>Products</Text>
@@ -119,7 +114,10 @@ class HomeScreen extends Component {
 							</Button>
 						</View>
 					</View>
-					<ProductList products={products} />
+					<ProductList 
+						products={this.props.products} 
+						loading={this.props.loading}
+					/>
 				</Content>
 			</Container>
 		);
@@ -155,7 +153,9 @@ const mapStateToProps = state => {
 		best_sellers: state.home.best_sellers,
 		best_deals: state.home.best_deals,
 		rd_approved: state.home.rd_approved,
-		jwt: state.auth.jwt
+		products: state.home.products,
+		jwt: state.auth.jwt,
+		loading: state.home.loading
 	};
 };
 

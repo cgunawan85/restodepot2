@@ -16,16 +16,16 @@ class HorizontalVendorFlatListItem extends Component {
 	}
 
 	renderRatingWithBadge() {
-		const { rating } = this.props.vendor;
+		const { rating_average } = this.props.vendor;
 		let badge;
 
-		if (rating > 95) {
+		if (rating_average > 95) {
 			badge = DIAMOND_BADGE;
-		} else if (rating > 85) {
+		} else if (rating_average > 85) {
 			badge = GOLD_BADGE;
-		} else if (rating > 75) {
+		} else if (rating_average > 75) {
 			badge = SILVER_BADGE;
-		} else if (rating < 75) {
+		} else if (rating_average < 75) {
 			badge = BRONZE_BADGE;
 		}
 
@@ -34,13 +34,14 @@ class HorizontalVendorFlatListItem extends Component {
 				<View style={{ paddingHorizontal: 3 }}>
 					<Image style={{ height: 13, width: 9 }} source={badge} />
 				</View>
-				<Text style={{ fontSize: 12 }}>{`${rating}%`}</Text>
+				<Text style={{ fontSize: 12 }}>{`${Math.round(rating_average)}%`}</Text>
 			</View>
 		);
 	}
 
 	render() {
 		const { logo, company_name } = this.props.vendor;
+
 		const { 
 			cardStyle, 
 			contentContainerStyle, 

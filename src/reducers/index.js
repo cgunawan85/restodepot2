@@ -4,6 +4,7 @@ import ShippingAddressFormReducer from './ShippingAddressFormReducer';
 import OrdersReducer from './OrdersReducer';
 import ReviewsReducer from './ReviewsReducer';
 import HomeReducer from './HomeReducer';
+import VendorReducer from './VendorReducer';
 
 export default combineReducers({
 	auth: AuthReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
 	orders: OrdersReducer,
 	reviews: ReviewsReducer,
 	home: HomeReducer,
+	vendor: VendorReducer
 });

@@ -51,3 +51,7 @@ export const RESET_REVIEW_FORM = 'reset_review_form';
 
 export const START_FETCH_HOME = 'start_fetch_home';
 export const FETCH_HOME_SUCCESS = 'fetch_home_success';
+
+// vendor actions
+export const START_FETCH_VENDOR = 'start_fetch_vendor';
+export const FETCH_VENDOR_SUCCESS = 'fetch_vendor_success';

@@ -9,11 +9,12 @@ import {
 	Icon,
 	Button,
 } from 'native-base';
+import { connect } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
-import { products } from '../data/productData';
 import ProductList from '../components/ProductList';
 import Seperator from '../components/common/Seperator';
 import { LOADING_IMAGE } from '../images/';
+import { fetchVendor } from '../actions/';
 
 class VendorScreen extends Component {
 	static navigationOptions = ({ navigation }) => ({
@@ -33,8 +34,20 @@ class VendorScreen extends Component {
 			)
 	});
 
+	constructor(props) {
+		super(props);
+		const vendorId = this.props.navigation.getParam('vendorId');
+		this.props.fetchVendor(vendorId);
+	}
+
+	/*
+	componentDidMount() {
+		const vendorId = this.props.navigation.getParam('vendorId');
+		this.props.fetchVendor(vendorId);
+	}
+	*/
+
 	render() {
-		const vendor = this.props.navigation.getParam('vendor');
 		const { 
 			linearGradientStyle, 
 			vendorLogoStyle, 
@@ -55,20 +68,20 @@ class VendorScreen extends Component {
 				<Content style={{ flex: 1 }}>
 					<LinearGradient style={linearGradientStyle} colors={['#2980b9', '#2c3e50']} />
 					<Image 
-						source={{ uri: vendor.logo }} 
+						source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${this.props.vendor.logo}` }} 
 						style={vendorLogoStyle}
 						defaultSource={LOADING_IMAGE} 
 					/>
 					<Card transparent>
 						<View style={vendorNameTitleContainerStyle}>
-							<H2 style={vendorNameTitleTextStyle}>{vendor.name}</H2>
-							<Text style={joinDateTextStyle}>{`Joined on ${vendor.join_date}`}</Text>
+							<H2 style={vendorNameTitleTextStyle}>{this.props.vendor.company_name}</H2>
+							<Text style={joinDateTextStyle}>{`Joined on ${this.props.vendor.company_dt_created}`}</Text>
 						</View>
 						<Button bordered style={messageVendorButtonStyle}>
 							<Text>Message Vendor</Text>
 						</Button>
 						<Seperator />
-						<Text style={descriptionTextStyle}>{vendor.description}</Text>
+						<Text style={descriptionTextStyle}>{this.props.vendor.description}</Text>
 					</Card>
 					<Seperator />
 					<Card transparent style={vendorInfoSectionStyle}>
@@ -79,7 +92,7 @@ class VendorScreen extends Component {
 								style={{ fontSize: 18 }} 
 							/>
 							<Text style={vendorInfoTitleStyle}>Products</Text>
-							<Text style={vendorInfoContentStyle}>{vendor.products}</Text>
+							<Text style={vendorInfoContentStyle}>{this.props.vendor.total_product}</Text>
 						</View>
 						<View style={vendorInfoSectionItemStyle}>
 							<Icon 
@@ -88,7 +101,7 @@ class VendorScreen extends Component {
 								style={{ fontSize: 18 }} 
 							/>
 							<Text style={vendorInfoTitleStyle}>Transactions</Text>
-							<Text style={vendorInfoContentStyle}>{vendor.transactions}</Text>
+							<Text style={vendorInfoContentStyle}>1000</Text>
 						</View>
 						<View style={vendorInfoSectionItemStyle}>
 							<Icon 
@@ -97,7 +110,7 @@ class VendorScreen extends Component {
 								style={{ fontSize: 18 }} 
 							/>
 							<Text style={vendorInfoTitleStyle}>Rating</Text>
-							<Text style={vendorInfoContentStyle}>{`${vendor.rating}%`}</Text>
+							<Text style={vendorInfoContentStyle}>{`${Math.round(this.props.vendor.rating_average)}%`}</Text>
 						</View>
 					</Card>
 					<Seperator />
@@ -109,7 +122,7 @@ class VendorScreen extends Component {
 							</Button>
 						</View>
 					</View>
-					<ProductList products={products} />
+					{/*<ProductList products={products} />*/}
 				</Content>
 			</Container>
 		);
@@ -174,4 +187,11 @@ const styles = {
 	}	
 };
 
-export default VendorScreen;
+const mapStateToProps = state => {
+	return {
+		vendor: state.vendor.vendor,
+		loading: state.vendor.loading
+	};
+};
+
+export default connect(mapStateToProps, { fetchVendor })(VendorScreen);
