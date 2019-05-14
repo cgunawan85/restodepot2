@@ -11,6 +11,8 @@ import {
 } from 'native-base';
 import { connect } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
+import Moment from 'react-moment';
+
 import ProductList from '../components/ProductList';
 import Seperator from '../components/common/Seperator';
 import { LOADING_IMAGE } from '../images/';
@@ -34,18 +36,10 @@ class VendorScreen extends Component {
 			)
 	});
 
-	constructor(props) {
-		super(props);
-		const vendorId = this.props.navigation.getParam('vendorId');
-		this.props.fetchVendor(vendorId);
-	}
-
-	/*
 	componentDidMount() {
 		const vendorId = this.props.navigation.getParam('vendorId');
 		this.props.fetchVendor(vendorId);
 	}
-	*/
 
 	render() {
 		const { 
@@ -63,25 +57,44 @@ class VendorScreen extends Component {
 			titleStyle
 		} = styles;
 
+		const { 
+			logo, 
+			company_name, 
+			company_dt_created, 
+			description, 
+			total_product, 
+			total_transactions, 
+			rating_average 
+		} = this.props.vendor;
+
 		return (
 			<Container>
 				<Content style={{ flex: 1 }}>
 					<LinearGradient style={linearGradientStyle} colors={['#2980b9', '#2c3e50']} />
 					<Image 
-						source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${this.props.vendor.logo}` }} 
+						source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${logo}` }} 
 						style={vendorLogoStyle}
 						defaultSource={LOADING_IMAGE} 
 					/>
 					<Card transparent>
 						<View style={vendorNameTitleContainerStyle}>
-							<H2 style={vendorNameTitleTextStyle}>{this.props.vendor.company_name}</H2>
-							<Text style={joinDateTextStyle}>{`Joined on ${this.props.vendor.company_dt_created}`}</Text>
+							<H2 style={vendorNameTitleTextStyle}>{company_name}</H2>
+							<View style={{ flexDirection: 'row' }}>
+								<Text style={joinDateTextStyle}>Joined on </Text>
+								<Moment 
+									style={joinDateTextStyle} 
+									element={Text}
+									format="MMM YYYY"
+								>
+									{company_dt_created}
+								</Moment>
+							</View>
 						</View>
 						<Button bordered style={messageVendorButtonStyle}>
 							<Text>Message Vendor</Text>
 						</Button>
 						<Seperator />
-						<Text style={descriptionTextStyle}>{this.props.vendor.description}</Text>
+						<Text style={descriptionTextStyle}>{description}</Text>
 					</Card>
 					<Seperator />
 					<Card transparent style={vendorInfoSectionStyle}>
@@ -92,7 +105,7 @@ class VendorScreen extends Component {
 								style={{ fontSize: 18 }} 
 							/>
 							<Text style={vendorInfoTitleStyle}>Products</Text>
-							<Text style={vendorInfoContentStyle}>{this.props.vendor.total_product}</Text>
+							<Text style={vendorInfoContentStyle}>{total_product}</Text>
 						</View>
 						<View style={vendorInfoSectionItemStyle}>
 							<Icon 
@@ -101,7 +114,7 @@ class VendorScreen extends Component {
 								style={{ fontSize: 18 }} 
 							/>
 							<Text style={vendorInfoTitleStyle}>Transactions</Text>
-							<Text style={vendorInfoContentStyle}>1000</Text>
+							<Text style={vendorInfoContentStyle}>{total_transactions}</Text>
 						</View>
 						<View style={vendorInfoSectionItemStyle}>
 							<Icon 
@@ -110,7 +123,7 @@ class VendorScreen extends Component {
 								style={{ fontSize: 18 }} 
 							/>
 							<Text style={vendorInfoTitleStyle}>Rating</Text>
-							<Text style={vendorInfoContentStyle}>{`${Math.round(this.props.vendor.rating_average)}%`}</Text>
+							<Text style={vendorInfoContentStyle}>{`${Math.round(rating_average)}%`}</Text>
 						</View>
 					</Card>
 					<Seperator />
@@ -122,7 +135,7 @@ class VendorScreen extends Component {
 							</Button>
 						</View>
 					</View>
-					{/*<ProductList products={products} />*/}
+					<ProductList products={this.props.products} />
 				</Content>
 			</Container>
 		);
@@ -135,17 +148,19 @@ const styles = {
 	},
 	vendorLogoStyle: {
 		position: 'absolute',
-		marginTop: Dimensions.get('window').height / 4,
+		marginTop: Dimensions.get('window').height / 8,
 		alignSelf: 'center',
 		width: 140,	
-		height: 140
+		height: 140,
 	},
 	vendorNameTitleContainerStyle: {
-		paddingTop: '20%',
-		paddingBottom: '5%'
+		paddingTop: 15,
+		paddingBottom: 15,
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	vendorNameTitleTextStyle: {
-		textAlign: 'center'
+		textAlign: 'center',
 	},
 	joinDateTextStyle: {
 		color: 'gray', 
@@ -190,7 +205,8 @@ const styles = {
 const mapStateToProps = state => {
 	return {
 		vendor: state.vendor.vendor,
-		loading: state.vendor.loading
+		loading: state.vendor.loading,
+		products: state.vendor.products
 	};
 };
 

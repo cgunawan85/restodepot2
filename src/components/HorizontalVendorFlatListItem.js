@@ -12,7 +12,7 @@ import {
 
 class HorizontalVendorFlatListItem extends Component {
 	onMoreInfoButtonPress() {
-		this.props.navigation.navigate('VendorScreen', { vendor: this.props.vendor });
+		this.props.navigation.navigate('VendorScreen', { vendorId: this.props.vendor.id_vendor });
 	}
 
 	renderRatingWithBadge() {
