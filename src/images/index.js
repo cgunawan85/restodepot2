@@ -16,3 +16,4 @@ export const BRONZE_BADGE = require('./icon-badge-bronze.png');
 export const SILVER_BADGE = require('./icon-badge-silver.png');
 export const GOLD_BADGE = require('./icon-badge-gold.png');
 export const DIAMOND_BADGE = require('./icon-badge-diamond.png');
+export const REVIEWS_EMPTY_STATE_IMAGE = require('./reviews-empty-state-image.png');

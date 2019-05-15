@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { 
 	Container, 
 	Content, 
@@ -10,12 +10,14 @@ import {
 	Icon, 
 	Body, 
 	Title,
-	Text 
+	Text,
+	Spinner
 } from 'native-base';
 import { connect } from 'react-redux';
 import ReviewsList from '../components/ReviewsList';
 import WriteAReviewModal from '../components/WriteAReviewModal';
-import { resetReviewForm } from '../actions/';
+import { resetReviewForm, fetchProductReviews, createProductReview } from '../actions/';
+import { REVIEWS_EMPTY_STATE_IMAGE } from '../images/';
 
 class ReviewsScreen extends Component {
 	constructor(props) {
@@ -25,9 +27,45 @@ class ReviewsScreen extends Component {
 		};
 	}
 
+	componentDidMount() {
+		const productId = this.props.navigation.getParam('productId');
+		this.props.fetchProductReviews(productId);
+	}
+
 	onDecline() {
 		this.setState({ modalVisible: false });
 		this.props.resetReviewForm();
+	}
+
+	onAccept() {
+		this.setState({ modalVisible: false });
+		const productId = this.props.navigation.getParam('productId');
+		this.props.createProductReview({ 
+			id_product: productId, 
+			id_resto: 87, // get logged in userId
+			comments: this.props.review,
+			rating: this.props.rating
+		});
+	}
+
+	renderEmptyStateOrFlatList() {
+		const { containerStyle, imageContainerStyle, imageStyle } = styles;
+		if (this.props.loading !== true) {
+			if (this.props.product_reviews.length === 0) {
+				return (
+					<View style={containerStyle}>
+						<View style={imageContainerStyle}>
+							<Image style={imageStyle} source={REVIEWS_EMPTY_STATE_IMAGE} />
+						</View>
+						<Text style={{ color: '#444444' }}>This product does not have any reviews yet!</Text>
+						<Text style={{ fontWeight: '600' }}>Be the first to review!</Text>
+					</View>
+				);
+			}
+		} else {
+			return <Spinner size='small' />;
+		}
+		return <ReviewsList productReviews={this.props.product_reviews} />;
 	}
 
 	render() {
@@ -48,11 +86,12 @@ class ReviewsScreen extends Component {
 					</Body>
 					<Right />
 				</Header>
-				<Content>
-					<ReviewsList />
+				<Content contentContainerStyle={{ flex: 1 }}>
+					{this.renderEmptyStateOrFlatList()}
 					<WriteAReviewModal 
 						modalVisible={this.state.modalVisible} 
 						onDecline={this.onDecline.bind(this)}
+						onAccept={this.onAccept.bind(this)}
 					/>
 				</Content>
 				<View style={addReviewButtonContainerStyle}>
@@ -66,6 +105,18 @@ class ReviewsScreen extends Component {
 }
 
 const styles = {
+	containerStyle: {
+		flex: 1, 
+		justifyContent: 'center', 
+		alignItems: 'center'
+	},
+	imageContainerStyle: {
+		marginBottom: 10
+	},
+	imageStyle: {
+		height: 100, 
+		width: 100
+	},
 	addReviewButtonContainerStyle: {
 		position: 'absolute',
 		bottom: 0,
@@ -74,4 +125,17 @@ const styles = {
 	}
 };
 
-export default connect(null, { resetReviewForm })(ReviewsScreen);
+const mapStateToProps = state => {
+	return {
+		loading: state.reviews.loading,
+		product_reviews: state.reviews.product_reviews,
+		rating: state.reviews.rating,
+		review: state.reviews.review
+	};
+};
+
+export default connect(mapStateToProps, { 
+	resetReviewForm, 
+	fetchProductReviews, 
+	createProductReview 
+})(ReviewsScreen);

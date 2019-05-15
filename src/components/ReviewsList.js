@@ -2,19 +2,18 @@ import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import ReviewsListItem from './ReviewsListItem';
-import { reviews } from '../data/reviewData';
 
 class ReviewsList extends Component {
 	renderCardItem(review) {
-		return <ReviewsListItem review={review.item} />;
+		return <ReviewsListItem review={review} />;
 	}
 
 	render() {
 		return (
 			<View>
 				<FlatList 
-					data={reviews}
-					renderItem={this.renderCardItem}
+					data={this.props.productReviews}
+					renderItem={({ item }) => this.renderCardItem(item)}
 					keyExtractor={(review) => review.id.toString()}
 				/>
 			</View>

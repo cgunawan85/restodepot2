@@ -114,7 +114,7 @@ class ProductDetailScreen extends Component {
 						<Button 
 							bordered 
 							style={{ alignSelf: 'center' }}
-							onPress={() => this.props.navigation.navigate('ReviewsScreen')}
+							onPress={() => this.props.navigation.navigate('ReviewsScreen', { productId: product.id })}
 						>
 							<Text>View all reviews</Text>
 						</Button>

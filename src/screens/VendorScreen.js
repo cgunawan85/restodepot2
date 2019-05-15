@@ -8,6 +8,7 @@ import {
 	Text,
 	Icon,
 	Button,
+	Spinner,
 } from 'native-base';
 import { connect } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
@@ -41,7 +42,7 @@ class VendorScreen extends Component {
 		this.props.fetchVendor(vendorId);
 	}
 
-	render() {
+	renderPageOrLoading() {
 		const { 
 			linearGradientStyle, 
 			vendorLogoStyle, 
@@ -66,76 +67,87 @@ class VendorScreen extends Component {
 			total_transactions, 
 			rating_average 
 		} = this.props.vendor;
+		if (this.props.loading) {
+			return <Spinner size='small' />;
+		}
 
+		return (
+			<View>
+				<LinearGradient style={linearGradientStyle} colors={['#2980b9', '#2c3e50']} />
+				<Image 
+					source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${logo}` }} 
+					style={vendorLogoStyle}
+					defaultSource={LOADING_IMAGE} 
+				/>
+				<Card transparent>
+					<View style={vendorNameTitleContainerStyle}>
+						<H2 style={vendorNameTitleTextStyle}>{company_name}</H2>
+						<View style={{ flexDirection: 'row' }}>
+							<Text style={joinDateTextStyle}>Joined on </Text>
+							<Moment 
+								style={joinDateTextStyle} 
+								element={Text}
+								format="MMM YYYY"
+							>
+								{company_dt_created}
+							</Moment>
+						</View>
+					</View>
+					<Button bordered style={messageVendorButtonStyle}>
+						<Text>Message Vendor</Text>
+					</Button>
+					<Seperator />
+					<Text style={descriptionTextStyle}>{description}</Text>
+				</Card>
+				<Seperator />
+				<Card transparent style={vendorInfoSectionStyle}>
+					<View style={vendorInfoSectionItemStyle}>
+						<Icon 
+							name='basket' 
+							type='SimpleLineIcons' 
+							style={{ fontSize: 18 }} 
+						/>
+						<Text style={vendorInfoTitleStyle}>Products</Text>
+						<Text style={vendorInfoContentStyle}>{total_product}</Text>
+					</View>
+					<View style={vendorInfoSectionItemStyle}>
+						<Icon 
+							name='layers' 
+							type='SimpleLineIcons' 
+							style={{ fontSize: 18 }} 
+						/>
+						<Text style={vendorInfoTitleStyle}>Transactions</Text>
+						<Text style={vendorInfoContentStyle}>{total_transactions}</Text>
+					</View>
+					<View style={vendorInfoSectionItemStyle}>
+						<Icon 
+							name='badge' 
+							type='SimpleLineIcons' 
+							style={{ fontSize: 18 }} 
+						/>
+						<Text style={vendorInfoTitleStyle}>Rating</Text>
+						<Text style={vendorInfoContentStyle}>{`${Math.round(rating_average)}%`}</Text>
+					</View>
+				</Card>
+				<Seperator />
+				<View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+					<H2 style={titleStyle}>Products</H2>
+					<View style={{ justifyContent: 'center', paddingRight: 10, paddingTop: 5 }}>
+						<Button transparent>
+							<Text style={{ color: 'tomato' }}>View all</Text>
+						</Button>
+					</View>
+				</View>
+				<ProductList products={this.props.products} />
+			</View>
+		);
+	}
+
+	render() {
 		return (
 			<Container>
 				<Content style={{ flex: 1 }}>
-					<LinearGradient style={linearGradientStyle} colors={['#2980b9', '#2c3e50']} />
-					<Image 
-						source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${logo}` }} 
-						style={vendorLogoStyle}
-						defaultSource={LOADING_IMAGE} 
-					/>
-					<Card transparent>
-						<View style={vendorNameTitleContainerStyle}>
-							<H2 style={vendorNameTitleTextStyle}>{company_name}</H2>
-							<View style={{ flexDirection: 'row' }}>
-								<Text style={joinDateTextStyle}>Joined on </Text>
-								<Moment 
-									style={joinDateTextStyle} 
-									element={Text}
-									format="MMM YYYY"
-								>
-									{company_dt_created}
-								</Moment>
-							</View>
-						</View>
-						<Button bordered style={messageVendorButtonStyle}>
-							<Text>Message Vendor</Text>
-						</Button>
-						<Seperator />
-						<Text style={descriptionTextStyle}>{description}</Text>
-					</Card>
-					<Seperator />
-					<Card transparent style={vendorInfoSectionStyle}>
-						<View style={vendorInfoSectionItemStyle}>
-							<Icon 
-								name='basket' 
-								type='SimpleLineIcons' 
-								style={{ fontSize: 18 }} 
-							/>
-							<Text style={vendorInfoTitleStyle}>Products</Text>
-							<Text style={vendorInfoContentStyle}>{total_product}</Text>
-						</View>
-						<View style={vendorInfoSectionItemStyle}>
-							<Icon 
-								name='layers' 
-								type='SimpleLineIcons' 
-								style={{ fontSize: 18 }} 
-							/>
-							<Text style={vendorInfoTitleStyle}>Transactions</Text>
-							<Text style={vendorInfoContentStyle}>{total_transactions}</Text>
-						</View>
-						<View style={vendorInfoSectionItemStyle}>
-							<Icon 
-								name='badge' 
-								type='SimpleLineIcons' 
-								style={{ fontSize: 18 }} 
-							/>
-							<Text style={vendorInfoTitleStyle}>Rating</Text>
-							<Text style={vendorInfoContentStyle}>{`${Math.round(rating_average)}%`}</Text>
-						</View>
-					</Card>
-					<Seperator />
-					<View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-						<H2 style={titleStyle}>Products</H2>
-						<View style={{ justifyContent: 'center', paddingRight: 10, paddingTop: 5 }}>
-							<Button transparent>
-								<Text style={{ color: 'tomato' }}>View all</Text>
-							</Button>
-						</View>
-					</View>
-					<ProductList products={this.props.products} />
+				{this.renderPageOrLoading()}
 				</Content>
 			</Container>
 		);

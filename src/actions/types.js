@@ -46,6 +46,12 @@ export const HIDE_THANK_YOU_MODAL = 'hide_thank_you_modal';
 
 export const ADD_REVIEW_FORM_UPDATE = 'add_review_form_udpate';
 export const RESET_REVIEW_FORM = 'reset_review_form';
+export const START_FETCH_PRODUCT_REVIEWS = 'start_fetch_product_reviews';
+export const FETCH_PRODUCT_REVIEWS_SUCCESS = 'fetch_product_reviews_success';
+export const FETCH_PRODUCT_REVIEWS_FAIL = 'fetch_product_reviews_fail';
+export const START_CREATE_PRODUCT_REVIEW = 'start_create_product_review';
+export const CREATE_PRODUCT_REVIEW_SUCCESS = 'create_product_review_success';
+export const CREATE_PRODUCT_REVIEW_FAIL = 'create_product_review_fail';
 
 // home actions
 

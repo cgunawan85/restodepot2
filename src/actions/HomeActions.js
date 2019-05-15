@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {
 	START_FETCH_HOME,
-	FETCH_HOME_SUCCESS
+	FETCH_HOME_SUCCESS,
 } from './types';
 
 export const fetchHome = () => {
@@ -12,6 +12,8 @@ export const fetchHome = () => {
 			.then((response) => {
 				dispatch({ type: FETCH_HOME_SUCCESS, payload: response });
 			})
-			.catch((error) => console.log(error));
+			.catch((error) => {
+				console.log(error);
+			});
 	};
 };
