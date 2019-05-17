@@ -26,7 +26,7 @@ class ProductTitle extends Component {
 			>
 				<View style={containerStyle}>
 					<Text note>Test Brand</Text>
-					<H1 style={{ fontWeight: '600' }}>{name}</H1>
+					<H1 style={{ fontWeight: '600', color: '#444444' }}>{name}</H1>
 					<View style={priceContainerStyle}>
 						<Text style={priceTextStyle}>
 							{`IDR ${this.numberWithCommas(price_regular)}`}

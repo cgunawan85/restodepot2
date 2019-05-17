@@ -9,6 +9,7 @@ import {
 	Icon,
 	Button 
 } from 'native-base';
+import Moment from 'react-moment';
 import OrderDetailsList from '../components/OrderDetailsList';
 import OrderDetailsPriceTotal from '../components/OrderDetailsPriceTotal';
 import Seperator from '../components/common/Seperator';
@@ -20,7 +21,6 @@ import {
 	LOADING_IMAGE, 
 } from '../images';
 
-//need to clean up this screen
 class OrderDetailsScreen extends Component {
 	static navigationOptions = {
 		title: 'Order Details',
@@ -28,6 +28,28 @@ class OrderDetailsScreen extends Component {
 			color: '#2077be',
 		},
 	};
+
+	calculateDeliveryDuration() {
+		let deliveryDuration;
+		const order = this.props.navigation.getParam('order');
+		switch (order.shipping_name) {
+			case 'Go-Jek Same Day':
+				deliveryDuration = 1;
+				break;
+			case 'Go-Jek Instant':
+				deliveryDuration = 1;
+				break;
+			case 'Ninja Van':
+				deliveryDuration = 3;
+				break;
+			case 'Vendor Shipping':
+				deliveryDuration = 3;
+				break;
+			default:
+				deliveryDuration = 2;
+		}
+		return deliveryDuration;
+	}
 
 	renderPaidOrNotPaid() {
 		const order = this.props.navigation.getParam('order');
@@ -109,6 +131,8 @@ class OrderDetailsScreen extends Component {
 			vendorTitleStyle, 
 			orderDeliverySectionStyle, 
 			orderDeliveryDateSectionStyle, 
+			subHeaderTextStyle,
+			textStyle,
 			orderDeliveryDestinationSectionStyle 
 		} = styles;
 
@@ -123,9 +147,14 @@ class OrderDetailsScreen extends Component {
 								defaultSource={LOADING_IMAGE} 
 							/>
 						</View>
-						<H2 style={vendorTitleStyle}>{order.vendor.name}</H2>
+						<H2 style={vendorTitleStyle}>{order.vendor.company_name}</H2>
 						<Text>{`Order #${order.checkout_id_transaction}`}</Text>
-						<Text>{order.dt_created}</Text>
+						<Moment  
+							element={Text}
+							format='D MMM YYYY'
+						>
+							{order.dt_created}
+						</Moment>
 						{this.renderPaidOrNotPaid()}
 					</Card>
 					<Seperator />
@@ -140,8 +169,8 @@ class OrderDetailsScreen extends Component {
 								type='SimpleLineIcons' 
 								style={{ fontSize: 18 }} 
 							/>
-							<Text style={{ color: '#444444', fontSize: 14 }}>Delivered By</Text>
-							<Text style={{ fontWeight: '600', fontSize: 14 }}>{order.shipping_name}</Text>
+							<Text style={subHeaderTextStyle}>Delivered By</Text>
+							<Text style={textStyle}>{order.shipping_name}</Text>
 						</View>
 						<View style={orderDeliveryDateSectionStyle}>
 							<Icon 
@@ -149,8 +178,15 @@ class OrderDetailsScreen extends Component {
 								type='SimpleLineIcons' 
 								style={{ fontSize: 18 }} 
 							/>
-							<Text style={{ color: '#444444', fontSize: 14 }}>Delivery Date</Text>
-							<Text style={{ fontWeight: '600', fontSize: 14 }}>{order.date}</Text>
+							<Text style={subHeaderTextStyle}>Delivery Date</Text>
+							<Moment
+								style={textStyle} 
+								element={Text}
+								format='D MMM YYYY'
+								add={{ days: this.calculateDeliveryDuration(order.shipping_name) }}
+							>
+								{order.dt_created}
+							</Moment>
 						</View>
 						<View style={orderDeliveryDestinationSectionStyle}>
 							<Icon 
@@ -158,8 +194,8 @@ class OrderDetailsScreen extends Component {
 								type='SimpleLineIcons' 
 								style={{ fontSize: 18 }} 
 							/>
-							<Text style={{ color: '#444444', fontSize: 14 }}>Delivered To</Text>
-							<Text style={{ fontWeight: '600', fontSize: 14 }}>{order.shippingAddress.name}</Text>
+							<Text style={subHeaderTextStyle}>Delivered To</Text>
+							<Text style={textStyle}>{order.shippingAddress.name}</Text>
 						</View>
 					</Card>
 					<Seperator />
@@ -198,6 +234,14 @@ const styles = {
 	},
 	orderDeliveryDestinationSectionStyle: {
 		alignItems: 'center'
+	},
+	subHeaderTextStyle: {
+		color: '#444444', 
+		fontSize: 14
+	},
+	textStyle: {
+		fontWeight: '600', 
+		fontSize: 14
 	},
 	paidStatusText: {
 		backgroundColor: 'green', 

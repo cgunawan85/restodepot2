@@ -62,7 +62,7 @@ export default (state = INITIAL_STATE, action) => {
 		case LOAD_JWT:
 			return { ...state, jwt: action.payload };
 		case REMOVE_JWT:
-			return { ...state, jwt: '' };
+			return { ...state, jwt: null };
 		case RESET_PASSWORD_EMAIL_SENT:
 			return { ...INITIAL_STATE };
 		default:

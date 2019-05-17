@@ -4,7 +4,11 @@ import { Header, Item, Icon, Input, Text, Button } from 'native-base';
 class SearchBar extends Component {
 	render() {
 		return (
-			<Header transparent searchBar rounded>	
+			<Header 
+				transparent 
+				searchBar 
+				rounded
+			>	
 				<Item>
 					<Icon name="ios-search" />
 					<Input 

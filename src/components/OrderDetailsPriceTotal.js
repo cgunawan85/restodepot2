@@ -8,23 +8,23 @@ class OrderDetailsPriceTotal extends Component {
 	}
 
 	render() {
-		const { order } = this.props;
+		const { shipping_cost, discount_amount, total_price } = this.props.order;
 		const { cardStyle, textContainerStyle, textHeaderstyle, textStyle } = styles;
 		return (
 			<Card transparent style={cardStyle}>
 				<View style={textContainerStyle}>
 					<Text style={textHeaderstyle}>Shipping</Text>
-					<Text style={textStyle}>{`IDR ${this.numberWithCommas(order.shipping_cost)}`}</Text>
+					<Text style={textStyle}>{`IDR ${this.numberWithCommas(shipping_cost)}`}</Text>
 				</View>
 
 				<View style={textContainerStyle}>
 					<Text style={textHeaderstyle}>Discount</Text>
-					<Text style={textStyle}>{`IDR ${this.numberWithCommas(order.discount_amount)}`}</Text>
+					<Text style={textStyle}>{`IDR ${this.numberWithCommas(discount_amount)}`}</Text>
 				</View>
 
 				<View style={textContainerStyle}>
 					<Text style={textHeaderstyle}>Total</Text>
-					<Text style={textStyle}>{`IDR ${this.numberWithCommas(order.total_price)}`}</Text>
+					<Text style={textStyle}>{`IDR ${this.numberWithCommas(total_price)}`}</Text>
 				</View>
 			</Card>
 		);

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Image, Text } from 'react-native';
 import { Container, Content, Tab, Tabs, Spinner } from 'native-base';
 import { connect } from 'react-redux';
 import OrderList from '../components/OrderList';
 import ThankYouPurchaseModal from '../components/ThankYouPurchaseModal';
 import { showThankYouModal, hideThankYouModal, fetchOrders } from '../actions/';
+import { ORDERS_EMPTY_STATE_IMAGE } from '../images/';
 
 class OrdersScreen extends Component {
 	static navigationOptions = {
@@ -19,11 +20,24 @@ class OrdersScreen extends Component {
 	}
 
 	renderContentOrLoading() {
-		if (this.props.loading) {
-			return (
-				<Spinner size='small' />
-			);
+		const { containerStyle, imageContainerStyle, imageStyle } = styles;
+
+		if (this.props.loading !== true) {
+			if (this.props.pending_orders.length === 0 && this.props.completed_orders.length === 0) {
+				return (
+					<View style={containerStyle}>
+						<View style={imageContainerStyle}>
+							<Image style={imageStyle} source={ORDERS_EMPTY_STATE_IMAGE} />
+						</View>
+						<Text style={{ color: '#444444' }}>All your orders will go here</Text>
+						<Text style={{ fontWeight: '600' }}>Make a purchase and come back!</Text>
+					</View>
+				);
+			}
+		} else {
+			return <Spinner size='small' />;
 		}
+
 		return (
 			<Tabs>
 				<Tab heading='In Progress'>
@@ -47,6 +61,21 @@ class OrdersScreen extends Component {
 		);
 	}
 }
+
+const styles = {
+	containerStyle: {
+		flex: 1, 
+		justifyContent: 'center', 
+		alignItems: 'center'
+	},
+	imageContainerStyle: {
+		marginBottom: 10
+	},
+	imageStyle: {
+		height: 100, 
+		width: 100
+	},
+};
 
 const mapStateToProps = state => {
 	return {

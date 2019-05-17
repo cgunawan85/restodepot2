@@ -153,7 +153,6 @@ const AppContainer = createAppContainer(AppSwitchNavigator);
 // Axios Interceptors
 
 axios.interceptors.request.use((config) => {
-	// const token = store.getState().auth.jwt;
 	const token = store.getState().auth.jwt;
 	if (token != null) {
 		config.headers.Authorization = `Bearer ${token}`;
@@ -168,6 +167,7 @@ axios.interceptors.response.use((response) => {
 	return response;
 }, (error) => {
 	if (error.response.status === 401) {
+		console.log(`${error} - testing response interceptor`);
 		deviceStorage.removeJWT();
 		store.dispatch({ type: LOGOUT_SUCCESS });
 	} else {

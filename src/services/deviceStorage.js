@@ -27,6 +27,7 @@ const deviceStorage = {
 				store.dispatch({ type: LOAD_JWT, payload: value });
 			} else {
 				console.log('No JWT in this device');
+				store.dispatch({ type: REMOVE_JWT });
 			}
 		} catch (error) {
 			console.log(`AsyncStorage Error: ${error.message}`);

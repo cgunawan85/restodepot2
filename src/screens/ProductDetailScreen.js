@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { 
 	Container, 
 	Content, 
@@ -22,6 +22,7 @@ import ConfirmAddToCart from '../components/ConfirmAddToCart';
 import ReviewsList from '../components/ReviewsList';
 import Seperator from '../components/common/Seperator';
 import SpecificationsSegmentContent from '../components/SpecificationsSegmentContent';
+import { REVIEWS_EMPTY_STATE_IMAGE } from '../images/';
 	
 class ProductDetailScreen extends Component {
 	static navigationOptions = {
@@ -85,16 +86,30 @@ class ProductDetailScreen extends Component {
 		});
 	}
 
+	renderEmptyStateOrReviews() {
+		const product = this.props.navigation.getParam('product');
+		const { emptyStateContainerStyle, imageStyle } = styles;
+		if (product.reviews.length === 0) {
+			return (
+				<View style={emptyStateContainerStyle}>
+					<Image style={imageStyle} source={REVIEWS_EMPTY_STATE_IMAGE} />
+					<Text style={{ color: '#444444' }}>This product does not have any reviews yet!</Text>
+					<Text style={{ fontWeight: '600' }}>Be the first to review!</Text>
+				</View>
+			);
+		}
+		return <ReviewsList productReviews={product.reviews} />;
+	}
+
 	render() {
-		const { navigation } = this.props;
-		const product = navigation.getParam('product');
-		const { addToCartButtonContainerStyle } = styles;
+		const product = this.props.navigation.getParam('product');
+		const { addToCartButtonContainerStyle, segmentContentStyle } = styles;
 		const page = this.state.page;
 
 		let segmentContent = null;
 		if (page === 1) {
 			segmentContent = (
-				<View style={{ paddingTop: 10, paddingBottom: 30 }}>
+				<View style={segmentContentStyle}>
 					<Text style={{ color: '#444444' }}>
 						{product.description}
 					</Text>
@@ -102,14 +117,14 @@ class ProductDetailScreen extends Component {
 			);
 		} else if (page === 2) {
 			segmentContent = (
-				<View style={{ paddingTop: 10, paddingBottom: 30 }}>
+				<View style={segmentContentStyle}>
 					<SpecificationsSegmentContent product={product} />
 				</View>
 			);
 		} else if (page === 3) {
 			segmentContent = (
 				<View>
-				<ReviewsList />
+					{this.renderEmptyStateOrReviews()}
 					<View style={{ paddingVertical: 10 }}>
 						<Button 
 							bordered 
@@ -189,12 +204,26 @@ class ProductDetailScreen extends Component {
 }
 
 const styles = {
+	segmentContentStyle: {
+		paddingTop: 10, 
+		paddingBottom: 30
+	},
 	addToCartButtonContainerStyle: {
 		position: 'absolute',
 		bottom: 0,
 		right: 0,
 		left: 0
-	}
+	},
+	emptyStateContainerStyle: {
+		flex: 1, 
+		justifyContent: 'center', 
+		alignItems: 'center',
+		paddingTop: 10
+	},
+	imageStyle: {
+		height: 100, 
+		width: 100
+	},
 };
 
 export default withNavigation(ProductDetailScreen);

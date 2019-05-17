@@ -4,7 +4,7 @@ import OrderDetailsListItem from './OrderDetailsListItem';
 
 class OrderDetailsList extends Component {
 	renderRow(item) {
-		return <OrderDetailsListItem item={item.item} />;
+		return <OrderDetailsListItem item={item} />;
 	}
 
 	render() {
@@ -12,9 +12,9 @@ class OrderDetailsList extends Component {
 		return (
 			<View>
 				<FlatList 
-					data={this.props.order}
-					renderItem={this.renderRow}
-					keyExtractor={(item) => item.id.toString()}
+					data={this.props.order.items}
+					renderItem={({ item }) => this.renderRow(item)}
+					keyExtractor={(item) => item.id_checkout_item.toString()}
 				/>
 			</View>
 		);
