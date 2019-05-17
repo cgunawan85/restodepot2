@@ -41,6 +41,9 @@ export const UPDATE_SHIPPING_ADDRESS_FAIL = 'update_shipping_address_fail';
 
 export const SHOW_THANK_YOU_MODAL = 'show_thank_you_modal';
 export const HIDE_THANK_YOU_MODAL = 'hide_thank_you_modal';
+export const START_FETCH_ORDERS = 'start_fetch_orders';
+export const FETCH_ORDERS_SUCCESS = 'fetch_orders_success';
+export const FETCH_ORDERS_FAIL = 'fetch_orders_fail';
 
 // reviews actions
 

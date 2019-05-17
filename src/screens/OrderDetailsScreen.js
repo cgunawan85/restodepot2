@@ -30,17 +30,12 @@ class OrderDetailsScreen extends Component {
 	};
 
 	renderPaidOrNotPaid() {
-		const order = this.props.navigation.getParam('order'); // use state instead
-		if (order.payment_status === 1) {
+		const order = this.props.navigation.getParam('order');
+		const { paidStatusText } = styles;
+		if (order.status_payment === 2) {
 			return (
 				<View style={{ paddingTop: 20 }}>
-					<Text 
-						style={{ 
-							backgroundColor: 'green', 
-							color: 'white', 
-							padding: 15 
-						}}
-					>
+					<Text style={paidStatusText}>
 						Paid
 					</Text>
 				</View>
@@ -57,22 +52,31 @@ class OrderDetailsScreen extends Component {
 
 	renderOrderStatusImage() {
 		const order = this.props.navigation.getParam('order');
+		const { orderStatusTextStyle } = styles;
 		let imageName;
 		let orderStatus;
-		switch (order.delivery_status) {
+		switch (order.status_delivery) {
+			case 0:
+				imageName = ORDER_STATUS_1;
+				orderStatus = 'Pending';
+				break;
 			case 1:
 				imageName = ORDER_STATUS_1;
 				orderStatus = 'Order Processing';
 				break;
 			case 2:
 				imageName = ORDER_STATUS_2;
-				orderStatus = 'Driver Found';
+				orderStatus = 'Finding Driver';
 				break;
 			case 3:
 				imageName = ORDER_STATUS_3;
-				orderStatus = 'Courier Out For Delivery';
+				orderStatus = 'Driver Picking Up Your Order';
 				break;
 			case 4:
+				imageName = ORDER_STATUS_4;
+				orderStatus = 'Driver Out For Delivery';
+				break;
+			case 5:
 				imageName = ORDER_STATUS_4;
 				orderStatus = 'Order Completed';
 				break;
@@ -81,19 +85,14 @@ class OrderDetailsScreen extends Component {
 		}
 		return (
 			<View>
-				<View 
-					style={{ 
-						flexDirection: 'row', 
-						flex: 1 
-					}}
-				>
+				<View style={{ flexDirection: 'row', flex: 1 }}>
 					<Image 
 						source={imageName} 
 						style={{ flex: 1 }}
 						resizeMode='center'
 					/>
 				</View>
-				<H2 style={{ textAlign: 'center', fontWeight: '600', paddingBottom: 20 }}>
+				<H2 style={orderStatusTextStyle}>
 					{orderStatus}
 				</H2>
 			</View>
@@ -102,6 +101,7 @@ class OrderDetailsScreen extends Component {
 
 	render() {
 		const order = this.props.navigation.getParam('order');
+		console.log(order);
 		const { 
 			orderTitleSectionStyle, 
 			vendorLogoContainerStyle, 
@@ -119,13 +119,13 @@ class OrderDetailsScreen extends Component {
 						<View style={vendorLogoContainerStyle}>
 							<Image 
 								style={vendorLogoImageStyle} 
-								source={{ uri: order.vendor_logo }}
+								source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${order.vendor.logo}` }}
 								defaultSource={LOADING_IMAGE} 
 							/>
 						</View>
-						<H2 style={vendorTitleStyle}>{order.vendor}</H2>
-						<Text>{`Order #${order.order_id}`}</Text>
-						<Text>{order.date}</Text>
+						<H2 style={vendorTitleStyle}>{order.vendor.name}</H2>
+						<Text>{`Order #${order.checkout_id_transaction}`}</Text>
+						<Text>{order.dt_created}</Text>
 						{this.renderPaidOrNotPaid()}
 					</Card>
 					<Seperator />
@@ -141,7 +141,7 @@ class OrderDetailsScreen extends Component {
 								style={{ fontSize: 18 }} 
 							/>
 							<Text style={{ color: '#444444', fontSize: 14 }}>Delivered By</Text>
-							<Text style={{ fontWeight: '600', fontSize: 14 }}>Go-Jek Same Day</Text>
+							<Text style={{ fontWeight: '600', fontSize: 14 }}>{order.shipping_name}</Text>
 						</View>
 						<View style={orderDeliveryDateSectionStyle}>
 							<Icon 
@@ -159,7 +159,7 @@ class OrderDetailsScreen extends Component {
 								style={{ fontSize: 18 }} 
 							/>
 							<Text style={{ color: '#444444', fontSize: 14 }}>Delivered To</Text>
-							<Text style={{ fontWeight: '600', fontSize: 14 }}>Home</Text>
+							<Text style={{ fontWeight: '600', fontSize: 14 }}>{order.shippingAddress.name}</Text>
 						</View>
 					</Card>
 					<Seperator />
@@ -198,6 +198,16 @@ const styles = {
 	},
 	orderDeliveryDestinationSectionStyle: {
 		alignItems: 'center'
+	},
+	paidStatusText: {
+		backgroundColor: 'green', 
+		color: 'white', 
+		padding: 15 
+	},
+	orderStatusTextStyle: {
+		textAlign: 'center', 
+		fontWeight: '600', 
+		paddingBottom: 20
 	}
 };
 

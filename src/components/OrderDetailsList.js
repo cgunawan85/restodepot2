@@ -8,10 +8,11 @@ class OrderDetailsList extends Component {
 	}
 
 	render() {
+		console.log(this.props.order);
 		return (
 			<View>
 				<FlatList 
-					data={this.props.order.items}
+					data={this.props.order}
 					renderItem={this.renderRow}
 					keyExtractor={(item) => item.id.toString()}
 				/>

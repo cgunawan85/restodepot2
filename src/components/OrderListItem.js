@@ -1,12 +1,97 @@
 import React, { Component } from 'react';
-import { ListItem, Left, Thumbnail, Body, Text, Right, Button } from 'native-base';
+import { View } from 'react-native';
+import { ListItem, Left, Thumbnail, Body, Text, Right, Button, Icon } from 'native-base';
+import Moment from 'react-moment';
 import { withNavigation } from 'react-navigation';
 import { LOADING_IMAGE } from '../images/';
 
 class OrderListItem extends Component {
-	render() {
-		const { order_id, delivery_status, items } = this.props.order;
+	renderOrderItemsText() {
+		const { order } = this.props;
 		const { productNameTextStyle } = styles;
+		if (order.items.length > 1) {
+			return (
+				<Text 
+					numberOfLines={2}
+					style={productNameTextStyle}
+				>
+						{`${order.items[0].product.name} and ${order.items.length - 1} more items`}
+				</Text>
+			);
+		}
+		return (
+			<Text 
+				numberOfLines={2}
+				style={productNameTextStyle}
+			>
+					{order.items[0].product.name}
+			</Text>
+		);
+	}
+
+	renderDeliveryStatusText() {
+		const { order } = this.props;
+		let orderStatusText;
+		switch (order.status_delivery) {
+			case 0:
+				orderStatusText = 'Pending';
+				break;
+			case 1:
+				orderStatusText = 'Order Processing';
+				break;
+			case 2:
+				orderStatusText = 'Finding Driver';
+				break;
+			case 3:
+				orderStatusText = 'Driver Picking Up Your Order';
+				break;
+			case 4:
+				orderStatusText = 'Driver Out For Delivery';
+				break;
+			case 5:
+				orderStatusText = 'Order Completed';
+				break;
+			default:
+				orderStatusText = 'Error';
+		}
+		return <Text note numberOfLines={1}>{orderStatusText}</Text>;
+	}
+
+	renderStatusPaymentText() {
+		const { dateTextStyle } = styles;
+		const { order } = this.props;
+		if (order.status_payment === 2) {
+			return (
+				<View style={{ flexDirection: 'row' }}>
+					<Icon 
+						name='ios-checkmark-circle' 
+						style={{ fontSize: 16, color: 'green', marginRight: 5 }} 
+					/>
+					<Text style={dateTextStyle}>Paid on</Text>
+					<Moment 
+						style={dateTextStyle} 
+						element={Text}
+						format="D MMM YYYY"
+					>
+						{order.dt_created}
+					</Moment>
+				</View>
+			);
+		}
+		return (
+			<View style={{ flexDirection: 'row' }}>
+				<Icon 
+					name='ios-close-circle' 
+					style={{ fontSize: 16, color: 'red', marginRight: 5 }} 
+				/>
+				<Text style={dateTextStyle}>Not Paid</Text>
+			</View>
+		);
+	}
+
+	render() {
+		const { order } = this.props;
+		const { orderTextStyle } = styles;
 
 		return (
 			<ListItem thumbnail>
@@ -15,27 +100,22 @@ class OrderListItem extends Component {
 						square
 						large
 						defaultSource={LOADING_IMAGE} 
-						source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/coldmoo-f07a2.appspot.com/o/photo1.JPG?alt=media&token=7d9ae1f8-f2b0-4133-b61c-2fd536cdac20' }} 
+						source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${order.vendor.logo}` }} 
 					/>
 				</Left>
 				<Body>
-					<Text>{`Order #${order_id}`}</Text>
-					<Text 
-						numberOfLines={2}
-						style={productNameTextStyle}
-					>
-							{`${items[0].name} and ${items.length - 1} more items`}
+					<Text style={orderTextStyle}>
+						{`Order #${order.checkout_id_transaction}`}
 					</Text>
-					{/* or 'Not Paid' using status_payment */}
-					<Text note>Paid on Apr 14, 2019</Text>
-					{/* Use delivery status */}
-					<Text note numberOfLines={1}>Order Processing</Text>
+					{this.renderOrderItemsText()}
+					{this.renderStatusPaymentText()}
+					{this.renderDeliveryStatusText()}
 				</Body>
 				<Right>
 					<Button 
 						transparent
 						onPress={() => 
-							this.props.navigation.navigate('OrderDetailsScreen', { order: this.props.order })}
+							this.props.navigation.navigate('OrderDetailsScreen', { order: order })}
 					>
 						<Text>View</Text>
 					</Button>
@@ -46,8 +126,17 @@ class OrderListItem extends Component {
 }
 
 const styles = {
+	orderTextStyle: {
+		fontSize: 12
+	},
 	productNameTextStyle: {
-		fontSize: 14
+		fontSize: 14,
+		fontWeight: '600'
+	},
+	dateTextStyle: {
+		fontSize: 14,
+		color: '#444444',
+		marginRight: 3
 	}
 };
 

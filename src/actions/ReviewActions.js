@@ -52,7 +52,7 @@ export const fetchProductReviews = (id_product) => {
 	}; 
 };
 
-export const createProductReview = ({ id_product, id_resto, comments, rating }) => {
+export const createProductReview = ({ id_product, comments, rating }) => {
 	return (dispatch) => {
 		dispatch({ type: START_CREATE_PRODUCT_REVIEW });
 		axios.request({
@@ -60,7 +60,6 @@ export const createProductReview = ({ id_product, id_resto, comments, rating }) 
 			method: 'post',
 			params: {
 				id_product: id_product,
-				id_resto: id_resto,
 				comments: comments,
 				rating: rating
 			}

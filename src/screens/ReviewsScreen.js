@@ -41,8 +41,7 @@ class ReviewsScreen extends Component {
 		this.setState({ modalVisible: false });
 		const productId = this.props.navigation.getParam('productId');
 		this.props.createProductReview({ 
-			id_product: productId, 
-			id_resto: 87, // get logged in userId
+			id_product: productId,
 			comments: this.props.review,
 			rating: this.props.rating
 		});

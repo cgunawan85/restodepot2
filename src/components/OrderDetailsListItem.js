@@ -24,7 +24,7 @@ class OrderDetailsListItem extends Component {
 				</View>
 
 				<View style={itemNameTextContainerStyle}>
-					<Text numberOfLines={2} style={styles.textStyle}>{item.name}</Text>
+					<Text numberOfLines={2} style={styles.textStyle}>{item.checkout_id_transaction}</Text>
 				</View>
 
 				<View style={textContainerStyle}>
