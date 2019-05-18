@@ -75,7 +75,7 @@ class ProductDetailScreen extends Component {
 			modalVisible: false
 		});
 	}
-	// Not using this
+	/* Not using this
 	showReviews() {
 		this.setState({
 			page: 3,
@@ -85,6 +85,7 @@ class ProductDetailScreen extends Component {
 			modalVisible: false
 		});
 	}
+	*/
 
 	renderEmptyStateOrReviews() {
 		const product = this.props.navigation.getParam('product');
@@ -103,7 +104,7 @@ class ProductDetailScreen extends Component {
 
 	render() {
 		const product = this.props.navigation.getParam('product');
-		const { addToCartButtonContainerStyle, segmentContentStyle } = styles;
+		const { contentContainerStyle, addToCartButtonContainerStyle, segmentContentStyle } = styles;
 		const page = this.state.page;
 
 		let segmentContent = null;
@@ -121,8 +122,8 @@ class ProductDetailScreen extends Component {
 					<SpecificationsSegmentContent product={product} />
 				</View>
 			);
-		// not using this
-		} else if (page === 3) {
+		} 
+		/* else if (page === 3) {
 			segmentContent = (
 				<View>
 					{this.renderEmptyStateOrReviews()}
@@ -139,7 +140,7 @@ class ProductDetailScreen extends Component {
 					</View>
 				</View>
 			);
-		}
+		} */
 		
 		return (
 			<Container>
@@ -158,7 +159,7 @@ class ProductDetailScreen extends Component {
 					<Right />
 				</Header>
 				<Content padder style={{ flex: 1 }}>
-					<View style={{ flex: 1, paddingBottom: 40 }}>
+					<View style={contentContainerStyle}>
 						<ProductImage product={product} />
 						<ProductTitle product={product} />
 						<Seperator />
@@ -212,6 +213,10 @@ const styles = {
 	segmentContentStyle: {
 		paddingTop: 10, 
 		paddingBottom: 30
+	},
+	contentContainerStyle: {
+		flex: 1, 
+		paddingBottom: 40
 	},
 	addToCartButtonContainerStyle: {
 		position: 'absolute',

@@ -41,10 +41,11 @@ class ShippingAddressScreen extends Component {
 	}
 
 	renderListOrActivityIndicator() {
+		const { spinnerContainerStyle } = styles; 
 		if (this.props.loading) {
 			return (
-				<View style={{ flex: 1, justifyContent: 'center' }}>
-					<Spinner />
+				<View style={spinnerContainerStyle}>
+					<Spinner size='small' />
 				</View>
 				);
 		}
@@ -64,6 +65,13 @@ class ShippingAddressScreen extends Component {
 	}
 }
 
+const styles = {
+	spinnerContainerStyle: {
+		flex: 1,
+		justifyContent: 'center'
+	}
+};
+
 const mapStateToProps = state => {
 	return {
 		shipping_addresses: state.shippingAddressForm.shipping_addresses,
@@ -73,4 +81,7 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps, { shippingAddressesFetch, resetForm })(ShippingAddressScreen);
+export default connect(mapStateToProps, { 
+	shippingAddressesFetch, 
+	resetForm 
+})(ShippingAddressScreen);

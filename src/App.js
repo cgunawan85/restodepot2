@@ -35,7 +35,6 @@ import { signOut } from './actions/';
 
 class App extends Component {
 	render() {
-		// const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 		return (
 			<Provider store={store}>
 				<Root>
@@ -167,7 +166,6 @@ axios.interceptors.response.use((response) => {
 	return response;
 }, (error) => {
 	if (error.response.status === 401) {
-		console.log(`${error} - testing response interceptor`);
 		deviceStorage.removeJWT();
 		store.dispatch(signOut());
 	} else {

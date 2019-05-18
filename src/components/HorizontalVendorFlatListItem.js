@@ -17,6 +17,7 @@ class HorizontalVendorFlatListItem extends Component {
 
 	renderRatingWithBadge() {
 		const { rating_average } = this.props.vendor;
+		const { badgeImageStyle } = styles;
 		let badge;
 
 		if (rating_average > 95) {
@@ -32,7 +33,7 @@ class HorizontalVendorFlatListItem extends Component {
 		return (
 			<View style={{ flexDirection: 'row' }}>
 				<View style={{ paddingHorizontal: 3 }}>
-					<Image style={{ height: 13, width: 9 }} source={badge} />
+					<Image style={badgeImageStyle} source={badge} />
 				</View>
 				<Text style={{ fontSize: 12 }}>{`${Math.round(rating_average)}%`}</Text>
 			</View>
@@ -96,6 +97,10 @@ const styles = {
 	textContainerStyle: {
 		paddingBottom: 10, 
 		alignItems: 'center'
+	},
+	badgeImageStyle: {
+		height: 13, 
+		width: 9
 	},
 	vendorNameTextStyle: {
 		fontSize: 14, 

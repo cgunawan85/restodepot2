@@ -18,15 +18,18 @@ class SettingsScreen extends Component {
 	}
 	
 	render() {
+		const { buttonContainerStyle } = styles;
 		return (
 			<Container>
 				<Content contentContainerStyle={{ flex: 1 }}>
 					<SettingsListItem iconName='question' destination='HomeScreen'>About Us</SettingsListItem>
 					<SettingsListItem iconName='user' destination='HomeScreen'>My Account</SettingsListItem>
 					<SettingsListItem iconName='paper-plane' destination='ShippingAddressScreen'>Shipping Addresses</SettingsListItem>
+					{/*
 					<SettingsListItem iconName='support' destination='HomeScreen'>Help</SettingsListItem>
 					<SettingsListItem iconName='support' destination='HomeScreen'>Apply For Business Account</SettingsListItem>
-					<View style={{ flex: 1, justifyContent: 'flex-end' }}>
+					*/}
+					<View style={buttonContainerStyle}>
 						<Button
 							onPress={this.onLogoutButtonPress.bind(this)}
 							full
@@ -40,5 +43,12 @@ class SettingsScreen extends Component {
 		);
 	}
 }
+
+const styles = {
+	buttonContainerStyle: {
+		flex: 1, 
+		justifyContent: 'flex-end'
+	}
+};
 
 export default connect(null, { signOut })(SettingsScreen);

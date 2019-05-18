@@ -11,8 +11,10 @@ class ProductTitle extends Component {
 		const { 
 			cardStyle, 
 			containerStyle, 
+			productTextStyle,
 			priceContainerStyle, 
 			priceTextStyle, 
+			deliveredTextStyle,
 			ratingContainerStyle, 
 			starIconStyle, 
 			reviewsTextStyle 
@@ -26,18 +28,12 @@ class ProductTitle extends Component {
 			>
 				<View style={containerStyle}>
 					<Text note>{brand}</Text>
-					<H1 style={{ fontWeight: '600', color: '#444444' }}>{name}</H1>
+					<H1 style={productTextStyle}>{name}</H1>
 					<View style={priceContainerStyle}>
 						<Text style={priceTextStyle}>
 							{`IDR ${this.numberWithCommas(price_regular)}`}
 						</Text>
-						<Text 
-							note 
-							style={{ 
-								textAlign: 'right', 
-								fontSize: 12 
-							}}
-						>
+						<Text note style={deliveredTextStyle}>
 							Delivered in 1 business day
 						</Text>
 					</View>
@@ -63,6 +59,10 @@ const styles = {
 		paddingBottom: 10, 
 		justifyContent: 'space-around'		
 	},
+	productTextStyle: {
+		fontWeight: '600', 
+		color: '#444444'
+	},
 	priceContainerStyle: {
 		flex: 1, 
 		paddingTop: 10
@@ -72,6 +72,10 @@ const styles = {
 		fontSize: 20, 
 		fontWeight: '600', 
 		textAlign: 'right'
+	},
+	deliveredTextStyle: {
+		textAlign: 'right', 
+		fontSize: 12 
 	},
 	ratingContainerStyle: {
 		flexDirection: 'row', 

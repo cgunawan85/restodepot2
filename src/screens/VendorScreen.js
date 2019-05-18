@@ -55,7 +55,10 @@ class VendorScreen extends Component {
 			vendorInfoSectionItemStyle,
 			vendorInfoTitleStyle,
 			vendorInfoContentStyle,
-			titleStyle
+			iconStyle,
+			titleStyle,
+			vendorProductsContainerStyle,
+			viewAllButtonStyle
 		} = styles;
 
 		const { 
@@ -105,7 +108,7 @@ class VendorScreen extends Component {
 						<Icon 
 							name='basket' 
 							type='SimpleLineIcons' 
-							style={{ fontSize: 18 }} 
+							style={iconStyle} 
 						/>
 						<Text style={vendorInfoTitleStyle}>Products</Text>
 						<Text style={vendorInfoContentStyle}>{total_product}</Text>
@@ -114,7 +117,7 @@ class VendorScreen extends Component {
 						<Icon 
 							name='layers' 
 							type='SimpleLineIcons' 
-							style={{ fontSize: 18 }} 
+							style={iconStyle} 
 						/>
 						<Text style={vendorInfoTitleStyle}>Transactions</Text>
 						<Text style={vendorInfoContentStyle}>{total_transactions}</Text>
@@ -123,16 +126,16 @@ class VendorScreen extends Component {
 						<Icon 
 							name='badge' 
 							type='SimpleLineIcons' 
-							style={{ fontSize: 18 }} 
+							style={iconStyle} 
 						/>
 						<Text style={vendorInfoTitleStyle}>Rating</Text>
 						<Text style={vendorInfoContentStyle}>{`${Math.round(rating_average)}%`}</Text>
 					</View>
 				</Card>
 				<Seperator />
-				<View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+				<View style={vendorProductsContainerStyle}>
 					<H2 style={titleStyle}>Products</H2>
-					<View style={{ justifyContent: 'center', paddingRight: 10, paddingTop: 5 }}>
+					<View style={viewAllButtonStyle}>
 						<Button transparent>
 							<Text style={{ color: 'tomato' }}>View all</Text>
 						</Button>
@@ -193,6 +196,9 @@ const styles = {
 		flexDirection: 'row',
 		justifyContent: 'space-around'
 	},
+	iconStyle: {
+		fontSize: 18
+	},
 	vendorInfoSectionItemStyle: {
 		alignItems: 'center',
 		paddingVertical: 20
@@ -211,7 +217,16 @@ const styles = {
 		paddingLeft: 7,
 		fontSize: 24,
 		fontWeight: 'bold'
-	}	
+	},
+	vendorProductsContainerStyle: {
+		justifyContent: 'space-between', 
+		flexDirection: 'row'
+	},
+	viewAllButtonStyle: {
+		justifyContent: 'center', 
+		paddingRight: 10, 
+		paddingTop: 5
+	},	
 };
 
 const mapStateToProps = state => {

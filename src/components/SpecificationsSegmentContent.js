@@ -9,7 +9,7 @@ class SpecificationsSegmentContent extends Component {
 
 	render() {
 		const { product } = this.props;
-		const { contentContainerStyle, textStyle } = styles;
+		const { contentContainerStyle, textStyle, iconStyle } = styles;
 
 		return (
 			<View>
@@ -17,7 +17,7 @@ class SpecificationsSegmentContent extends Component {
 					<StyleProvider style={getTheme({ iconFamily: 'MaterialCommunityIcons' })}>
 						<Icon 
 							name="cube"
-							style={{ fontSize: 16 }} 
+							style={iconStyle} 
 						/>
 					</StyleProvider>
 					<Text style={textStyle}>
@@ -29,7 +29,7 @@ class SpecificationsSegmentContent extends Component {
 					<StyleProvider style={getTheme({ iconFamily: 'MaterialCommunityIcons' })}>
 						<Icon 
 							name="weight"
-							style={{ fontSize: 16 }} 
+							style={iconStyle} 
 						/>
 					</StyleProvider>
 					<Text style={textStyle}>{ `${this.numberWithCommas(product.weight)} grams` }</Text>
@@ -43,6 +43,9 @@ const styles = {
 	contentContainerStyle: {
 		flexDirection: 'row',
 		marginBottom: 5
+	},
+	iconStyle: {
+		fontSize: 16
 	},
 	textStyle: {
 		color: '#444444'

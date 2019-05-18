@@ -74,7 +74,7 @@ class OrderDetailsScreen extends Component {
 
 	renderOrderStatusImage() {
 		const order = this.props.navigation.getParam('order');
-		const { orderStatusTextStyle } = styles;
+		const { orderStatusTextStyle, statusImageContainerStyle } = styles;
 		let imageName;
 		let orderStatus;
 		switch (order.status_delivery) {
@@ -107,7 +107,7 @@ class OrderDetailsScreen extends Component {
 		}
 		return (
 			<View>
-				<View style={{ flexDirection: 'row', flex: 1 }}>
+				<View style={statusImageContainerStyle}>
 					<Image 
 						source={imageName} 
 						style={{ flex: 1 }}
@@ -132,7 +132,8 @@ class OrderDetailsScreen extends Component {
 			orderDeliveryDateSectionStyle, 
 			subHeaderTextStyle,
 			textStyle,
-			orderDeliveryDestinationSectionStyle 
+			orderDeliveryDestinationSectionStyle,
+			iconStyle 
 		} = styles;
 
 		return (
@@ -166,7 +167,7 @@ class OrderDetailsScreen extends Component {
 							<Icon 
 								name='paper-plane' 
 								type='SimpleLineIcons' 
-								style={{ fontSize: 18 }} 
+								style={iconStyle} 
 							/>
 							<Text style={subHeaderTextStyle}>Delivered By</Text>
 							<Text style={textStyle}>{order.shipping_name}</Text>
@@ -175,7 +176,7 @@ class OrderDetailsScreen extends Component {
 							<Icon 
 								name='calendar' 
 								type='SimpleLineIcons' 
-								style={{ fontSize: 18 }} 
+								style={iconStyle} 
 							/>
 							<Text style={subHeaderTextStyle}>Delivery Date</Text>
 							<Moment
@@ -191,7 +192,7 @@ class OrderDetailsScreen extends Component {
 							<Icon 
 								name='location-pin' 
 								type='SimpleLineIcons' 
-								style={{ fontSize: 18 }} 
+								style={iconStyle} 
 							/>
 							<Text style={subHeaderTextStyle}>Delivered To</Text>
 							<Text style={textStyle}>{order.shippingAddress.name}</Text>
@@ -207,6 +208,10 @@ class OrderDetailsScreen extends Component {
 }
 
 const styles = {
+	statusImageContainerStyle: {
+		flexDirection: 'row', 
+		flex: 1 
+	},
 	orderTitleSectionStyle: {
 		alignItems: 'center',
 		paddingVertical: 20
@@ -233,6 +238,9 @@ const styles = {
 	},
 	orderDeliveryDestinationSectionStyle: {
 		alignItems: 'center'
+	},
+	iconStyle: {
+		fontSize: 18
 	},
 	subHeaderTextStyle: {
 		color: '#444444', 

@@ -28,7 +28,8 @@ class ShippingAddressForm extends Component {
 		const { 
 			pinLocationContainerStyle, 
 			locationSuccessImageStyle, 
-			textStyle 
+			textStyle,
+			buttonStyle, 
 		} = styles;
 
 		if (this.props.longitude && this.props.latitude) { 
@@ -42,7 +43,7 @@ class ShippingAddressForm extends Component {
 					<Button 
 						bordered 
 						danger 
-						style={{ alignSelf: 'center', marginTop: 10 }}
+						style={buttonStyle}
 						onPress={() => this.onResetLocationButtonPress()}
 					>
 						<Text>Reset location</Text>
@@ -54,7 +55,7 @@ class ShippingAddressForm extends Component {
 			<View style={pinLocationContainerStyle}>
 				<Button 
 					bordered 
-					style={{ alignSelf: 'center' }}
+					style={buttonStyle}
 					onPress={() => this.props.navigation.navigate('PinLocationMapScreen')}
 				>
 					<Text>Pin Address</Text>
@@ -63,7 +64,7 @@ class ShippingAddressForm extends Component {
 				<Button 
 					bordered 
 					success 
-					style={{ alignSelf: 'center' }} 
+					style={buttonStyle} 
 					onPress={() => this.onGetLocationButtonPress()}
 				>
 					<Text>
@@ -165,7 +166,11 @@ const styles = {
 	textStyle: {
 		textAlign: 'center', 
 		paddingVertical: 10
-	}
+	},
+	buttonStyle: {
+		alignSelf: 'center', 
+		marginTop: 10
+	},
 };
 
 const mapStateToProps = (state) => {
