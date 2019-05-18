@@ -8,7 +8,6 @@ class OrderDetailsList extends Component {
 	}
 
 	render() {
-		console.log(this.props.order);
 		return (
 			<View>
 				<FlatList 

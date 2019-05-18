@@ -17,7 +17,7 @@ class ProductTitle extends Component {
 			starIconStyle, 
 			reviewsTextStyle 
 		} = styles;
-		const { name, price_regular, rating_average, rating_total } = this.props.product;
+		const { brand, name, price_regular, rating_average, rating_total } = this.props.product;
 		
 		return (
 			<Card 
@@ -25,7 +25,7 @@ class ProductTitle extends Component {
 				style={cardStyle}
 			>
 				<View style={containerStyle}>
-					<Text note>Test Brand</Text>
+					<Text note>{brand}</Text>
 					<H1 style={{ fontWeight: '600', color: '#444444' }}>{name}</H1>
 					<View style={priceContainerStyle}>
 						<Text style={priceTextStyle}>

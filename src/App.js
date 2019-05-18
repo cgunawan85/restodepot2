@@ -29,9 +29,9 @@ import VendorScreen from './screens/VendorScreen';
 import ReviewsScreen from './screens/ReviewsScreen';
 import PinLocationMapScreen from './screens/PinLocationMapScreen';
 import NavigationService from './services/NavigationService';
-import { LOGOUT_SUCCESS } from './actions/types';
 import deviceStorage from './services/deviceStorage';
 import store from './store';
+import { signOut } from './actions/';
 
 class App extends Component {
 	render() {
@@ -169,7 +169,7 @@ axios.interceptors.response.use((response) => {
 	if (error.response.status === 401) {
 		console.log(`${error} - testing response interceptor`);
 		deviceStorage.removeJWT();
-		store.dispatch({ type: LOGOUT_SUCCESS });
+		store.dispatch(signOut());
 	} else {
 		return Promise.reject(error);
 	}

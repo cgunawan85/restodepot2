@@ -123,7 +123,6 @@ class OrderDetailsScreen extends Component {
 
 	render() {
 		const order = this.props.navigation.getParam('order');
-		console.log(order);
 		const { 
 			orderTitleSectionStyle, 
 			vendorLogoContainerStyle, 

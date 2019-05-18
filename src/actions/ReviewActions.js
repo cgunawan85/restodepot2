@@ -8,7 +8,10 @@ import {
 	FETCH_PRODUCT_REVIEWS_FAIL,
 	START_CREATE_PRODUCT_REVIEW,
 	CREATE_PRODUCT_REVIEW_SUCCESS,
-	CREATE_PRODUCT_REVIEW_FAIL
+	CREATE_PRODUCT_REVIEW_FAIL,
+	START_DELETE_PRODUCT_REVIEW,
+	DELETE_PRODUCT_REVIEW_SUCCESS,
+	DELETE_PRODUCT_REVIEW_FAIL
 } from './types';
 import NavigationService from '../services/NavigationService';
 
@@ -74,5 +77,29 @@ export const createProductReview = ({ id_product, comments, rating }) => {
 			renderMessage('Sorry! An error occured, please try again');
 			dispatch({ type: CREATE_PRODUCT_REVIEW_FAIL });
 		});
+	};
+};
+
+export const deleteProductReview = (idProductReview) => {
+	return (dispatch) => {
+		dispatch({ type: START_DELETE_PRODUCT_REVIEW });
+		axios.request({
+			url: 'http://localhost:8080/product_review/delete',
+			method: 'post',
+			params: {
+				id_product_review: idProductReview
+			}
+		})
+		.then((response) => {
+			console.log(response);
+			renderMessage('Your review has been deleted!');
+			dispatch({ type: DELETE_PRODUCT_REVIEW_SUCCESS });
+		})
+		.catch((error) => {
+			console.log(error);
+			renderMessage('Sorry! An error occured, please try again');
+			dispatch({ type: DELETE_PRODUCT_REVIEW_FAIL });
+		})
+		.then(() => NavigationService.navigate('ProductDetailScreen'));
 	};
 };

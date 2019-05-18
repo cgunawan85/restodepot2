@@ -15,7 +15,7 @@ class ProductListItem extends Component {
 	}
 
 	render() {
-		const { product_photo, name, price_regular } = this.props.product;
+		const { brand, product_photo, name, price_regular } = this.props.product;
 
 		const { 
 			cardStyle, 
@@ -44,7 +44,7 @@ class ProductListItem extends Component {
 								style={vendorNameTextStyle}
 								numberOfLines={1}
 							>
-								Test Brand
+								{brand}
 							</Text>
 							<Text 
 								style={productNameTextStyle}

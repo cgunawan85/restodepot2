@@ -75,7 +75,7 @@ class ProductDetailScreen extends Component {
 			modalVisible: false
 		});
 	}
-
+	// Not using this
 	showReviews() {
 		this.setState({
 			page: 3,
@@ -121,6 +121,7 @@ class ProductDetailScreen extends Component {
 					<SpecificationsSegmentContent product={product} />
 				</View>
 			);
+		// not using this
 		} else if (page === 3) {
 			segmentContent = (
 				<View>
@@ -129,7 +130,9 @@ class ProductDetailScreen extends Component {
 						<Button 
 							bordered 
 							style={{ alignSelf: 'center' }}
-							onPress={() => this.props.navigation.navigate('ReviewsScreen', { productId: product.id })}
+							onPress={() => 
+								this.props.navigation.navigate('ReviewsScreen', { productId: product.id })
+							}
 						>
 							<Text>View all reviews</Text>
 						</Button>
@@ -178,7 +181,9 @@ class ProductDetailScreen extends Component {
 							</Button>
 							<Button 
 								last active={this.state.reviewsSegmentActive}
-								onPress={this.showReviews.bind(this)}
+								onPress={() => 
+									this.props.navigation.navigate('ReviewsScreen', { productId: product.id })
+								}
 							>
 								<Text>Reviews</Text>
 							</Button>

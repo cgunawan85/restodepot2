@@ -55,6 +55,10 @@ export const FETCH_PRODUCT_REVIEWS_FAIL = 'fetch_product_reviews_fail';
 export const START_CREATE_PRODUCT_REVIEW = 'start_create_product_review';
 export const CREATE_PRODUCT_REVIEW_SUCCESS = 'create_product_review_success';
 export const CREATE_PRODUCT_REVIEW_FAIL = 'create_product_review_fail';
+export const START_DELETE_PRODUCT_REVIEW = 'start_delete_product_review';
+export const DELETE_PRODUCT_REVIEW_SUCCESS = 'delete_product_review_success';
+export const DELETE_PRODUCT_REVIEW_FAIL = 'delete_product_review_fail';
+
 
 // home actions
 

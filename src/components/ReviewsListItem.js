@@ -1,15 +1,38 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Text, ListItem, Left, Body, Right, Thumbnail, Icon } from 'native-base';
+import { connect } from 'react-redux';
+import { Text, ListItem, Left, Body, Right, Thumbnail, Icon, ActionSheet } from 'native-base';
 import Moment from 'react-moment';
-
 import { LOADING_IMAGE } from '../images/';
+import { deleteProductReview } from '../actions/';
 
+const BUTTONS = ['Delete', 'Cancel'];
+const DESTRUCTIVE_INDEX = 0;
+const CANCEL_INDEX = 1;
+
+// need to only allow delete if product_review.id_resto = loggedin user id
 class ReviewsListItem extends Component {
 	render() {
 		const { comments, author_firstname, author_lastname, dt_created, rating } = this.props.review;
 		return (
-			<ListItem avatar>
+			<ListItem 
+				avatar 
+				onLongPress={() => {
+					ActionSheet.show(
+						{
+							options: BUTTONS,
+							cancelButtonIndex: CANCEL_INDEX,
+							destructiveButtonIndex: DESTRUCTIVE_INDEX,
+							title: 'Options'
+						},
+						buttonIndex => {
+							if (buttonIndex === 0) {
+								this.props.deleteProductReview(this.props.review.id);
+							}
+						}
+					);
+				}}
+			>
 				<Left>
 					<Thumbnail small source={LOADING_IMAGE} />
 				</Left>
@@ -37,4 +60,4 @@ class ReviewsListItem extends Component {
 	}
 }
 
-export default ReviewsListItem;
+export default connect(null, { deleteProductReview })(ReviewsListItem);

@@ -6,7 +6,10 @@ import {
 	FETCH_PRODUCT_REVIEWS_FAIL,
 	START_CREATE_PRODUCT_REVIEW,
 	CREATE_PRODUCT_REVIEW_SUCCESS,
-	CREATE_PRODUCT_REVIEW_FAIL 
+	CREATE_PRODUCT_REVIEW_FAIL,
+	START_DELETE_PRODUCT_REVIEW,
+	DELETE_PRODUCT_REVIEW_SUCCESS,
+	DELETE_PRODUCT_REVIEW_FAIL 
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -33,6 +36,12 @@ export default (state = INITIAL_STATE, action) => {
 		case CREATE_PRODUCT_REVIEW_SUCCESS:
 			return { ...state, loading: false };
 		case CREATE_PRODUCT_REVIEW_FAIL:
+			return { ...state, loading: false };
+		case START_DELETE_PRODUCT_REVIEW:
+			return { ...state, loading: true };
+		case DELETE_PRODUCT_REVIEW_SUCCESS:
+			return { ...state, loading: false };
+		case DELETE_PRODUCT_REVIEW_FAIL:
 			return { ...state, loading: false };
 		default:
 			return state;
