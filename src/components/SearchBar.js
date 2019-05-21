@@ -11,9 +11,10 @@ class SearchBar extends Component {
 			>	
 				<Item>
 					<Icon name="ios-search" />
-					<Input 
+					<Input
+						autoCapitalize='none' 
 						placeholder="What do you need?" 
-						onPress={() => console.log('test')}
+						onChangeText={(text) => this.props.onSearchChangeText(text)}
 					/>
 				</Item>
 				<Button transparent>

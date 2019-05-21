@@ -64,6 +64,9 @@ export const DELETE_PRODUCT_REVIEW_FAIL = 'delete_product_review_fail';
 
 export const START_FETCH_HOME = 'start_fetch_home';
 export const FETCH_HOME_SUCCESS = 'fetch_home_success';
+export const START_FETCH_PRODUCT_SUGGESTIONS = 'start_fetch_product_suggestions';
+export const FETCH_PRODUCT_SUGGESTIONS_SUCCESS = 'fetch_product_suggestions_success';
+export const FETCH_PRODUCT_SUGGESTIONS_FAIL = 'fetch_product_suggestions_fail';
 
 // vendor actions
 export const START_FETCH_VENDOR = 'start_fetch_vendor';

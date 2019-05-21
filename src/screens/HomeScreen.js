@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content, Button } from 'native-base';
-import { signOut, fetchHome } from '../actions';
+import { signOut, fetchHome, fetchProductSuggestions } from '../actions';
 
 import HorizontalProductFlatList from '../components/HorizontalProductFlatList';
 import HorizontalVendorFlatList from '../components/HorizontalVendorFlatList';
@@ -11,6 +11,7 @@ import CategoryTable from '../components/CategoryTable';
 import SearchBar from '../components/SearchBar';
 import ProductList from '../components/ProductList';
 import Seperator from '../components/common/Seperator';
+import SearchAutocompleteList from '../components/SearchAutocompleteList';
 
 class HomeScreen extends Component {
 	static navigationOptions = {
@@ -22,7 +23,12 @@ class HomeScreen extends Component {
 		await this.props.fetchHome(this.props.jwt);
 	}
 
+	onSearchChangeText(text) {
+		this.props.fetchProductSuggestions(text);
+	}
+
 	render() {
+		console.log(this.props.product_suggestions);
 		const { 
 			titleContainerStyle, 
 			titleTextStyle, 
@@ -32,7 +38,8 @@ class HomeScreen extends Component {
 		
 		return (
 			<Container>
-				<SearchBar />
+				<SearchBar onSearchChangeText={this.onSearchChangeText.bind(this)} />
+				<SearchAutocompleteList productSuggestions={this.props.product_suggestions} />
 				<Content>
 					<BannerCarousel />
 					<Seperator />
@@ -155,8 +162,13 @@ const mapStateToProps = state => {
 		rd_approved: state.home.rd_approved,
 		products: state.home.products,
 		jwt: state.auth.jwt,
-		loading: state.home.loading
+		loading: state.home.loading,
+		product_suggestions: state.home.product_suggestions
 	};
 };
 
-export default connect(mapStateToProps, { signOut, fetchHome })(HomeScreen);
+export default connect(mapStateToProps, { 
+	signOut, 
+	fetchHome, 
+	fetchProductSuggestions 
+})(HomeScreen);

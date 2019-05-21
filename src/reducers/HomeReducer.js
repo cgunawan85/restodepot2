@@ -1,6 +1,9 @@
 import {
 	START_FETCH_HOME,
-	FETCH_HOME_SUCCESS
+	FETCH_HOME_SUCCESS,
+	START_FETCH_PRODUCT_SUGGESTIONS,
+	FETCH_PRODUCT_SUGGESTIONS_SUCCESS,
+	FETCH_PRODUCT_SUGGESTIONS_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -9,6 +12,7 @@ const INITIAL_STATE = {
 	best_deals: [],
 	rd_approved: [],
 	products: [],
+	product_suggestions: [],
 	loading: false,
 };
 
@@ -26,6 +30,16 @@ export default (state = INITIAL_STATE, action) => {
 				rd_approved: action.payload.data.data.approved_product,
 				products: action.payload.data.data.products
 			};
+		case START_FETCH_PRODUCT_SUGGESTIONS:
+			return { ...state, loading: true };
+		case FETCH_PRODUCT_SUGGESTIONS_SUCCESS:
+			return { 
+				...state, 
+				loading: false, 
+				product_suggestions: action.payload.data.data 
+			};
+		case FETCH_PRODUCT_SUGGESTIONS_FAIL:
+			return { ...state, loading: false };
 		default:
 			return state;
 	}
