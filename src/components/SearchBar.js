@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
-import { Header, Item, Icon, Input, Text, Button } from 'native-base';
+import { View } from 'react-native';
+import { Header, Item, Icon, Input, Text, Button, Spinner } from 'native-base';
 
 class SearchBar extends Component {
+	renderLoading() {
+		if (this.props.productSuggestionsLoading) {
+			return (
+				<View>
+					<Spinner size='small' />
+				</View>
+			);
+		}
+		return <Text>Search</Text>;
+	}
+
 	render() {
 		return (
 			<Header 
@@ -16,9 +28,10 @@ class SearchBar extends Component {
 						placeholder="What do you need?" 
 						onChangeText={(text) => this.props.onSearchChangeText(text)}
 					/>
+					<Icon onPress={() => console.log('test')} name="close-circle" />
 				</Item>
-				<Button transparent>
-					<Text>Search</Text>
+				<Button style={{ width: '25%' }} transparent>
+					{this.renderLoading()}
 				</Button>
 			</Header>
         );

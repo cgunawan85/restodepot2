@@ -5,7 +5,10 @@ import { ListItem, Left, Right, Icon } from 'native-base';
 class SearchAutocompleteList extends Component {
 	renderListItem(item) {
 		return (
-			<ListItem onPress={() => console.log(item.name)}>
+			<ListItem 
+				onPress={() => 
+					this.props.navigation.navigate('ProductDetailScreen', { product: item })}
+			>
 				<Left>
 					<Text>{item.name}</Text>
 				</Left>

@@ -28,7 +28,6 @@ class HomeScreen extends Component {
 	}
 
 	render() {
-		console.log(this.props.product_suggestions);
 		const { 
 			titleContainerStyle, 
 			titleTextStyle, 
@@ -38,9 +37,15 @@ class HomeScreen extends Component {
 		
 		return (
 			<Container>
-				<SearchBar onSearchChangeText={this.onSearchChangeText.bind(this)} />
-				<SearchAutocompleteList productSuggestions={this.props.product_suggestions} />
+				<SearchBar
+					productSuggestionsLoading={this.props.product_suggestions_loading} 
+					onSearchChangeText={this.onSearchChangeText.bind(this)} 
+				/>
 				<Content>
+					<SearchAutocompleteList 
+						productSuggestions={this.props.product_suggestions} 
+						navigation={this.props.navigation}
+					/>
 					<BannerCarousel />
 					<Seperator />
 					<Text style={titleTextStyle}>Categories</Text>
@@ -163,7 +168,8 @@ const mapStateToProps = state => {
 		products: state.home.products,
 		jwt: state.auth.jwt,
 		loading: state.home.loading,
-		product_suggestions: state.home.product_suggestions
+		product_suggestions: state.home.product_suggestions,
+		product_suggestions_loading: state.home.product_suggestions_loading,
 	};
 };
 

@@ -13,6 +13,7 @@ const INITIAL_STATE = {
 	rd_approved: [],
 	products: [],
 	product_suggestions: [],
+	product_suggestions_loading: false,
 	loading: false,
 };
 
@@ -31,15 +32,15 @@ export default (state = INITIAL_STATE, action) => {
 				products: action.payload.data.data.products
 			};
 		case START_FETCH_PRODUCT_SUGGESTIONS:
-			return { ...state, loading: true };
+			return { ...state, product_suggestions_loading: true };
 		case FETCH_PRODUCT_SUGGESTIONS_SUCCESS:
 			return { 
 				...state, 
-				loading: false, 
+				product_suggestions_loading: false, 
 				product_suggestions: action.payload.data.data 
 			};
 		case FETCH_PRODUCT_SUGGESTIONS_FAIL:
-			return { ...state, loading: false };
+			return { ...state, product_suggestions_loading: false };
 		default:
 			return state;
 	}
