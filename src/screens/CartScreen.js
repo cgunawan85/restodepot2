@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Container, Content, Card, CardItem, Left, Button, Text } from 'native-base';
-import CartItem from '../components/CartItem';
+import { connect } from 'react-redux';
+import { Container, Content, Card, CardItem, Left, Button, Text, Spinner } from 'native-base';
 import CartFooter from '../components/CartFooter';
 import ConfirmPaymentModal from '../components/ConfirmPaymentModal';
+import CartItemList from '../components/CartItemList';
+import { fetchCheckout } from '../actions/';
 
 class CartScreen extends Component {
 	static navigationOptions = {
@@ -27,15 +29,11 @@ class CartScreen extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { checked: false, modalVisible: false };
+		this.state = { modalVisible: false };
 	}
 
-	onSelectAllButtonPress() {
-		this.setState({ checked: !this.state.checked });
-	}
-
-	toggleChecked() {
-		this.setState({ checked: !this.state.checked });
+	componentDidMount() {
+		this.props.fetchCheckout();
 	}
 
 	showModal() {
@@ -46,36 +44,43 @@ class CartScreen extends Component {
 		this.setState({ modalVisible: false });
 	}
 
+	renderLoadingOrContent() {
+		if (this.props.loading) {
+			return <Spinner size='small' />;
+		}
+		return (
+			<View>
+				<Card transparent>
+					<CardItem>
+						<Left>
+						<Button small bordered onPress={() => console.log('test')}>
+							<Text style={{ fontSize: 14 }}>Select All</Text>
+						</Button>
+						</Left>
+						<Button small danger>
+							<Text>Remove</Text>
+						</Button>
+					</CardItem>
+				</Card>
+				<CartItemList checkoutList={this.props.checkout_list} />
+				<ConfirmPaymentModal 
+					modalVisible={this.state.modalVisible} 
+					onDecline={this.closeModal.bind(this)}
+				/>
+			</View>
+		);
+	}
 
 	render() {
 		const { contentStyle } = styles;
 		return (
 			<Container>
 				<Content padder style={contentStyle}>
-					<Card transparent>
-						<CardItem>
-							<Left>
-							<Button small bordered onPress={() => this.onSelectAllButtonPress()}>
-								<Text style={{ fontSize: 14 }}>Select All</Text>
-							</Button>
-							</Left>
-							<Button small danger>
-								<Text>Remove</Text>
-							</Button>
-						</CardItem>
-					</Card>
-					<CartItem 
-						checked={this.state.checked} 
-						toggleChecked={this.toggleChecked.bind(this)} 
-					/>
-					<ConfirmPaymentModal 
-						modalVisible={this.state.modalVisible} 
-						onDecline={this.closeModal.bind(this)}
-					/>
+					{this.renderLoadingOrContent()}
 				</Content>
 				<View>
 					<CartFooter 
-						showModal={this.showModal.bind(this)} 
+						showModal={this.showModal.bind(this)}
 					/>
 				</View>
 			</Container>
@@ -89,4 +94,11 @@ const styles = {
 	},
 };
 
-export default CartScreen;
+const mapStateToProps = state => {
+	return {
+		loading: state.cart.loading,
+		checkout_list: state.cart.checkout_list
+	};
+};
+
+export default connect(mapStateToProps, { fetchCheckout })(CartScreen);

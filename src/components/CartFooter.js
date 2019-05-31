@@ -37,7 +37,8 @@ const styles = {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		borderTopWidth: 0.2,
-		borderColor: '#444444'
+		borderColor: '#444444',
+		backgroundColor: 'white'
 	},
 	totalTextStyle: {
 		fontSize: 14,

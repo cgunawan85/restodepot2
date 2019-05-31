@@ -3,10 +3,18 @@ import { View } from 'react-native';
 import { Text, CardItem, Thumbnail } from 'native-base';
 import NumericInput from 'react-native-numeric-input';
 import { LOADING_IMAGE } from '../images/';
+import { numberWithCommas } from '../services/utils';
 
 class CartItemProduct extends Component {
+	constructor(props) {
+		super(props);
+		this.state = { quantity: props.item.quantity };
+	}
+
 	render() {
 		const { textStyle, priceTextStyle, itemTextContainerStyle } = styles;
+		const { preview_photo_file } = this.props.item;
+		const { name, price_regular } = this.props.item.product;
 		return (
 			<CardItem bordered style={{ justifyContent: 'space-around' }}>
 				<View style={{ justifyContent: 'flex-start' }}>
@@ -14,7 +22,7 @@ class CartItemProduct extends Component {
 						square 
 						small
 						defaultSource={LOADING_IMAGE} 
-						source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/coldmoo-f07a2.appspot.com/o/photo1.JPG?alt=media&token=7d9ae1f8-f2b0-4133-b61c-2fd536cdac20' }} 
+						source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${preview_photo_file}` }} 
 					/>
 				</View>
 				<View style={itemTextContainerStyle}>
@@ -22,21 +30,23 @@ class CartItemProduct extends Component {
 						style={textStyle} 
 						numberOfLines={3}
 					>
-						Product A Testing long ass name klajdfkl
+						{name}
 					</Text>
 				</View>
 				<View>
-					<NumericInput 
+					<NumericInput
+						value={this.state.quantity}
+						initValue={this.state.quantity}
 						minValue={0}
 						totalWidth={75} 
 						totalHeight={40} 
 						rounded 
 						textColor='#444444'
-						onChange={() => {}}
+						onChange={quantity => this.setState({ quantity })}
 					/>
 				</View>
 				<View>
-					<Text style={priceTextStyle}>IDR 1,150,000</Text>
+					<Text style={priceTextStyle}>{`IDR ${numberWithCommas(price_regular)}`}</Text>
 				</View>
 			</CardItem>
 		);

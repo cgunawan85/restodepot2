@@ -6,9 +6,9 @@ import {
 	Left, 
 	CheckBox, 
 } from 'native-base';
-import CartItemProduct from './CartItemProduct';
 import ShippingAddressPicker from './ShippingAddressPicker';
 import ShippingMethodPicker from './ShippingMethodPicker';
+import CartItemProductList from './CartItemProductList';
 
 
 class CartItem extends Component {
@@ -23,12 +23,10 @@ class CartItem extends Component {
 						/>
 					</Left>
 					<Text>
-						PT. Karacoco
+						{this.props.checkout.vendor.company_name}
 					</Text>
 				</CardItem>
-				{/* FlatList should go here to render CartItemProduct */}
-				<CartItemProduct />
-				<CartItemProduct />
+				<CartItemProductList checkout={this.props.checkout} />
 				<ShippingAddressPicker />
 				<ShippingMethodPicker />
 			</Card>

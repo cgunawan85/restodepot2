@@ -4,3 +4,4 @@ export * from './OrdersActions';
 export * from './ReviewActions';
 export * from './HomeActions';
 export * from './VendorActions';
+export * from './CartActions';

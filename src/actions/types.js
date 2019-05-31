@@ -71,3 +71,8 @@ export const FETCH_PRODUCT_SUGGESTIONS_FAIL = 'fetch_product_suggestions_fail';
 // vendor actions
 export const START_FETCH_VENDOR = 'start_fetch_vendor';
 export const FETCH_VENDOR_SUCCESS = 'fetch_vendor_success';
+
+// cart actions
+export const START_FETCH_CHECKOUT = 'start_fetch_checkout';
+export const FETCH_CHECKOUT_SUCCESS = 'fetch_checkout_success';
+export const FETCH_CHECKOUT_FAIL = 'fetch_checkout_fail';
