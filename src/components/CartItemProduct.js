@@ -34,12 +34,13 @@ class CartItemProduct extends Component {
 					</Text>
 				</View>
 				<View>
+					{/* onChange needs to call api to update quantity */}
 					<NumericInput
 						value={this.state.quantity}
 						initValue={this.state.quantity}
 						minValue={0}
 						totalWidth={75} 
-						totalHeight={40} 
+						totalHeight={40}
 						rounded 
 						textColor='#444444'
 						onChange={quantity => this.setState({ quantity })}

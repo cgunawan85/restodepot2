@@ -13,21 +13,22 @@ import CartItemProductList from './CartItemProductList';
 
 class CartItem extends Component {
 	render() {
+		const { checkout } = this.props;
 		return (
 			<Card>
 				<CardItem header bordered>
 					<Left>
 						<CheckBox 
-							checked={this.props.checked} 
-							onPress={() => this.props.toggleChecked()} 
+							checked={this.props.checked.includes(checkout.id_checkout)}
+							onPress={() => this.props.addOrRemoveFromChecked(checkout.id_checkout)}
 						/>
 					</Left>
 					<Text>
-						{this.props.checkout.vendor.company_name}
+						{checkout.vendor.company_name}
 					</Text>
 				</CardItem>
-				<CartItemProductList checkout={this.props.checkout} />
-				<ShippingAddressPicker />
+				<CartItemProductList checkout={checkout} />
+				<ShippingAddressPicker checkout={checkout} />
 				<ShippingMethodPicker />
 			</Card>
 		);

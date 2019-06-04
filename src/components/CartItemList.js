@@ -4,7 +4,13 @@ import CartItem from './CartItem';
 
 class CartItemList extends Component {
 	renderCartItem(item) {
-		return <CartItem checkout={item} />;
+		return (
+			<CartItem 
+				checked={this.props.checked} 
+				checkout={item} 
+				addOrRemoveFromChecked={this.props.addOrRemoveFromChecked}
+			/>
+		);
 	}
 
 	render() {

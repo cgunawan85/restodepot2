@@ -6,7 +6,8 @@ import {
 
 const INITIAL_STATE = {
 	loading: false,
-	checkout_list: []
+	checkout_list: [],
+	shipping_addresses: []
 };
 
 export default (state = INITIAL_STATE, action) => {
