@@ -76,3 +76,6 @@ export const FETCH_VENDOR_SUCCESS = 'fetch_vendor_success';
 export const START_FETCH_CHECKOUT = 'start_fetch_checkout';
 export const FETCH_CHECKOUT_SUCCESS = 'fetch_checkout_success';
 export const FETCH_CHECKOUT_FAIL = 'fetch_checkout_fail';
+export const START_UPDATE_CHECKOUT_RESTO_SHIPPING_ADDRESS = 'start_update_checkout_resto_shipping_addresss';
+export const UPDATE_CHECKOUT_RESTO_SHIPPING_ADDRESS_SUCCESS = 'update_checkout_resto_shipping_address_success';
+export const UPDATE_CHECKOUT_RESTO_SHIPPING_ADDRESS_FAIL = 'update_checkout_resto_shipping_address_fail';

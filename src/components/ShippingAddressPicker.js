@@ -8,22 +8,52 @@ import {
 	Picker, 
 	Icon, 
 	StyleProvider, 
+	Spinner,
 	getTheme 
 } from 'native-base';
+import { updateCheckoutRestoShippingAddress } from '../actions/';
 
 class ShippingAddressPicker extends Component {
-	/*
-	renderShippingAddresses() {
-		this.props.shippingAddresses.map((shippingAddress) => {
+	constructor(props) {
+		super(props);
+		this.state = { id_resto_shipping_address: this.props.checkout.id_resto_shipping_address };
+	}
+
+	renderLoadingOrPicker() {
+		const { pickerTextStyle } = styles;
+		const { checkout } = this.props;
+		const { id_resto_shipping_address } = this.state;
+		const renderShippingAddresses = this.props.shippingAddresses.map((shippingAddress) => {
 			return (
-				<Picker.Item label={shippingAddress.name} value={shippingAddress.id} />
+				<Picker.Item 
+					label={shippingAddress.name} 
+					value={shippingAddress.id} 
+					key={shippingAddress.id} 
+				/>
 			);
 		});
+
+		if (this.props.loading) {
+			return <Spinner size='small' />;
+		}
+		return (
+			<Picker
+				mode="dropdown"
+				note
+				selectedValue={id_resto_shipping_address}
+				textStyle={pickerTextStyle}
+				onValueChange={(itemValue) => {
+					this.props.updateCheckoutRestoShippingAddress(itemValue, checkout.id_checkout);
+				}}
+			>
+				<Picker.Item label='None' value={0} />
+				{renderShippingAddresses}
+			</Picker>
+		);
 	}
-	*/
 
 	render() {
-		const { containerStyle, shippingMethodsTextContainerStyle, pickerTextStyle } = styles;
+		const { containerStyle, shippingMethodsTextContainerStyle } = styles;
 		return (
 			<CardItem bordered>
 				<View style={containerStyle}>
@@ -39,39 +69,7 @@ class ShippingAddressPicker extends Component {
 
 					<View style={{ flex: 1 }}>
 						<Form>
-							<Picker
-								mode="dropdown"
-								note
-								selectedValue={'key0'}
-								textStyle={pickerTextStyle}
-							>
-								<Picker.Item label="None" value="none" />
-								{/* 
-									Use array map to iterate over an array and render Picker.Item 
-									shippingAddresses.map((shippingAddress) => {
-										return (
-											<Picker.Item label={shippingAddress.name} value={shippingAddress.id} />
-											);
-										});
-
-									use this.props.checkout.id_resto_shipping_address as selectedValue
-
-									what happens if shipping address is not selected?
-									--> selectedValue={'none'}
-									render fixed None Picker.Item (value 'none') 
-									then render rest of picker items.
-
-									onValueChange={(itemValue, itemIndex) =>
-										this.setState({language: itemValue})
-
-									use itemValue to call action creator to 
-									set resto shipping address in checkout table
-
-								*/}
-								<Picker.Item label="Home" value="key1" />
-								<Picker.Item label="Office" value="key2" />
-								<Picker.Item label="Kelapa Gading" value="key3" />
-							</Picker>
+							{this.renderLoadingOrPicker()}
 						</Form>
 					</View>
 				</View>
@@ -98,8 +96,11 @@ const styles = {
 
 const mapStateToProps = state => {
 	return {
-		shippingAddresses: state.cart.shipping_addresses
+		shippingAddresses: state.cart.shipping_addresses,
+		loading: state.cart.loading
 	};
 };
 
-export default connect(mapStateToProps, {})(ShippingAddressPicker);
+export default connect(mapStateToProps, { 
+	updateCheckoutRestoShippingAddress 
+})(ShippingAddressPicker);
