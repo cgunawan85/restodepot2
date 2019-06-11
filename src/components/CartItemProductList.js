@@ -5,7 +5,7 @@ import CartItemProduct from './CartItemProduct';
 class CartItemProductList extends Component {
 	renderCartItemProduct(item) {
 		return (
-			<CartItemProduct item={item} />
+			<CartItemProduct item={item} onUpdateQuantityItem={this.props.onUpdateQuantityItem} />
 		);
 	}
 	render() {

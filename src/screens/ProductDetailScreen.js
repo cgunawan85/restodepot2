@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
+import { connect } from 'react-redux';
 import { 
 	Container, 
 	Content, 
@@ -23,6 +24,8 @@ import ReviewsList from '../components/ReviewsList';
 import Seperator from '../components/common/Seperator';
 import SpecificationsSegmentContent from '../components/SpecificationsSegmentContent';
 import { REVIEWS_EMPTY_STATE_IMAGE } from '../images/';
+
+import { addCheckout } from '../actions/';
 	
 class ProductDetailScreen extends Component {
 	static navigationOptions = {
@@ -47,7 +50,8 @@ class ProductDetailScreen extends Component {
 		});
 	}
 
-	onAccept() {
+	onAccept(idProduct, quantity) {
+		this.props.addCheckout(idProduct, quantity);
 		this.setState({ modalVisible: false });
 		return Toast.show({
 			text: 'Added to cart!',
@@ -203,6 +207,7 @@ class ProductDetailScreen extends Component {
 					modalVisible={this.state.modalVisible}
 					onDecline={this.onDecline.bind(this)}
 					onAccept={this.onAccept.bind(this)}
+					product={product}
 				/>
 			</Container>
 		);
@@ -236,4 +241,4 @@ const styles = {
 	},
 };
 
-export default withNavigation(ProductDetailScreen);
+export default connect(null, { addCheckout })(withNavigation(ProductDetailScreen));

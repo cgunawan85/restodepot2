@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Text, CardItem, Thumbnail } from 'native-base';
+import { connect } from 'react-redux';
+import { Text, CardItem, Thumbnail, Spinner } from 'native-base';
 import NumericInput from 'react-native-numeric-input';
 import { LOADING_IMAGE } from '../images/';
 import { numberWithCommas } from '../services/utils';
@@ -9,6 +10,27 @@ class CartItemProduct extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { quantity: props.item.quantity };
+	}
+
+	renderLoadingOrNumericPicker() {
+		if (this.props.loading) {
+			return <Spinner size='small' />;
+		}
+		return (
+			<NumericInput
+				value={this.state.quantity}
+				initValue={this.state.quantity}
+				minValue={1}
+				totalWidth={75} 
+				totalHeight={40}
+				rounded 
+				textColor='#444444'
+				onChange={(quantity) => {
+					this.setState({ quantity });
+					this.props.onUpdateQuantityItem(this.props.item.id_checkout_item, quantity); 
+				}}
+			/>
+		);
 	}
 
 	render() {
@@ -34,17 +56,7 @@ class CartItemProduct extends Component {
 					</Text>
 				</View>
 				<View>
-					{/* onChange needs to call api to update quantity */}
-					<NumericInput
-						value={this.state.quantity}
-						initValue={this.state.quantity}
-						minValue={0}
-						totalWidth={75} 
-						totalHeight={40}
-						rounded 
-						textColor='#444444'
-						onChange={quantity => this.setState({ quantity })}
-					/>
+					{this.renderLoadingOrNumericPicker()}
 				</View>
 				<View>
 					<Text style={priceTextStyle}>{`IDR ${numberWithCommas(price_regular)}`}</Text>
@@ -79,4 +91,10 @@ const styles = {
 	}
 };
 
-export default CartItemProduct;
+const mapStateToProps = state => {
+	return {
+		loading: state.cart.loading,
+	};
+};
+
+export default connect(mapStateToProps, null)(CartItemProduct);

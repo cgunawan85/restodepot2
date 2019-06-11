@@ -4,11 +4,20 @@ import CartItem from './CartItem';
 
 class CartItemList extends Component {
 	renderCartItem(item) {
+		const { 
+			checked, 
+			addOrRemoveFromChecked, 
+			onUpdateCheckoutWithRestoShippingAddress,
+			onUpdateQuantityItem 
+		} = this.props;
+
 		return (
 			<CartItem 
-				checked={this.props.checked} 
+				checked={checked} 
 				checkout={item} 
-				addOrRemoveFromChecked={this.props.addOrRemoveFromChecked}
+				addOrRemoveFromChecked={addOrRemoveFromChecked}
+				onUpdateCheckoutWithRestoShippingAddress={onUpdateCheckoutWithRestoShippingAddress}
+				onUpdateQuantityItem={onUpdateQuantityItem}
 			/>
 		);
 	}

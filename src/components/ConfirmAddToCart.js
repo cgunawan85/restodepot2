@@ -1,59 +1,69 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Modal, Text, View } from 'react-native';
 import { Button, Card } from 'native-base';
 import NumericInput from 'react-native-numeric-input';
 
-function ConfirmAddToCart({ modalVisible, onAccept, onDecline }) {
-	const { 
-		containerStyle, 
-		textStyle, 
-		cardStyle,
-		buttonContainerStyle,
-		numericInputContainerStyle, 
-		buttonStyle, 
-		buttonTextStyle,
-		cancelButtonTextStyle 
-	} = styles;
+class ConfirmAddToCart extends Component {
+	constructor(props) {
+		super(props);
+		this.state = { quantity: 1 };
+	}
 
-	return (
-		<Modal
-			visible={modalVisible}
-			transparent
-			animationType='fade'
-			onRequestClose={() => {}}
-		>
-			<View style={containerStyle}>
-				<Card style={cardStyle}>
-					<Text style={textStyle}>How many do you need?</Text>
-					<View style={numericInputContainerStyle}>
-						<NumericInput
-							onChange={(value) => console.log(value)} 
-							initValue={1}
-							minValue={1}
-						/>
-					{/* Need to add value here and use redux to implement into state */}
-					</View>
-					<View style={buttonContainerStyle}>
-						<Button 
-							bordered 
-							danger 
-							style={buttonStyle} 
-							onPress={onDecline}
-						>
-							<Text style={cancelButtonTextStyle}>Cancel</Text>
-						</Button>
-						<Button
-							success 
-							style={buttonStyle} 
-							onPress={onAccept}
-						>
-							<Text style={buttonTextStyle}>Confirm</Text>
-						</Button>
-					</View>
-				</Card>
-			</View>
-		</Modal>
-	);
+	render() {
+		const { 
+			containerStyle, 
+			textStyle, 
+			cardStyle,
+			buttonContainerStyle,
+			numericInputContainerStyle, 
+			buttonStyle, 
+			buttonTextStyle,
+			cancelButtonTextStyle 
+		} = styles;
+
+		const { product, onAccept, onDecline } = this.props;
+		const { quantity } = this.state;
+
+		return (
+			<Modal
+				visible={this.props.modalVisible}
+				transparent
+				animationType='fade'
+				onRequestClose={() => {}}
+			>
+				<View style={containerStyle}>
+					<Card style={cardStyle}>
+						<Text style={textStyle}>How many do you need?</Text>
+						<View style={numericInputContainerStyle}>
+							<NumericInput
+								onChange={(value) => this.setState({ quantity: value })} 
+								initValue={quantity}
+								minValue={1}
+							/>
+						{/* Need to add value here and use redux to implement into state */}
+						</View>
+						<View style={buttonContainerStyle}>
+							<Button 
+								bordered 
+								danger 
+								style={buttonStyle} 
+								onPress={onDecline}
+							>
+								<Text style={cancelButtonTextStyle}>Cancel</Text>
+							</Button>
+							<Button
+								success 
+								style={buttonStyle} 
+								onPress={() => onAccept(product.id, quantity)}
+							>
+								<Text style={buttonTextStyle}>Confirm</Text>
+							</Button>
+						</View>
+					</Card>
+				</View>
+			</Modal>
+		);
+	}
 }
 
 const styles = {

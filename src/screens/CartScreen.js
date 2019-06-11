@@ -5,7 +5,12 @@ import { Container, Content, Card, CardItem, Left, Button, Text, Spinner } from 
 import CartFooter from '../components/CartFooter';
 import ConfirmPaymentModal from '../components/ConfirmPaymentModal';
 import CartItemList from '../components/CartItemList';
-import { fetchCheckout } from '../actions/';
+import { 
+	fetchCheckout, 
+	updateCheckoutRestoShippingAddress, 
+	updateQuantityCheckoutItem,
+	removeCheckout,
+} from '../actions/';
 
 class CartScreen extends Component {
 	static navigationOptions = {
@@ -24,22 +29,40 @@ class CartScreen extends Component {
 		this.props.fetchCheckout();
 	}
 
+	onUpdateCheckoutWithRestoShippingAddress(itemValue, idCheckout) {
+		this.props.updateCheckoutRestoShippingAddress(itemValue, idCheckout);
+	}
+
+	onUpdateQuantityItem(idCheckoutItem, quantity) {
+		this.props.updateQuantityCheckoutItem(idCheckoutItem, quantity);
+	}
+
+	onRemoveCheckoutFromCart() {
+		const map1 = this.state.checked.map(checkout => this.props.removeCheckout(checkout));
+		console.log(map1);
+	}
+
+	onSelectAllButtonPress() {
+		return null;
+	}
+
+	addOrRemoveFromChecked(idCheckout) {
+		const newCheckedArray = this.state.checked;
+		if (newCheckedArray.includes(idCheckout)) {
+			const finalArray = newCheckedArray.filter((item) => item !== idCheckout);
+			this.setState({ checked: finalArray });
+		} else {
+			newCheckedArray.push(idCheckout);
+			this.setState({ checked: newCheckedArray });
+		}
+	}
+
 	showModal() {
 		this.setState({ modalVisible: true });
 	}
 
 	closeModal() {
 		this.setState({ modalVisible: false });
-	}
-
-	addOrRemoveFromChecked(idCheckout) {
-		const newCheckedArray = this.state.checked;
-		if (newCheckedArray.includes(idCheckout)) {
-			newCheckedArray.filter((item) => item !== idCheckout);
-		} else {
-			newCheckedArray.push(idCheckout);
-		}
-		this.setState({ checked: newCheckedArray });
 	}
 
 	renderLoadingOrContent() {
@@ -51,11 +74,15 @@ class CartScreen extends Component {
 				<Card transparent>
 					<CardItem>
 						<Left>
-						<Button small bordered onPress={() => console.log('test')}>
+						<Button small bordered onPress={() => this.onSelectAllButtonPress()}>
 							<Text style={{ fontSize: 14 }}>Select All</Text>
 						</Button>
 						</Left>
-						<Button small danger>
+						<Button 
+							small 
+							danger
+							onPress={() => this.onRemoveCheckoutFromCart()}
+						>
 							<Text>Remove</Text>
 						</Button>
 					</CardItem>
@@ -64,6 +91,8 @@ class CartScreen extends Component {
 					checkoutList={this.props.checkout_list} 
 					checked={this.state.checked}
 					addOrRemoveFromChecked={this.addOrRemoveFromChecked.bind(this)}
+					onUpdateCheckoutWithRestoShippingAddress={this.onUpdateCheckoutWithRestoShippingAddress.bind(this)}
+					onUpdateQuantityItem={this.onUpdateQuantityItem.bind(this)}
 				/>
 				<ConfirmPaymentModal 
 					modalVisible={this.state.modalVisible} 
@@ -96,4 +125,9 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps, { fetchCheckout })(CartScreen);
+export default connect(mapStateToProps, { 
+	fetchCheckout, 
+	updateCheckoutRestoShippingAddress,
+	updateQuantityCheckoutItem,
+	removeCheckout 
+})(CartScreen);

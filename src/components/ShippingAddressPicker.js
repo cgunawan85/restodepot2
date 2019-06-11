@@ -11,7 +11,6 @@ import {
 	Spinner,
 	getTheme 
 } from 'native-base';
-import { updateCheckoutRestoShippingAddress } from '../actions/';
 
 class ShippingAddressPicker extends Component {
 	constructor(props) {
@@ -43,7 +42,7 @@ class ShippingAddressPicker extends Component {
 				selectedValue={id_resto_shipping_address}
 				textStyle={pickerTextStyle}
 				onValueChange={(itemValue) => {
-					this.props.updateCheckoutRestoShippingAddress(itemValue, checkout.id_checkout);
+					this.props.onUpdateCheckoutWithRestoShippingAddress(itemValue, checkout.id_checkout);
 				}}
 			>
 				<Picker.Item label='None' value={0} />
@@ -101,6 +100,4 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps, { 
-	updateCheckoutRestoShippingAddress 
-})(ShippingAddressPicker);
+export default connect(mapStateToProps, null)(ShippingAddressPicker);
