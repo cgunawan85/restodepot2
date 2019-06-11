@@ -20,7 +20,7 @@ class CartFooter extends Component {
 				</View>
 				<View style={buttonContainerStyle}>
 					<Button full onPress={() => this.props.showModal()}>
-						<Text>Buy Now (1)</Text>
+						<Text>{`Buy Now (${this.props.checked.length})`}</Text>
 					</Button>
 				</View>
 			</View>

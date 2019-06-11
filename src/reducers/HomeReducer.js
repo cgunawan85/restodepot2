@@ -3,7 +3,8 @@ import {
 	FETCH_HOME_SUCCESS,
 	START_FETCH_PRODUCT_SUGGESTIONS,
 	FETCH_PRODUCT_SUGGESTIONS_SUCCESS,
-	FETCH_PRODUCT_SUGGESTIONS_FAIL
+	FETCH_PRODUCT_SUGGESTIONS_FAIL,
+	CLEAR_SEARCH_SUGGESTIONS
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -41,6 +42,8 @@ export default (state = INITIAL_STATE, action) => {
 			};
 		case FETCH_PRODUCT_SUGGESTIONS_FAIL:
 			return { ...state, product_suggestions_loading: false };
+		case CLEAR_SEARCH_SUGGESTIONS:
+			return { ...state, product_suggestions: [] };
 		default:
 			return state;
 	}

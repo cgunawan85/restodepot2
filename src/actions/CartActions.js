@@ -27,7 +27,6 @@ export const fetchCheckout = () => {
 		})
 			.then((response) => {
 				dispatch({ type: FETCH_CHECKOUT_SUCCESS, payload: response });
-				console.log('test');
 			})
 			.catch((error) => {
 				dispatch({ type: FETCH_CHECKOUT_FAIL });

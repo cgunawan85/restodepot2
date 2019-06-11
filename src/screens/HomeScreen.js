@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content, Button } from 'native-base';
-import { signOut, fetchHome, fetchProductSuggestions } from '../actions';
+import { signOut, fetchHome, fetchProductSuggestions, clearProductSuggestions } from '../actions';
 
 import HorizontalProductFlatList from '../components/HorizontalProductFlatList';
 import HorizontalVendorFlatList from '../components/HorizontalVendorFlatList';
@@ -27,6 +27,10 @@ class HomeScreen extends Component {
 		this.props.fetchProductSuggestions(text);
 	}
 
+	onSearchCloseIconPress() {
+		this.props.clearProductSuggestions();
+	}
+
 	render() {
 		const { 
 			titleContainerStyle, 
@@ -40,6 +44,7 @@ class HomeScreen extends Component {
 				<SearchBar
 					productSuggestionsLoading={this.props.product_suggestions_loading} 
 					onSearchChangeText={this.onSearchChangeText.bind(this)} 
+					onSearchCloseIconPress={this.onSearchCloseIconPress.bind(this)}
 				/>
 				<Content>
 					<SearchAutocompleteList 
@@ -176,5 +181,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, { 
 	signOut, 
 	fetchHome, 
-	fetchProductSuggestions 
+	fetchProductSuggestions,
+	clearProductSuggestions 
 })(HomeScreen);

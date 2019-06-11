@@ -38,12 +38,13 @@ class CartScreen extends Component {
 	}
 
 	onRemoveCheckoutFromCart() {
-		const map1 = this.state.checked.map(checkout => this.props.removeCheckout(checkout));
-		console.log(map1);
+		const mappedArray = this.state.checked.map(checkout => this.props.removeCheckout(checkout));
+		console.log(mappedArray);
 	}
 
 	onSelectAllButtonPress() {
-		return null;
+		const mappedArray = this.props.checkout_list.map((checkout) => checkout.id_checkout);
+		this.setState({ checked: mappedArray });
 	}
 
 	addOrRemoveFromChecked(idCheckout) {
@@ -74,7 +75,11 @@ class CartScreen extends Component {
 				<Card transparent>
 					<CardItem>
 						<Left>
-						<Button small bordered onPress={() => this.onSelectAllButtonPress()}>
+						<Button 
+							small 
+							bordered 
+							onPress={() => this.onSelectAllButtonPress()}
+						>
 							<Text style={{ fontSize: 14 }}>Select All</Text>
 						</Button>
 						</Left>
@@ -110,6 +115,7 @@ class CartScreen extends Component {
 				</Content>
 				<View>
 					<CartFooter 
+						checked={this.state.checked}
 						showModal={this.showModal.bind(this)}
 					/>
 				</View>

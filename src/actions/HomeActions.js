@@ -5,7 +5,8 @@ import {
 	FETCH_HOME_SUCCESS,
 	START_FETCH_PRODUCT_SUGGESTIONS,
 	FETCH_PRODUCT_SUGGESTIONS_SUCCESS,
-	FETCH_PRODUCT_SUGGESTIONS_FAIL
+	FETCH_PRODUCT_SUGGESTIONS_FAIL,
+	CLEAR_SEARCH_SUGGESTIONS
 } from './types';
 
 export const fetchHome = () => {
@@ -33,7 +34,6 @@ export const fetchProductSuggestions = (text) => {
 			}
 		})
 		.then((response) => {
-			console.log(response);
 			dispatch({ type: FETCH_PRODUCT_SUGGESTIONS_SUCCESS, payload: response });
 		})
 		.catch((error) => {
@@ -42,3 +42,10 @@ export const fetchProductSuggestions = (text) => {
 		});
 	};
 };
+
+export const clearProductSuggestions = () => {
+	return {
+		type: CLEAR_SEARCH_SUGGESTIONS
+	};
+};
+
