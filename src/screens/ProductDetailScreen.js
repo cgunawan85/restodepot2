@@ -15,7 +15,7 @@ import {
 	Right,
 	Toast
 } from 'native-base';
-import { withNavigation } from 'react-navigation';
+import { withNavigation, NavigationActions, StackActions } from 'react-navigation';
 import ProductImage from '../components/ProductImage';
 import ProductTitle from '../components/ProductTitle';
 import ProductVendor from '../components/ProductVendor';
@@ -51,7 +51,10 @@ class ProductDetailScreen extends Component {
 	}
 
 	onAccept(idProduct, quantity) {
-		this.props.addCheckout(idProduct, quantity);
+		this.props.addCheckout(idProduct, quantity).then(() => {
+			console.log(`Product added to cart! --> ${idProduct}`);
+		});
+
 		this.setState({ modalVisible: false });
 		return Toast.show({
 			text: 'Added to cart!',

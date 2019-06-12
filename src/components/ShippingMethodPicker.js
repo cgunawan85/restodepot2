@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { connect } from 'react-redux';
 import { 
 	Text,
 	CardItem,
@@ -11,6 +12,11 @@ import {
 } from 'native-base';
 
 class ShippingMethodPicker extends Component {
+	constructor(props) {
+		super(props);
+		this.state = { shipping_name: 'key0' };
+	}
+
 	render() {
 		const { containerStyle, shippingMethodsTextContainerStyle, pickerTextStyle } = styles;
 		return (
@@ -31,8 +37,9 @@ class ShippingMethodPicker extends Component {
 							<Picker
 								mode="dropdown"
 								note
-								selectedValue={'key0'}
+								selectedValue={this.state.shipping_name}
 								textStyle={pickerTextStyle}
+								onValueChange={(itemValue) => this.setState({ shipping_name: itemValue })}
 							>
 								<Picker.Item label="None" value="key0" />
 								<Picker.Item label="Go-Jek Instant" value="key1" />
@@ -63,4 +70,11 @@ const styles = {
 	}
 };
 
-export default ShippingMethodPicker;
+const mapStateToProps = state => {
+	return {
+		shippingMethods: state.cart.shipping_methods,
+		loading: state.cart.loading
+	};
+};
+
+export default connect(mapStateToProps, null)(ShippingMethodPicker);

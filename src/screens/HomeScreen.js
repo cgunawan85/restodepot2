@@ -45,6 +45,7 @@ class HomeScreen extends Component {
 					productSuggestionsLoading={this.props.product_suggestions_loading} 
 					onSearchChangeText={this.onSearchChangeText.bind(this)} 
 					onSearchCloseIconPress={this.onSearchCloseIconPress.bind(this)}
+					navigation={this.props.navigation}
 				/>
 				<Content>
 					<SearchAutocompleteList 
@@ -61,7 +62,16 @@ class HomeScreen extends Component {
 						<View style={buttonContainerStyle}>
 							<Button 
 								transparent 
-								onPress={() => this.props.navigation.navigate('QVStack', { qv: 'Best Sellers' })}
+								onPress={() => 
+									this.props.navigation.navigate(
+										'QVStack', 
+										{ 
+											qv: {
+												products: this.props.best_sellers,
+												title: 'Best Sellers'
+											} 
+										}
+									)}
 							>
 								<Text style={buttonTextStyle}>View All</Text>
 							</Button>
@@ -78,7 +88,16 @@ class HomeScreen extends Component {
 						<View style={buttonContainerStyle}>
 							<Button 
 								transparent 
-								onPress={() => this.props.navigation.navigate('QVStack', { qv: 'RestoDepot Approved' })}
+								onPress={() => 
+									this.props.navigation.navigate(
+										'QVStack', 
+										{ 
+											qv: {
+												products: this.props.rd_approved,
+												title: 'RestoDepot Approved' 
+											}
+										}
+									)}
 							>
 								<Text style={buttonTextStyle}>View All</Text>
 							</Button>
@@ -95,7 +114,16 @@ class HomeScreen extends Component {
 						<View style={buttonContainerStyle}>
 							<Button 
 								transparent 
-								onPress={() => this.props.navigation.navigate('QVStack', { qv: 'Best Deals' })}
+								onPress={() => 
+									this.props.navigation.navigate(
+										'QVStack', 
+										{ 
+											qv: {
+												products: this.props.best_deals,
+												title: 'Best Deals'
+											}
+										}
+									)}
 							>
 								<Text style={buttonTextStyle}>View All</Text>
 							</Button>
@@ -125,7 +153,16 @@ class HomeScreen extends Component {
 						<View style={buttonContainerStyle}>
 							<Button 
 								transparent
-								onPress={() => this.props.navigation.navigate('AllProductsStack')}
+								onPress={() => 
+									this.props.navigation.navigate(
+										'AllProductsStack', 
+										{ 
+											qv: { 
+												products: this.props.products, 
+												title: 'All Products' 
+											}
+										}
+									)}
 							>
 								<Text style={buttonTextStyle}>View All</Text>
 							</Button>

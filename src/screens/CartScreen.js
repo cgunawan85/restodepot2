@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { connect } from 'react-redux';
-import { Container, Content, Card, CardItem, Left, Button, Text, Spinner } from 'native-base';
+import { NavigationActions, StackActions, NavigationEvents } from 'react-navigation';
+import { Container, Content, Card, CardItem, Left, Button, Spinner, Text } from 'native-base';
 import CartFooter from '../components/CartFooter';
 import ConfirmPaymentModal from '../components/ConfirmPaymentModal';
 import CartItemList from '../components/CartItemList';
@@ -11,6 +12,7 @@ import {
 	updateQuantityCheckoutItem,
 	removeCheckout,
 } from '../actions/';
+import { CART_EMPTY_STATE_IMAGE } from '../images/';
 
 class CartScreen extends Component {
 	static navigationOptions = {
@@ -30,15 +32,33 @@ class CartScreen extends Component {
 	}
 
 	onUpdateCheckoutWithRestoShippingAddress(itemValue, idCheckout) {
-		this.props.updateCheckoutRestoShippingAddress(itemValue, idCheckout);
+		this.props.updateCheckoutRestoShippingAddress(itemValue, idCheckout).then(() => {
+			const resetAction = StackActions.reset({
+				index: 0,
+				actions: [NavigationActions.navigate({ routeName: 'CartScreen' })]
+			});
+			this.props.navigation.dispatch(resetAction);
+		});
 	}
 
 	onUpdateQuantityItem(idCheckoutItem, quantity) {
-		this.props.updateQuantityCheckoutItem(idCheckoutItem, quantity);
+		this.props.updateQuantityCheckoutItem(idCheckoutItem, quantity).then(() => {
+			const resetAction = StackActions.reset({
+				index: 0,
+				actions: [NavigationActions.navigate({ routeName: 'CartScreen' })]
+			});
+			this.props.navigation.dispatch(resetAction);
+		});
 	}
 
 	onRemoveCheckoutFromCart() {
-		const mappedArray = this.state.checked.map(checkout => this.props.removeCheckout(checkout));
+		const mappedArray = this.state.checked.map(checkout => this.props.removeCheckout(checkout).then(() => {
+			const resetAction = StackActions.reset({
+				index: 0,
+				actions: [NavigationActions.navigate({ routeName: 'CartScreen' })]
+			});
+			this.props.navigation.dispatch(resetAction);
+		}));
 		console.log(mappedArray);
 	}
 
@@ -67,8 +87,19 @@ class CartScreen extends Component {
 	}
 
 	renderLoadingOrContent() {
+		const { emptyStateContainerStyle, imageStyle } = styles;
 		if (this.props.loading) {
 			return <Spinner size='small' />;
+		} else if (this.props.checkout_list === undefined || this.props.checkout_list.length === 0) {
+			return (
+				<View style={emptyStateContainerStyle}>
+					<View style={{ marginBottom: 10 }}>
+						<Image style={imageStyle} source={CART_EMPTY_STATE_IMAGE} />
+					</View>
+					<Text style={{ fontSize: 14, color: '#444444' }}>This cart is empty</Text>
+					<Text style={{ fontSize: 14, fontWeight: '600' }}>Fill it with GOOD things!</Text>
+				</View>
+			);
 		}
 		return (
 			<View>
@@ -110,13 +141,15 @@ class CartScreen extends Component {
 	render() {
 		return (
 			<Container>
+				<NavigationEvents onDidFocus={() => this.props.fetchCheckout()} />
 				<Content padder style={{ flex: 1 }}>
 					{this.renderLoadingOrContent()}
 				</Content>
-				<View>
+				<View style={{ paddingTop: '20%' }}>
 					<CartFooter 
 						checked={this.state.checked}
 						showModal={this.showModal.bind(this)}
+						totalPrice={this.props.total_price}
 					/>
 				</View>
 			</Container>
@@ -124,10 +157,24 @@ class CartScreen extends Component {
 	}
 }
 
+const styles = {
+	emptyStateContainerStyle: {
+		flex: 1, 
+		alignItems: 'center', 
+		justifyContent: 'center',
+		paddingTop: '50%'
+	},
+	imageStyle: {
+		height: 100,
+		width: 100
+	}
+};
+
 const mapStateToProps = state => {
 	return {
 		loading: state.cart.loading,
-		checkout_list: state.cart.checkout_list
+		checkout_list: state.cart.checkout_list,
+		total_price: state.cart.total_price
 	};
 };
 

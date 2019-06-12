@@ -28,6 +28,7 @@ import OrderDetailsScreen from './screens/OrderDetailsScreen';
 import VendorScreen from './screens/VendorScreen';
 import ReviewsScreen from './screens/ReviewsScreen';
 import PinLocationMapScreen from './screens/PinLocationMapScreen';
+import SearchResultsScreen from './screens/SearchResultsScreen';
 import NavigationService from './services/NavigationService';
 import deviceStorage from './services/deviceStorage';
 import store from './store';
@@ -72,14 +73,20 @@ const AllProductsStack = createStackNavigator(
 	{ headerMode: 'none' }
 );
 
+const SearchStack = createStackNavigator(
+	{ SearchResultsScreen, ProductDetailScreen },
+	{ headerMode: 'none' }
+);
+
 const HomeStack = createStackNavigator(
 { 
-	HomeScreen, 
+	HomeScreen,
+	SearchStack, 
 	CategoriesStack, 
 	QVStack, 
 	VendorStack, 
 	AllProductsStack, 
-	ProductDetailScreen, 
+	ProductDetailScreen,
 	ReviewsScreen 
 }, 
 { 

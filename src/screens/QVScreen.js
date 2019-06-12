@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Container, Header, Left, Button, Icon, Body, Title, Right, Content } from 'native-base';
 import ProductList from '../components/ProductList';
 import FilterBar from '../components/common/FilterBar';
-import { products } from '../data/productData';
 
 class QVScreen extends Component {
 	// Component did mount or constructor 
@@ -23,12 +22,12 @@ class QVScreen extends Component {
 						</Button>
 					</Left>
 					<Body>
-						<Title style={{ color: '#2077be' }}>{qv}</Title>
+						<Title style={{ color: '#2077be' }}>{qv.title}</Title>
 					</Body>
 					<Right />
 				</Header>
 				<Content>
-					<ProductList products={products} />
+					<ProductList products={qv.products} />
 				</Content>
 				<FilterBar />
 			</Container>

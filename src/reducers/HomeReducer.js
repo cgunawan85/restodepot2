@@ -4,7 +4,10 @@ import {
 	START_FETCH_PRODUCT_SUGGESTIONS,
 	FETCH_PRODUCT_SUGGESTIONS_SUCCESS,
 	FETCH_PRODUCT_SUGGESTIONS_FAIL,
-	CLEAR_SEARCH_SUGGESTIONS
+	CLEAR_SEARCH_SUGGESTIONS,
+	START_FETCH_SEARCH_RESULTS,
+	FETCH_SEARCH_RESULTS_SUCCESS,
+	FETCH_SEARCH_RESULTS_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -16,6 +19,7 @@ const INITIAL_STATE = {
 	product_suggestions: [],
 	product_suggestions_loading: false,
 	loading: false,
+	search_results: []
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -44,6 +48,12 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, product_suggestions_loading: false };
 		case CLEAR_SEARCH_SUGGESTIONS:
 			return { ...state, product_suggestions: [] };
+		case START_FETCH_SEARCH_RESULTS:
+			return { ...state, loading: true };
+		case FETCH_SEARCH_RESULTS_SUCCESS:
+			return { ...state, loading: false, search_results: action.payload.data.data };
+		case FETCH_SEARCH_RESULTS_FAIL:
+			return { ...state, loading: false };
 		default:
 			return state;
 	}

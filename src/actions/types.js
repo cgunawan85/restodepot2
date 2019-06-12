@@ -68,6 +68,9 @@ export const START_FETCH_PRODUCT_SUGGESTIONS = 'start_fetch_product_suggestions'
 export const FETCH_PRODUCT_SUGGESTIONS_SUCCESS = 'fetch_product_suggestions_success';
 export const FETCH_PRODUCT_SUGGESTIONS_FAIL = 'fetch_product_suggestions_fail';
 export const CLEAR_SEARCH_SUGGESTIONS = 'clear_search_suggestions';
+export const START_FETCH_SEARCH_RESULTS = 'start_fetch_search_results';
+export const FETCH_SEARCH_RESULTS_SUCCESS = 'fetch_search_results_success';
+export const FETCH_SEARCH_RESULT_FAIL = 'fetch_search_results_fail';
 
 // vendor actions
 export const START_FETCH_VENDOR = 'start_fetch_vendor';

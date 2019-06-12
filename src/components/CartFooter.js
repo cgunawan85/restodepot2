@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Button, Text } from 'native-base';
+import { numberWithCommas } from '../services/utils';
 
 class CartFooter extends Component {
 	render() {
@@ -16,7 +17,7 @@ class CartFooter extends Component {
 			<View style={buttonAndPriceContainerStyle}>
 				<View style={priceContainerStyle}>
 					<Text style={totalTextStyle}>Total Price</Text>
-					<Text style={priceTextStyle}>IDR 500,000</Text>
+					<Text style={priceTextStyle}>{`IDR ${numberWithCommas(this.props.totalPrice)}`}</Text>
 				</View>
 				<View style={buttonContainerStyle}>
 					<Button full onPress={() => this.props.showModal()}>

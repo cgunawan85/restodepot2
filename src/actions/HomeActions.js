@@ -6,7 +6,10 @@ import {
 	START_FETCH_PRODUCT_SUGGESTIONS,
 	FETCH_PRODUCT_SUGGESTIONS_SUCCESS,
 	FETCH_PRODUCT_SUGGESTIONS_FAIL,
-	CLEAR_SEARCH_SUGGESTIONS
+	CLEAR_SEARCH_SUGGESTIONS,
+	START_FETCH_SEARCH_RESULTS,
+	FETCH_SEARCH_RESULTS_SUCCESS,
+	FETCH_SEARCH_RESULTS_FAIL
 } from './types';
 
 export const fetchHome = () => {
@@ -46,6 +49,28 @@ export const fetchProductSuggestions = (text) => {
 export const clearProductSuggestions = () => {
 	return {
 		type: CLEAR_SEARCH_SUGGESTIONS
+	};
+};
+
+export const fetchSearchResults = (query) => {
+	return (dispatch) => {
+		dispatch({ type: START_FETCH_SEARCH_RESULTS });
+		axios.request({
+			url: 'http://localhost:8080/search',
+			method: 'get',
+			params: {
+				keyword: query,
+				limit: 50
+			}
+		})
+			.then((response) => {
+				console.log(response);
+				dispatch({ type: FETCH_SEARCH_RESULTS_SUCCESS, payload: response });
+			})
+			.catch((error) => {
+				dispatch({ type: FETCH_SEARCH_RESULTS_FAIL });
+				console.log(error);
+			});
 	};
 };
 

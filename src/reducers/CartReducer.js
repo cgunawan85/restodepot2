@@ -19,7 +19,9 @@ import {
 const INITIAL_STATE = {
 	loading: false,
 	checkout_list: [],
-	shipping_addresses: []
+	shipping_addresses: [],
+	shipping_methods: {},
+	total_price: 0
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -31,7 +33,8 @@ export default (state = INITIAL_STATE, action) => {
 				...state, 
 				loading: false, 
 				checkout_list: action.payload.data.data.checkouts, 
-				shipping_addresses: action.payload.data.data.shipping_addresses   
+				shipping_addresses: action.payload.data.data.shipping_addresses,
+				total_price: action.payload.data.data.total_price
 			};
 		case FETCH_CHECKOUT_FAIL:
 			return { ...state, loading: false };

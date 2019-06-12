@@ -18,3 +18,4 @@ export const GOLD_BADGE = require('./icon-badge-gold.png');
 export const DIAMOND_BADGE = require('./icon-badge-diamond.png');
 export const REVIEWS_EMPTY_STATE_IMAGE = require('./reviews-empty-state-image.png');
 export const ORDERS_EMPTY_STATE_IMAGE = require('./orders-empty-state-image.png');
+export const CART_EMPTY_STATE_IMAGE = require('./cart-empty-state-image.png');

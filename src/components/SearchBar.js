@@ -46,7 +46,16 @@ class SearchBar extends Component {
 						name="close-circle" 
 					/>
 				</Item>
-				<Button style={{ width: '25%' }} transparent>
+				<Button 
+					style={{ width: '25%' }} 
+					transparent
+					onPress={() => this.props.navigation.navigate(
+						'SearchStack', 
+						{ 
+							query: this.state.searchText 
+						}
+					)}
+				>
 					{this.renderLoading()}
 				</Button>
 			</Header>
