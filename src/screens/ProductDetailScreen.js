@@ -15,7 +15,7 @@ import {
 	Right,
 	Toast
 } from 'native-base';
-import { withNavigation, NavigationActions, StackActions } from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 import ProductImage from '../components/ProductImage';
 import ProductTitle from '../components/ProductTitle';
 import ProductVendor from '../components/ProductVendor';

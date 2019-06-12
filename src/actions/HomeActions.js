@@ -17,6 +17,7 @@ export const fetchHome = () => {
 		dispatch({ type: START_FETCH_HOME });
 		axios.get('http://localhost:8080/home')
 			.then((response) => {
+				console.log(response);
 				dispatch({ type: FETCH_HOME_SUCCESS, payload: response });
 			})
 			.catch((error) => {

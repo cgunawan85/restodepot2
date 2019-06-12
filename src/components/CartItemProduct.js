@@ -20,7 +20,7 @@ class CartItemProduct extends Component {
 			<NumericInput
 				value={this.state.quantity}
 				initValue={this.state.quantity}
-				minValue={1}
+				minValue={this.props.item.product.min_buy_qty}
 				totalWidth={75} 
 				totalHeight={40}
 				rounded 

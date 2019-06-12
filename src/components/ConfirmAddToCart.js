@@ -6,7 +6,7 @@ import NumericInput from 'react-native-numeric-input';
 class ConfirmAddToCart extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { quantity: 1 };
+		this.state = { quantity: props.product.min_buy_qty };
 	}
 
 	render() {
@@ -38,9 +38,8 @@ class ConfirmAddToCart extends Component {
 							<NumericInput
 								onChange={(value) => this.setState({ quantity: value })} 
 								initValue={quantity}
-								minValue={1}
+								minValue={this.state.quantity}
 							/>
-						{/* Need to add value here and use redux to implement into state */}
 						</View>
 						<View style={buttonContainerStyle}>
 							<Button 

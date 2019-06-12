@@ -95,7 +95,6 @@ export const addCheckout = (idProduct, quantity) => {
 			})
 				.then((response) => {
 					dispatch({ type: ADD_TO_CART_SUCCESS });
-					console.log(`Add to cart success ---> ${response}`);
 					resolve();
 				})
 				.catch((error) => {
