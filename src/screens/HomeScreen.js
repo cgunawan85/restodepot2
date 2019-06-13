@@ -138,7 +138,10 @@ class HomeScreen extends Component {
 					<View style={titleContainerStyle}>
 						<Text style={titleTextStyle}>Vendors</Text>
 						<View style={buttonContainerStyle}>
-							<Button transparent>
+							<Button 
+								transparent
+								onPress={() => this.props.navigation.navigate('AllVendorsScreen')}
+							>
 								<Text style={buttonTextStyle}>View All</Text>
 							</Button>
 						</View>

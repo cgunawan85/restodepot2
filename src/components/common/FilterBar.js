@@ -11,11 +11,14 @@ class FilterBar extends Component {
 				<Button 
 					rounded 
 					style={buttonStyle}
-					onPress={() => this.props.navigation.navigate('SortByScreen')}
+					onPress={() => this.props.navigation.navigate(
+						'SortByScreen', 
+						{ query: this.props.query }
+					)}
 				>
 					<Text style={textStyle}>Sort by</Text>
 				</Button>
-				<Button rounded style={buttonStyle}>
+				<Button rounded style={{ paddingHorizontal: 15, backgroundColor: '#444444' }}>
 					<Text style={textStyle}>Filter</Text>
 				</Button>
 			</View>

@@ -4,6 +4,11 @@ import { Button, Text } from 'native-base';
 import { numberWithCommas } from '../services/utils';
 
 class CartFooter extends Component {
+	isValidForm() {
+		//return true if this.props.checkout_list valid
+		//if all checkout.id_resto_shipping_address !== 0 && id.shipping_name !== null
+	}
+
 	render() {
 		const { 
 			buttonAndPriceContainerStyle, 
@@ -16,7 +21,7 @@ class CartFooter extends Component {
 		return (
 			<View style={buttonAndPriceContainerStyle}>
 				<View style={priceContainerStyle}>
-					<Text style={totalTextStyle}>Total Price</Text>
+					<Text style={totalTextStyle}>Grand Total</Text>
 					<Text style={priceTextStyle}>{`IDR ${numberWithCommas(this.props.totalPrice)}`}</Text>
 				</View>
 				<View style={buttonContainerStyle}>

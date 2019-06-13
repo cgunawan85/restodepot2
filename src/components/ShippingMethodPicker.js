@@ -17,10 +17,16 @@ class ShippingMethodPicker extends Component {
 		this.state = { shipping_name: 'key0' };
 	}
 
-	render() {
-		const { containerStyle, shippingMethodsTextContainerStyle, pickerTextStyle } = styles;
-		return (
-			<CardItem bordered>
+	renderPicker() {
+		const { 
+			pickerTextStyle, 
+			containerStyle, 
+			shippingMethodsTextContainerStyle, 
+			deliveryAlertTextStyle 
+		} = styles;
+
+		if (this.props.checkout.id_resto_shipping_address !== 0) {
+			return (
 				<View style={containerStyle}>
 					<View style={shippingMethodsTextContainerStyle}>
 						<StyleProvider style={getTheme({ iconFamily: 'MaterialCommunityIcons' })}>
@@ -49,6 +55,19 @@ class ShippingMethodPicker extends Component {
 						</Form>
 					</View>
 				</View>
+			);
+		}
+		return (
+			<View style={{ flex: 1 }}>
+				<Text style={deliveryAlertTextStyle}>Please choose a delivery address!</Text>
+			</View>
+		);
+	}
+
+	render() {
+		return (
+			<CardItem bordered>
+				{this.renderPicker()}
 			</CardItem>
 		);
 	}
@@ -67,6 +86,12 @@ const styles = {
 		fontSize: 14, 
 		flexShrink: 1, 
 		textAlign: 'right'
+	},
+	deliveryAlertTextStyle: {
+		color: 'red',
+		fontSize: 14,
+		textAlign: 'center',
+		paddingVertical: 10
 	}
 };
 

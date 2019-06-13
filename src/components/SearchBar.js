@@ -19,6 +19,20 @@ class SearchBar extends Component {
 		return <Text>Search</Text>;
 	}
 
+	renderCloseIcon() {
+		if (this.state.searchText !== '') {
+			return (
+				<Icon 
+					onPress={() => {
+						this.props.onSearchCloseIconPress();
+						this.setState({ searchText: '' });
+					}} 
+					name="close-circle" 
+				/>
+			);
+		}
+	}
+
 	render() {
 		return (
 			<Header 
@@ -38,13 +52,7 @@ class SearchBar extends Component {
 						}}
 						value={this.state.searchText}
 					/>
-					<Icon 
-						onPress={() => {
-							this.props.onSearchCloseIconPress();
-							this.setState({ searchText: '' });
-						}} 
-						name="close-circle" 
-					/>
+					{this.renderCloseIcon()}
 				</Item>
 				<Button 
 					style={{ width: '25%' }} 

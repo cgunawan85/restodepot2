@@ -53,7 +53,7 @@ export const clearProductSuggestions = () => {
 	};
 };
 
-export const fetchSearchResults = (query) => {
+export const fetchSearchResults = (query, sort) => {
 	return (dispatch) => {
 		dispatch({ type: START_FETCH_SEARCH_RESULTS });
 		axios.request({
@@ -61,7 +61,8 @@ export const fetchSearchResults = (query) => {
 			method: 'get',
 			params: {
 				keyword: query,
-				limit: 50
+				limit: 50,
+				sort: sort
 			}
 		})
 			.then((response) => {

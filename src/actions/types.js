@@ -75,6 +75,9 @@ export const FETCH_SEARCH_RESULT_FAIL = 'fetch_search_results_fail';
 // vendor actions
 export const START_FETCH_VENDOR = 'start_fetch_vendor';
 export const FETCH_VENDOR_SUCCESS = 'fetch_vendor_success';
+export const START_FETCH_ALL_VENDORS = 'start_fetch_all_vendors';
+export const FETCH_ALL_VENDORS_SUCCESS = 'fetch_all_vendors_success';
+export const FETCH_ALL_VENDORS_FAIL = 'fetch_all_vendors_fail';
 
 // cart actions
 export const START_FETCH_CHECKOUT = 'start_fetch_checkout';

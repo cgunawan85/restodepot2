@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { StackActions, NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
 import { 
 	Container, 
 	Header, 
@@ -15,14 +17,21 @@ import {
 } from 'native-base';
 
 import SortByScreenFooter from '../components/SortByScreenFooter';
+import { fetchSearchResults } from '../actions';
 
 class SortByScreen extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { itemSelected: '' };
+		this.state = { itemSelected: null };
+	}
+
+	onFilterResults(query, sort) {
+		this.props.fetchSearchResults(query, sort);
+		this.props.navigation.navigate('SearchResultsScreen');
 	}
 
 	render() {
+		const query = this.props.navigation.getParam('query');
 		return (
 			<Container>
 				<Header>
@@ -41,45 +50,50 @@ class SortByScreen extends Component {
 				</Header>
 				<Content>
 					<ListItem
-						onPress={() => this.setState({ itemSelected: 'Highest Price' })}
-						selected={this.state.itemSelected === 'Highest Price'}
+						onPress={() => this.setState({ itemSelected: 3 })}
+						selected={this.state.itemSelected === 3}
 					>
 						<Left>
 							<Text>Highest Price</Text>
 						</Left>
 						<Right>
-							<Radio selected={this.state.itemSelected === 'Highest Price'} />
+							<Radio selected={this.state.itemSelected === 3} />
 						</Right>
 					</ListItem>
 
 					<ListItem 
-						onPress={() => this.setState({ itemSelected: 'Lowest Price' })}
-						selected={this.state.itemSelected === 'Lowest Price'}
+						onPress={() => this.setState({ itemSelected: 2 })}
+						selected={this.state.itemSelected === 2}
 					>
 						<Left>
 							<Text>Lowest Price</Text>
 						</Left>
 						<Right>
-							<Radio selected={this.state.itemSelected === 'Lowest Price'} />
+							<Radio selected={this.state.itemSelected === 2} />
 						</Right>
 					</ListItem>
 
 					<ListItem 
-						onPress={() => this.setState({ itemSelected: 'Newest' })}
-						selected={this.state.itemSelected === 'Newest'}
+						onPress={() => this.setState({ itemSelected: 1 })}
+						selected={this.state.itemSelected === 1}
 					>
 						<Left>
 							<Text>Newest</Text>
 						</Left>
 						<Right>
-							<Radio selected={this.state.itemSelected === 'Newest'} />
+							<Radio selected={this.state.itemSelected === 1} />
 						</Right>
 					</ListItem>
 				</Content>
-				<SortByScreenFooter />
+				<SortByScreenFooter 
+					itemSelected={this.state.itemSelected} 
+					onFilterResults={this.onFilterResults.bind(this)}
+					sort={this.state.itemSelected}
+					query={query}
+				/>
 			</Container>
 		);
 	}
 }
 
-export default SortByScreen;
+export default connect(null, { fetchSearchResults })(SortByScreen);

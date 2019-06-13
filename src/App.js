@@ -29,6 +29,7 @@ import VendorScreen from './screens/VendorScreen';
 import ReviewsScreen from './screens/ReviewsScreen';
 import PinLocationMapScreen from './screens/PinLocationMapScreen';
 import SearchResultsScreen from './screens/SearchResultsScreen';
+import AllVendorsScreen from './screens/AllVendorsScreen';
 import NavigationService from './services/NavigationService';
 import deviceStorage from './services/deviceStorage';
 import store from './store';
@@ -53,6 +54,7 @@ class App extends Component {
 const AuthStack = createStackNavigator({ LoginScreen, RegisterScreen });
 
 const VendorStack = createStackNavigator({ 
+	AllVendorsScreen,
 	VendorScreen, 
 	ProductDetailScreen,
 	ReviewsScreen
@@ -74,7 +76,7 @@ const AllProductsStack = createStackNavigator(
 );
 
 const SearchStack = createStackNavigator(
-	{ SearchResultsScreen, ProductDetailScreen },
+	{ SearchResultsScreen, SortByScreen, ProductDetailScreen },
 	{ headerMode: 'none' }
 );
 

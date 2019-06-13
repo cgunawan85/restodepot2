@@ -146,7 +146,8 @@ class CartScreen extends Component {
 					{this.renderLoadingOrContent()}
 				</Content>
 				<View style={{ paddingTop: '20%' }}>
-					<CartFooter 
+					<CartFooter
+						checkoutList={this.props.checkout_list}
 						checked={this.state.checked}
 						showModal={this.showModal.bind(this)}
 						totalPrice={this.props.total_price}

@@ -30,6 +30,7 @@ class SearchResultsScreen extends Component {
 	}
 
 	render() {
+		const query = this.props.navigation.getParam('query');
 		return (
 			<Container>
 				<Header>
@@ -49,7 +50,7 @@ class SearchResultsScreen extends Component {
 				<Content>
 					{this.renderLoadingOrContent()}
 				</Content>
-				<FilterBar />
+				<FilterBar query={query} />
 			</Container>
 		);
 	}

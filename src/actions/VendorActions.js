@@ -2,7 +2,10 @@ import axios from 'axios';
 
 import {
 	START_FETCH_VENDOR,
-	FETCH_VENDOR_SUCCESS
+	FETCH_VENDOR_SUCCESS,
+	START_FETCH_ALL_VENDORS,
+	FETCH_ALL_VENDORS_SUCCESS,
+	FETCH_ALL_VENDORS_FAIL
 } from './types';
 
 export const fetchVendor = (vendorId) => {
@@ -21,6 +24,24 @@ export const fetchVendor = (vendorId) => {
 			.catch((error) => {
 				// dispatch fetch vendor failed
 				console.log(error);
+			});
+	};
+};
+
+export const fetchAllVendors = () => {
+	return (dispatch) => {
+		dispatch({ type: START_FETCH_ALL_VENDORS });
+		axios.request({
+			url: 'http://localhost:8080/vendors',
+			type: 'get',
+		})
+			.then((response) => {
+				console.log(response);
+				dispatch({ type: FETCH_ALL_VENDORS_SUCCESS, payload: response });
+			})
+			.catch((error) => {
+				console.log(error);
+				dispatch({ type: FETCH_ALL_VENDORS_FAIL });
 			});
 	};
 };

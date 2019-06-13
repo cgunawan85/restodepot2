@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Header, Left, Button, Icon, Body, Title, Right, Content } from 'native-base';
 import ProductList from '../components/ProductList';
-import FilterBar from '../components/common/FilterBar';
 
 class QVScreen extends Component {
-	// Component did mount or constructor 
-	// that calls action creator to make 
-	// request for products
-
 	render() {
 		const qv = this.props.navigation.getParam('qv');
 		return (
@@ -29,7 +24,6 @@ class QVScreen extends Component {
 				<Content>
 					<ProductList products={qv.products} />
 				</Content>
-				<FilterBar />
 			</Container>
 		);
 	}

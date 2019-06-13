@@ -29,7 +29,7 @@ class VendorScreen extends Component {
 				<Button
 					transparent
 					onPress={() => {
-						navigation.goBack(null);
+						navigation.goBack();
 					}}
 				>
 					<Icon name='arrow-back' type='Ionicons' />
