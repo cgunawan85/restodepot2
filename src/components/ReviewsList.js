@@ -5,7 +5,7 @@ import ReviewsListItem from './ReviewsListItem';
 
 class ReviewsList extends Component {
 	renderCardItem(review) {
-		return <ReviewsListItem review={review} />;
+		return <ReviewsListItem restoUser={this.props.restoUser} review={review} />;
 	}
 
 	render() {

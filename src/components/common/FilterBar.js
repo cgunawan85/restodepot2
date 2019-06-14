@@ -18,7 +18,11 @@ class FilterBar extends Component {
 				>
 					<Text style={textStyle}>Sort by</Text>
 				</Button>
-				<Button rounded style={{ paddingHorizontal: 15, backgroundColor: '#444444' }}>
+				<Button 
+					disabled 
+					rounded 
+					style={{ paddingHorizontal: 15 }}
+				>
 					<Text style={textStyle}>Filter</Text>
 				</Button>
 			</View>

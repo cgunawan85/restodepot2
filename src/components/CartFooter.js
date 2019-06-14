@@ -1,12 +1,39 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Button, Text } from 'native-base';
+import { Button, Text, Toast } from 'native-base';
 import { numberWithCommas } from '../services/utils';
 
 class CartFooter extends Component {
-	isValidForm() {
-		//return true if this.props.checkout_list valid
-		//if all checkout.id_resto_shipping_address !== 0 && id.shipping_name !== null
+	onBuyButtonPress() {
+		if (this.isFormValid()) {
+			this.props.showModal();
+		}
+		return Toast.show({
+			text: 'Please complete your shipping information!',
+			duration: 3000,
+			buttonText: 'Got it!'
+		});
+	}
+
+	buyButtonDisable() {
+		const { checked } = this.props;
+		if (checked === undefined || checked.length === 0) {
+			return true;
+		}
+		return false;
+	}
+
+	isFormValid() {
+		const { checked } = this.props;
+		// only checked checkout?
+		const { checkoutList } = this.props;
+
+		for (const checkout of checkoutList) {
+			if (checkout.id_resto_shipping_address !== 0 && checkout.shipping_name !== null) {
+				return true;
+			}
+			return false;
+		}
 	}
 
 	render() {
@@ -25,7 +52,11 @@ class CartFooter extends Component {
 					<Text style={priceTextStyle}>{`IDR ${numberWithCommas(this.props.totalPrice)}`}</Text>
 				</View>
 				<View style={buttonContainerStyle}>
-					<Button full onPress={() => this.props.showModal()}>
+					<Button 
+						full 
+						onPress={() => this.onBuyButtonPress()}
+						disabled={this.buyButtonDisable()}
+					>
 						<Text>{`Buy Now (${this.props.checked.length})`}</Text>
 					</Button>
 				</View>

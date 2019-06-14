@@ -88,9 +88,11 @@ class CartScreen extends Component {
 
 	renderLoadingOrContent() {
 		const { emptyStateContainerStyle, imageStyle } = styles;
-		if (this.props.loading) {
+		const { checkout_list, loading } = this.props;
+
+		if (loading) {
 			return <Spinner size='small' />;
-		} else if (this.props.checkout_list === undefined || this.props.checkout_list.length === 0) {
+		} else if (checkout_list === undefined || checkout_list.length === 0) {
 			return (
 				<View style={emptyStateContainerStyle}>
 					<View style={{ marginBottom: 10 }}>
@@ -124,7 +126,7 @@ class CartScreen extends Component {
 					</CardItem>
 				</Card>
 				<CartItemList 
-					checkoutList={this.props.checkout_list} 
+					checkoutList={checkout_list} 
 					checked={this.state.checked}
 					addOrRemoveFromChecked={this.addOrRemoveFromChecked.bind(this)}
 					onUpdateCheckoutWithRestoShippingAddress={this.onUpdateCheckoutWithRestoShippingAddress.bind(this)}
@@ -139,6 +141,7 @@ class CartScreen extends Component {
 	}
 
 	render() {
+		const { total_price, checkout_list } = this.props;
 		return (
 			<Container>
 				<NavigationEvents onDidFocus={() => this.props.fetchCheckout()} />
@@ -147,10 +150,10 @@ class CartScreen extends Component {
 				</Content>
 				<View style={{ paddingTop: '20%' }}>
 					<CartFooter
-						checkoutList={this.props.checkout_list}
+						checkoutList={checkout_list}
 						checked={this.state.checked}
 						showModal={this.showModal.bind(this)}
-						totalPrice={this.props.total_price}
+						totalPrice={total_price}
 					/>
 				</View>
 			</Container>

@@ -64,7 +64,12 @@ class ReviewsScreen extends Component {
 		} else {
 			return <Spinner size='small' />;
 		}
-		return <ReviewsList productReviews={this.props.product_reviews} />;
+		return (
+			<ReviewsList 
+				restoUser={this.props.resto_user} 
+				productReviews={this.props.product_reviews} 
+			/>
+		);
 	}
 
 	render() {
@@ -129,7 +134,8 @@ const mapStateToProps = state => {
 		loading: state.reviews.loading,
 		product_reviews: state.reviews.product_reviews,
 		rating: state.reviews.rating,
-		review: state.reviews.review
+		review: state.reviews.review,
+		resto_user: state.reviews.resto_user
 	};
 };
 

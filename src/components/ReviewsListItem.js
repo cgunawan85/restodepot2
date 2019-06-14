@@ -13,25 +13,36 @@ const CANCEL_INDEX = 1;
 // need to only allow delete if product_review.id_resto = loggedin user id
 class ReviewsListItem extends Component {
 	render() {
-		const { comments, author_firstname, author_lastname, dt_created, rating } = this.props.review;
+		const { 
+			comments, 
+			author_firstname, 
+			author_lastname, 
+			dt_created, 
+			rating, 
+			id_resto 
+		} = this.props.review;
+
 		return (
 			<ListItem 
 				avatar 
 				onLongPress={() => {
-					ActionSheet.show(
-						{
-							options: BUTTONS,
-							cancelButtonIndex: CANCEL_INDEX,
-							destructiveButtonIndex: DESTRUCTIVE_INDEX,
-							title: 'Options'
-						},
-						buttonIndex => {
-							if (buttonIndex === 0) {
-								this.props.deleteProductReview(this.props.review.id);
+					if (this.props.restoUser -== id_resto) {
+						ActionSheet.show(
+							{
+								options: BUTTONS,
+								cancelButtonIndex: CANCEL_INDEX,
+								destructiveButtonIndex: DESTRUCTIVE_INDEX,
+								title: 'Options'
+							},
+							buttonIndex => {
+								if (buttonIndex === 0) {
+									this.props.deleteProductReview(this.props.review.id);
+								}
 							}
-						}
-					);
-				}}
+						);
+					} 
+				}
+			}
 			>
 				<Left>
 					<Thumbnail small source={LOADING_IMAGE} />
