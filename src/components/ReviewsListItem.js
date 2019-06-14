@@ -26,7 +26,7 @@ class ReviewsListItem extends Component {
 			<ListItem 
 				avatar 
 				onLongPress={() => {
-					if (this.props.restoUser -== id_resto) {
+					if (this.props.restoUser === id_resto) {
 						ActionSheet.show(
 							{
 								options: BUTTONS,
