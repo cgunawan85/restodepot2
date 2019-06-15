@@ -71,6 +71,9 @@ export const CLEAR_SEARCH_SUGGESTIONS = 'clear_search_suggestions';
 export const START_FETCH_SEARCH_RESULTS = 'start_fetch_search_results';
 export const FETCH_SEARCH_RESULTS_SUCCESS = 'fetch_search_results_success';
 export const FETCH_SEARCH_RESULT_FAIL = 'fetch_search_results_fail';
+export const START_SUBMIT_FEEDBACK = 'start_submit_feedback';
+export const SUBMIT_FEEDBACK_SUCCESS = 'submit_feedback_success';
+export const SUBMIT_FEEDBACK_FAIL = 'submit_feedback_fail';
 
 // vendor actions
 export const START_FETCH_VENDOR = 'start_fetch_vendor';

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Image, TouchableOpacity, Linking } from 'react-native';
+import { connect } from 'react-redux';
 import { 
 	Container, 
 	Content, 
@@ -11,10 +12,12 @@ import {
 	Label, 
 	Input, 
 	Button, 
-	Text
+	Text,
+	Toast
 } from 'native-base';
 import { ABOUT_US_COVER_IMAGE } from '../images/';
 import Seperator from '../components/common/Seperator';
+import { submitFeedback } from '../actions/';
 
 //LINKING NEEDS TO BE TESTED ON DEVICE, DOES NOT WORK IN SIMULATOR
 
@@ -25,6 +28,21 @@ class ContactUsScreen extends Component {
 			color: '#2077be',
 		},
 	};
+
+	constructor(props) {
+		super(props);
+		this.state = { name: '', email: '', message: '' };
+	}
+
+	onSubmitButtonPress() {
+		this.props.submitFeedback(this.state.name, this.state.email, this.state.message);
+		this.props.navigation.navigate('HomeScreen');
+		return Toast.show({
+			text: 'Thank you for your feedback!',
+			duration: 3000,
+			buttonText: 'Got it!'
+		});
+	}
 
 	render() {
 		const { coverImageStyle } = styles;
@@ -87,28 +105,30 @@ class ContactUsScreen extends Component {
 							<Item stackedLabel>
 								<Label>Name</Label>
 								<Input 
-									onChangeText={() => console.log('test')}
+									onChangeText={(text) => this.setState({ name: text })}
 									autoCapitalize='none'
 								/>
 							</Item>
 							<Item stackedLabel>
 								<Label>Email</Label>
 								<Input 
-									onChangeText={() => console.log('test')}
+									onChangeText={(text) => this.setState({ email: text })}
 									autoCapitalize='none'
 								/>
 							</Item>
 							<Item stackedLabel>
 								<Label>Message</Label>
 								<Input 
-									onChangeText={() => console.log('test')}
+									onChangeText={(text) => this.setState({ message: text })}
 									autoCapitalize='none'
-									rowSpan={5}
 								/>
 							</Item>
 						</Form>
 						<View style={{ paddingTop: 40 }}>
-							<Button full>
+							<Button 
+								full
+								onPress={() => this.onSubmitButtonPress()}
+							>
 								<Text>Submit</Text>
 							</Button>
 						</View>
@@ -127,4 +147,4 @@ const styles = {
 	}
 };
 
-export default ContactUsScreen;
+export default connect(null, { submitFeedback })(ContactUsScreen);

@@ -7,7 +7,10 @@ import {
 	CLEAR_SEARCH_SUGGESTIONS,
 	START_FETCH_SEARCH_RESULTS,
 	FETCH_SEARCH_RESULTS_SUCCESS,
-	FETCH_SEARCH_RESULTS_FAIL
+	FETCH_SEARCH_RESULTS_FAIL,
+	START_SUBMIT_FEEDBACK,
+	SUBMIT_FEEDBACK_SUCCESS,
+	SUBMIT_FEEDBACK_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -54,6 +57,12 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, loading: false, search_results: action.payload.data.data };
 		case FETCH_SEARCH_RESULTS_FAIL:
 			return { ...state, loading: false };
+		case START_SUBMIT_FEEDBACK:
+			return { ...state, loading: true };
+		case SUBMIT_FEEDBACK_SUCCESS:
+			return { ...state, loading: false };
+		case SUBMIT_FEEDBACK_FAIL:
+			return { ...state, loading: false };  
 		default:
 			return state;
 	}

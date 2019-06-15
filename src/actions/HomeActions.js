@@ -9,7 +9,10 @@ import {
 	CLEAR_SEARCH_SUGGESTIONS,
 	START_FETCH_SEARCH_RESULTS,
 	FETCH_SEARCH_RESULTS_SUCCESS,
-	FETCH_SEARCH_RESULTS_FAIL
+	FETCH_SEARCH_RESULTS_FAIL,
+	START_SUBMIT_FEEDBACK,
+	SUBMIT_FEEDBACK_SUCCESS,
+	SUBMIT_FEEDBACK_FAIL
 } from './types';
 
 export const fetchHome = () => {
@@ -76,3 +79,25 @@ export const fetchSearchResults = (query, sort) => {
 	};
 };
 
+export const submitFeedback = (name, email, message) => {
+	return (dispatch) => {
+		dispatch({ type: START_SUBMIT_FEEDBACK });
+		axios.request({
+			url: 'http://localhost:8080/send_feedback',
+			method: 'post',
+			params: {
+				name: name,
+				email: email,
+				message: message
+			}
+		})
+			.then((response) => {
+				dispatch({ type: SUBMIT_FEEDBACK_SUCCESS });
+				console.log(response);
+			})
+			.catch((error) => {
+				dispatch({ type: SUBMIT_FEEDBACK_FAIL });
+				console.log(error);
+			});
+	};
+};
