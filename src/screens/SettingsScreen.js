@@ -22,11 +22,11 @@ class SettingsScreen extends Component {
 		return (
 			<Container>
 				<Content contentContainerStyle={{ flex: 1 }}>
-					<SettingsListItem iconName='question' destination='HomeScreen'>About Us</SettingsListItem>
-					<SettingsListItem iconName='user' destination='HomeScreen'>My Account</SettingsListItem>
+					<SettingsListItem iconName='question' destination='ContactUsScreen'>Contact Us</SettingsListItem>
 					<SettingsListItem iconName='paper-plane' destination='ShippingAddressScreen'>Shipping Addresses</SettingsListItem>
 					{/*
 					<SettingsListItem iconName='support' destination='HomeScreen'>Help</SettingsListItem>
+					<SettingsListItem iconName='user' destination='HomeScreen'>My Account</SettingsListItem>
 					<SettingsListItem iconName='support' destination='HomeScreen'>Apply For Business Account</SettingsListItem>
 					*/}
 					<View style={buttonContainerStyle}>

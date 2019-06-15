@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content, Button, Spinner } from 'native-base';
 import CredentialForm from '../components/CredentialForm';
@@ -11,6 +11,7 @@ import {
 	forgetEmailChanged, 
 	resetPasswordEmailSend 
 } from '../actions';
+import { LOGO } from '../images/';
 
 class LoginScreen extends Component {
 	static navigationOptions = {
@@ -69,34 +70,43 @@ class LoginScreen extends Component {
 	}
 
 	render() {
-		const { textStyle, linkTextStyle } = styles;
+		const { textStyle, linkTextStyle, logoContainerStyle, logoStyle } = styles;
 		return (
 			<Container>
 				<Content>
-						<CredentialForm 
-							onEmailChanged={this.onEmailChanged.bind(this)}
-							onPasswordChanged={this.onPasswordChanged.bind(this)}
-						/>
-						{this.renderLoginButtonOrSpinner()}
-						<Text 
-							style={linkTextStyle}
-							onPress={() => this.setState({ modalVisible: true })}
-						>
-							Forgot your password?
-						</Text>
-						<Text style={textStyle}>Don't have an account yet?</Text>
-						<Text 
-							style={linkTextStyle}
-							onPress={this.onRegisterButtonPress.bind(this)}
-						>
-							Register here
-						</Text>
-						<ForgetYourPasswordModal 
-							modalVisible={this.state.modalVisible}
-							onDecline={this.onDecline.bind(this)}
-							onAccept={this.onAccept.bind(this)}
-							onForgetEmailChanged={this.onForgetEmailChanged.bind(this)} 
-						/>
+					<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+						<View style={logoContainerStyle}>
+							<Image 
+								source={LOGO} 
+								style={logoStyle} 
+								resize='scale'
+							/>
+						</View>
+					</View>
+					<CredentialForm 
+						onEmailChanged={this.onEmailChanged.bind(this)}
+						onPasswordChanged={this.onPasswordChanged.bind(this)}
+					/>
+					{this.renderLoginButtonOrSpinner()}
+					<Text 
+						style={linkTextStyle}
+						onPress={() => this.setState({ modalVisible: true })}
+					>
+						Forgot your password?
+					</Text>
+					<Text style={textStyle}>Don't have an account yet?</Text>
+					<Text 
+						style={linkTextStyle}
+						onPress={this.onRegisterButtonPress.bind(this)}
+					>
+						Register here
+					</Text>
+					<ForgetYourPasswordModal 
+						modalVisible={this.state.modalVisible}
+						onDecline={this.onDecline.bind(this)}
+						onAccept={this.onAccept.bind(this)}
+						onForgetEmailChanged={this.onForgetEmailChanged.bind(this)} 
+					/>
 				</Content>
 			</Container>
 		);
@@ -104,6 +114,16 @@ class LoginScreen extends Component {
 }
 
 const styles = {
+	logoContainerStyle: {
+		height: 150,
+		width: 150,
+	},
+	logoStyle: {
+		flex: 1,
+		width: null,
+		height: null,
+		resizeMode: 'contain'
+	},
 	buttonTextStyle: {
 		color: 'white'
 	},

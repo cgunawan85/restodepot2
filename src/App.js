@@ -30,6 +30,7 @@ import ReviewsScreen from './screens/ReviewsScreen';
 import PinLocationMapScreen from './screens/PinLocationMapScreen';
 import SearchResultsScreen from './screens/SearchResultsScreen';
 import AllVendorsScreen from './screens/AllVendorsScreen';
+import ContactUsScreen from './screens/ContactUsScreen';
 import NavigationService from './services/NavigationService';
 import deviceStorage from './services/deviceStorage';
 import store from './store';
@@ -99,7 +100,8 @@ const HomeStack = createStackNavigator(
 const OrdersStack = createStackNavigator({ OrdersScreen, OrderDetailsScreen });
 
 const SettingsStack = createStackNavigator({ 
-	SettingsScreen, 
+	SettingsScreen,
+	ContactUsScreen, 
 	ShippingAddressScreen,
 	EditShippingAddressScreen, 
 	AddShippingAddressScreen,
