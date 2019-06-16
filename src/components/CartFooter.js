@@ -25,9 +25,8 @@ class CartFooter extends Component {
 
 	isFormValid() {
 		const { checked } = this.props;
-		// only checked checkout?
 		const { checkoutList } = this.props;
-
+		// only if checkout.id in checked?
 		for (const checkout of checkoutList) {
 			if (checkout.id_resto_shipping_address !== 0 && checkout.shipping_name !== null) {
 				return true;
