@@ -20,7 +20,6 @@
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
@@ -50,6 +49,7 @@
 		9B4CDDB8E0DA4FEF8FC2C3F4 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E5ABB36EC844728BB937B17 /* EvilIcons.ttf */; };
 		A0FA41505BFC471FB3A31441 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72678C2CEBC242FDA327972F /* FontAwesome5_Brands.ttf */; };
 		A2672212EB8E43319B7F90CB /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E08003C53B914D0A87EE2043 /* Entypo.ttf */; };
+		A60D8CE422B7C1D700293D36 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A60D8CE322B7C1D700293D36 /* LaunchScreen.xib */; };
 		A6B47409228AED8E00C6615A /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6B473DF228AED7600C6615A /* libAirMaps.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		A6DD8B54226B521D00AC236E /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6DD8B2A226B519E00AC236E /* libBVLinearGradient.a */; };
 		A6EB196A2279257E00F89A2D /* GoogleMapsBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6EB19692279257E00F89A2D /* GoogleMapsBase.framework */; };
@@ -411,7 +411,6 @@
 		13B07F961A680F5B00A75B9A /* restomobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = restomobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = restomobile/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = restomobile/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = restomobile/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = restomobile/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = restomobile/main.m; sourceTree = "<group>"; };
@@ -446,6 +445,7 @@
 		9C859BB9A06B4B9397E59FDB /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		9E03BAAF9ADF4C5DB262EF67 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		A401E9363DC44A4EA7C67322 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		A60D8CE322B7C1D700293D36 /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		A6B473DA228AED7500C6615A /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		A6DD8B24226B519E00AC236E /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		A6EB19692279257E00F89A2D /* GoogleMapsBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMapsBase.framework; sourceTree = "<group>"; };
@@ -647,8 +647,8 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				A60D8CE322B7C1D700293D36 /* LaunchScreen.xib */,
 			);
 			name = restomobile;
 			sourceTree = "<group>";
@@ -1358,7 +1358,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				C4BE59E27579418FAA02E64B /* Roboto_medium.ttf in Resources */,
 				0DC378EF10D2426AA7BD9FDA /* Roboto.ttf in Resources */,
 				CCE5B4F73F9A472DB5567AB1 /* rubicon-icon-font.ttf in Resources */,
@@ -1368,6 +1367,7 @@
 				9B4CDDB8E0DA4FEF8FC2C3F4 /* EvilIcons.ttf in Resources */,
 				44DDE59ACDF641FE9795E080 /* Feather.ttf in Resources */,
 				58155867685A4E08AC8C2F9C /* FontAwesome.ttf in Resources */,
+				A60D8CE422B7C1D700293D36 /* LaunchScreen.xib in Resources */,
 				A0FA41505BFC471FB3A31441 /* FontAwesome5_Brands.ttf in Resources */,
 				F1AE701B814D44C88D40EA3F /* FontAwesome5_Regular.ttf in Resources */,
 				F5D582C2EA574C1AA3191EDC /* FontAwesome5_Solid.ttf in Resources */,
@@ -1478,18 +1478,6 @@
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				13B07FB21A68108700A75B9A /* Base */,
-			);
-			name = LaunchScreen.xib;
-			path = restomobile;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
