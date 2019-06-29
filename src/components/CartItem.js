@@ -23,7 +23,13 @@ class CartItem extends Component {
 		);
 	}
 	render() {
-		const { checkout, onUpdateCheckoutWithRestoShippingAddress, onUpdateQuantityItem } = this.props;
+		const { 
+			onUpdateCheckoutWithRestoShippingAddress, 
+			onUpdateQuantityItem, 
+			onUpdateCheckoutWithShippingMethod 
+		} = this.props;
+		const { checkout, dataPrice } = this.props.checkout;
+		
 		return (
 			<Card style={checkout.id_resto_shipping_address !== 0 && checkout.shipping_name !== null ? { borderColor: 'green' } : {}}>
 				{/* Does this conditional style work? */}
@@ -61,7 +67,11 @@ class CartItem extends Component {
 					checkout={checkout} 
 					onUpdateCheckoutWithRestoShippingAddress={onUpdateCheckoutWithRestoShippingAddress}
 				/>
-				<ShippingMethodPicker checkout={checkout} />
+				<ShippingMethodPicker 
+					checkout={checkout} 
+					shippingData={dataPrice} 
+					onUpdateCheckoutWithShippingMethod={onUpdateCheckoutWithShippingMethod}
+				/>
 			</Card>
 		);
 	}

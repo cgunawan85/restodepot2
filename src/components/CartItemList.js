@@ -8,7 +8,8 @@ class CartItemList extends Component {
 			checked, 
 			addOrRemoveFromChecked, 
 			onUpdateCheckoutWithRestoShippingAddress,
-			onUpdateQuantityItem 
+			onUpdateQuantityItem,
+			onUpdateCheckoutWithShippingMethod 
 		} = this.props;
 
 		return (
@@ -18,6 +19,7 @@ class CartItemList extends Component {
 				addOrRemoveFromChecked={addOrRemoveFromChecked}
 				onUpdateCheckoutWithRestoShippingAddress={onUpdateCheckoutWithRestoShippingAddress}
 				onUpdateQuantityItem={onUpdateQuantityItem}
+				onUpdateCheckoutWithShippingMethod={onUpdateCheckoutWithShippingMethod}
 			/>
 		);
 	}
@@ -28,7 +30,7 @@ class CartItemList extends Component {
 				<FlatList 
 					data={this.props.checkoutList}
 					renderItem={({ item }) => this.renderCartItem(item)}
-					keyExtractor={(checkout) => checkout.id_checkout.toString()}
+					keyExtractor={(item, index) => index.toString()}
 					style={{ paddingBottom: 10 }}
 				/>
 			</View>

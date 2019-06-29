@@ -98,3 +98,7 @@ export const ADD_TO_CART_FAIL = 'add_to_cart_fail';
 export const START_REMOVE_CHECKOUT = 'start_remove_checkout';
 export const REMOVE_CHECKOUT_SUCCESS = 'remove_checkout_success';
 export const REMOVE_CHECKOUT_FAIL = 'remove_checkout_fail';
+export const START_UPDATE_SHIPPING_NAME = 'start_update_shipping_name';
+export const UPDATE_CHECKOUT_SHIPPING_NAME_SUCCESS = 'update_checkout_shipping_name_success';
+export const UPDATE_CHECKOUT_SHIPPING_NAME_FAIL = 'update_checkout_shipping_name_fail';
+

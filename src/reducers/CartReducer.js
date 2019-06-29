@@ -13,7 +13,10 @@ import {
 	ADD_TO_CART_FAIL,
 	START_REMOVE_CHECKOUT,
 	REMOVE_CHECKOUT_SUCCESS,
-	REMOVE_CHECKOUT_FAIL
+	REMOVE_CHECKOUT_FAIL,
+	START_UPDATE_SHIPPING_NAME,
+	UPDATE_CHECKOUT_SHIPPING_NAME_SUCCESS,
+	UPDATE_CHECKOUT_SHIPPING_NAME_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -32,7 +35,7 @@ export default (state = INITIAL_STATE, action) => {
 			return { 
 				...state, 
 				loading: false, 
-				checkout_list: action.payload.data.data.checkouts, 
+				checkout_list: action.payload.data.data.checkouts,
 				shipping_addresses: action.payload.data.data.shipping_addresses,
 				total_price: action.payload.data.data.total_price
 			};
@@ -43,6 +46,12 @@ export default (state = INITIAL_STATE, action) => {
 		case UPDATE_CHECKOUT_RESTO_SHIPPING_ADDRESS_SUCCESS:
 			return { ...state, loading: false };
 		case UPDATE_CHECKOUT_RESTO_SHIPPING_ADDRESS_FAIL:
+			return { ...state, loading: false };
+		case START_UPDATE_SHIPPING_NAME:
+			return { ...state, loading: true };
+		case UPDATE_CHECKOUT_SHIPPING_NAME_SUCCESS:
+			return { ...state, loading: false };
+		case UPDATE_CHECKOUT_SHIPPING_NAME_FAIL:
 			return { ...state, loading: false };
 		case START_UPDATE_QUANTITY_ITEM:
 			return { ...state, loading: true };

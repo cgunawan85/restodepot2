@@ -11,6 +11,7 @@ import {
 	updateCheckoutRestoShippingAddress, 
 	updateQuantityCheckoutItem,
 	removeCheckout,
+	updateCheckoutShippingMethod
 } from '../actions/';
 import { CART_EMPTY_STATE_IMAGE } from '../images/';
 
@@ -41,6 +42,16 @@ class CartScreen extends Component {
 		});
 	}
 
+	onUpdateCheckoutWithShippingMethod(itemValue, cost, idCheckout) {
+		this.props.updateCheckoutShippingMethod(itemValue, cost, idCheckout).then(() => {
+			const resetAction = StackActions.reset({
+				index: 0,
+				actions: [NavigationActions.navigate({ routeName: 'CartScreen' })]
+			});
+			this.props.navigation.dispatch(resetAction);
+		});
+	}
+
 	onUpdateQuantityItem(idCheckoutItem, quantity) {
 		this.props.updateQuantityCheckoutItem(idCheckoutItem, quantity).then(() => {
 			const resetAction = StackActions.reset({
@@ -63,7 +74,7 @@ class CartScreen extends Component {
 	}
 
 	onSelectAllButtonPress() {
-		const mappedArray = this.props.checkout_list.map((checkout) => checkout.id_checkout);
+		const mappedArray = this.props.checkout_list.map((checkout) => checkout.checkout.id_checkout);
 		this.setState({ checked: mappedArray });
 	}
 
@@ -131,6 +142,7 @@ class CartScreen extends Component {
 					addOrRemoveFromChecked={this.addOrRemoveFromChecked.bind(this)}
 					onUpdateCheckoutWithRestoShippingAddress={this.onUpdateCheckoutWithRestoShippingAddress.bind(this)}
 					onUpdateQuantityItem={this.onUpdateQuantityItem.bind(this)}
+					onUpdateCheckoutWithShippingMethod={this.onUpdateCheckoutWithShippingMethod.bind(this)}
 				/>
 				<ConfirmPaymentModal 
 					modalVisible={this.state.modalVisible} 
@@ -186,5 +198,6 @@ export default connect(mapStateToProps, {
 	fetchCheckout, 
 	updateCheckoutRestoShippingAddress,
 	updateQuantityCheckoutItem,
-	removeCheckout 
+	removeCheckout,
+	updateCheckoutShippingMethod
 })(CartScreen);

@@ -10,20 +10,33 @@ import {
 	StyleProvider, 
 	getTheme 
 } from 'native-base';
+import { numberWithCommas } from '../services/utils';
 
 class ShippingMethodPicker extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { shipping_name: 'key0' };
+		this.state = { shipping_name: this.props.checkout.shipping_name };
 	}
 
 	renderPicker() {
+		console.log(this.props.shippingData);
 		const { 
 			pickerTextStyle, 
 			containerStyle, 
 			shippingMethodsTextContainerStyle, 
 			deliveryAlertTextStyle 
 		} = styles;
+
+		const renderShippingMethods = this.props.shippingData.map((shippingMethod) => {
+			//how to get shippingMethod.cost?
+			return (
+				<Picker.Item 
+					label={`${shippingMethod.shippingName} - IDR ${numberWithCommas(shippingMethod.cost)}`} 
+					value={shippingMethod.shippingName} 
+					key={shippingMethod.shippingName}
+				/>
+			);
+		});
 
 		if (this.props.checkout.id_resto_shipping_address !== 0) {
 			return (
@@ -45,12 +58,13 @@ class ShippingMethodPicker extends Component {
 								note
 								selectedValue={this.state.shipping_name}
 								textStyle={pickerTextStyle}
-								onValueChange={(itemValue) => this.setState({ shipping_name: itemValue })}
+								onValueChange={(itemValue) => {
+									console.log(itemValue);
+									this.props.onUpdateCheckoutWithShippingMethod(itemValue, 100000, this.props.checkout.id_checkout);
+								}}
 							>
-								<Picker.Item label="None" value="key0" />
-								<Picker.Item label="Go-Jek Instant" value="key1" />
-								<Picker.Item label="Go-Jek Same Day" value="key2" />
-								<Picker.Item label="Ninja Van" value="key3" />
+								<Picker.Item label="None" value={null} />
+								{renderShippingMethods}
 							</Picker>
 						</Form>
 					</View>

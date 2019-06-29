@@ -14,7 +14,10 @@ import {
 	ADD_TO_CART_FAIL,
 	START_REMOVE_CHECKOUT,
 	REMOVE_CHECKOUT_SUCCESS,
-	REMOVE_CHECKOUT_FAIL
+	REMOVE_CHECKOUT_FAIL,
+	START_UPDATE_SHIPPING_NAME,
+	UPDATE_CHECKOUT_SHIPPING_NAME_SUCCESS,
+	UPDATE_CHECKOUT_SHIPPING_NAME_FAIL
 } from './types';
 import NavigationService from '../services/NavigationService';
 
@@ -54,6 +57,32 @@ export const updateCheckoutRestoShippingAddress = (id_resto_shipping_address, id
 				})
 				.catch((error) => {
 					dispatch({ type: UPDATE_CHECKOUT_RESTO_SHIPPING_ADDRESS_FAIL });
+					console.log(`Error updating resto shipping address --> ${error}`);
+				});
+			});
+	};
+};
+
+export const updateCheckoutShippingMethod = (shipping_name, cost, id_checkout) => {
+	return (dispatch) => {
+		return new Promise((resolve) => {
+			dispatch({ type: START_UPDATE_SHIPPING_NAME });
+			axios.request({
+				url: 'http://localhost:8080/cart/update-shipping-name',
+				method: 'post',
+				params: {
+					shipping_name: shipping_name,
+					cost: cost,
+					id_checkout: id_checkout
+				}
+			})
+				.then((response) => {
+					dispatch({ type: UPDATE_CHECKOUT_SHIPPING_NAME_SUCCESS });
+					console.log(`Update checkout resto shipping address success! --> ${response}`);
+					resolve();
+				})
+				.catch((error) => {
+					dispatch({ type: UPDATE_CHECKOUT_SHIPPING_NAME_FAIL });
 					console.log(`Error updating resto shipping address --> ${error}`);
 				});
 			});
