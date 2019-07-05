@@ -74,6 +74,9 @@ export const FETCH_SEARCH_RESULT_FAIL = 'fetch_search_results_fail';
 export const START_SUBMIT_FEEDBACK = 'start_submit_feedback';
 export const SUBMIT_FEEDBACK_SUCCESS = 'submit_feedback_success';
 export const SUBMIT_FEEDBACK_FAIL = 'submit_feedback_fail';
+export const START_FETCH_PRODUCTS = 'start_fetch_products';
+export const FETCH_PRODUCTS_SUCCESS = 'fetch_products_success';
+export const FETCH_PRODUCTS_FAIL = 'fetch_products_fail';
 
 // vendor actions
 export const START_FETCH_VENDOR = 'start_fetch_vendor';
@@ -101,4 +104,6 @@ export const REMOVE_CHECKOUT_FAIL = 'remove_checkout_fail';
 export const START_UPDATE_SHIPPING_NAME = 'start_update_shipping_name';
 export const UPDATE_CHECKOUT_SHIPPING_NAME_SUCCESS = 'update_checkout_shipping_name_success';
 export const UPDATE_CHECKOUT_SHIPPING_NAME_FAIL = 'update_checkout_shipping_name_fail';
-
+export const START_MIDTRANS_PAY = 'start_midtrans_pay';
+export const MIDTRANS_PAY_SUCCESS = 'midtrans_pay_success';
+export const MIDTRANS_PAY_FAIL = 'midtrans_pay_fail';

@@ -10,7 +10,10 @@ import {
 	FETCH_SEARCH_RESULTS_FAIL,
 	START_SUBMIT_FEEDBACK,
 	SUBMIT_FEEDBACK_SUCCESS,
-	SUBMIT_FEEDBACK_FAIL
+	SUBMIT_FEEDBACK_FAIL,
+	START_FETCH_PRODUCTS,
+	FETCH_PRODUCTS_SUCCESS,
+	FETCH_PRODUCTS_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -19,6 +22,7 @@ const INITIAL_STATE = {
 	best_deals: [],
 	rd_approved: [],
 	products: [],
+	category_products: [],
 	product_suggestions: [],
 	product_suggestions_loading: false,
 	loading: false,
@@ -62,7 +66,13 @@ export default (state = INITIAL_STATE, action) => {
 		case SUBMIT_FEEDBACK_SUCCESS:
 			return { ...state, loading: false };
 		case SUBMIT_FEEDBACK_FAIL:
-			return { ...state, loading: false };  
+			return { ...state, loading: false }; 
+		case START_FETCH_PRODUCTS:
+			return { ...state, loading: true };
+		case FETCH_PRODUCTS_SUCCESS: 
+			return { ...state, loading: false, category_products: action.payload.data.data };
+		case FETCH_PRODUCTS_FAIL:
+			return { ...state, loading: false };
 		default:
 			return state;
 	}

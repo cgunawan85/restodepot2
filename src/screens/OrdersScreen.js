@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Image, Text } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import { Container, Content, Tab, Tabs, Spinner } from 'native-base';
 import { connect } from 'react-redux';
 import OrderList from '../components/OrderList';
@@ -54,6 +55,7 @@ class OrdersScreen extends Component {
 		return (
 			<Container>
 				<Content contentContainerStyle={{ flex: 1 }}>
+				<NavigationEvents onDidFocus={() => this.props.fetchOrders()} />
 					{this.renderContentOrLoading()}
 					<ThankYouPurchaseModal modalVisible={this.props.modalVisible} />
 				</Content>

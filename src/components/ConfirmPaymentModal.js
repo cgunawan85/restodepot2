@@ -13,7 +13,7 @@ class ConfirmPaymentModal extends Component {
 			buttonStyle,
 		} = styles;
 
-		const { modalVisible, onDecline } = this.props;
+		const { modalVisible, onDecline, checkoutMidtrans } = this.props;
 
 		return (
 			<Modal
@@ -31,16 +31,21 @@ class ConfirmPaymentModal extends Component {
 								style={buttonStyle}
 								onPress={() => {
 									onDecline();
+									checkoutMidtrans();
+								}}
+							>
+								<Text>Bank Transfer, Credit Card or Go-Pay</Text>
+							</Button>
+
+							<Button 
+								bordered 
+								style={buttonStyle}
+								onPress={() => {
+									onDecline();
 									this.props.navigation.navigate('OrdersScreen');
 								}}
 							>
-								<Text>Pay Now</Text>
-							</Button>
-							<Button bordered success style={buttonStyle}>
 								<Text>Pay Later</Text>
-							</Button>
-							<Button style={buttonStyle} >
-								<Text style={{ color: 'white' }}>Kredivo</Text>
 							</Button>
 						</View>
 						<View style={buttonContainerStyle}>

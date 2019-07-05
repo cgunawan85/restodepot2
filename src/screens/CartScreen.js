@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions, StackActions, NavigationEvents } from 'react-navigation';
-import { Container, Content, Card, CardItem, Left, Button, Spinner, Text } from 'native-base';
+import { Container, Content, Card, CardItem, Left, Button, Spinner, Text, Toast } from 'native-base';
 import CartFooter from '../components/CartFooter';
 import ConfirmPaymentModal from '../components/ConfirmPaymentModal';
 import CartItemList from '../components/CartItemList';
@@ -11,7 +11,8 @@ import {
 	updateCheckoutRestoShippingAddress, 
 	updateQuantityCheckoutItem,
 	removeCheckout,
-	updateCheckoutShippingMethod
+	updateCheckoutShippingMethod,
+	payMidtransSingle
 } from '../actions/';
 import { CART_EMPTY_STATE_IMAGE } from '../images/';
 
@@ -76,6 +77,35 @@ class CartScreen extends Component {
 	onSelectAllButtonPress() {
 		const mappedArray = this.props.checkout_list.map((checkout) => checkout.checkout.id_checkout);
 		this.setState({ checked: mappedArray });
+	}
+
+	onBuyButtonPress() {
+		if (this.isValid() === true) {
+			this.showModal();
+		} else {
+			return Toast.show({
+				text: 'Please complete your shipping information!',
+				duration: 3000,
+				buttonText: 'Got it!'
+			});
+		}
+	}
+
+	isValid() {
+		for (const checkout of this.props.checkout_list) {
+			if (checkout.checkout.id_resto_shipping_address === 0 || checkout.checkout.shipping_name === null) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	checkoutMidtrans() {
+		// call action creator here, navigate to PaymentWebViewScreen
+		// with redirect URL in params
+		const idCheckout = this.state.checked[0];
+		this.setState({ checked: [] });
+		this.props.payMidtransSingle(idCheckout);
 	}
 
 	addOrRemoveFromChecked(idCheckout) {
@@ -147,6 +177,7 @@ class CartScreen extends Component {
 				<ConfirmPaymentModal 
 					modalVisible={this.state.modalVisible} 
 					onDecline={this.closeModal.bind(this)}
+					checkoutMidtrans={this.checkoutMidtrans.bind(this)}
 				/>
 			</View>
 		);
@@ -166,6 +197,7 @@ class CartScreen extends Component {
 						checked={this.state.checked}
 						showModal={this.showModal.bind(this)}
 						totalPrice={total_price}
+						onBuyButtonPress={this.onBuyButtonPress.bind(this)}
 					/>
 				</View>
 			</Container>
@@ -190,7 +222,8 @@ const mapStateToProps = state => {
 	return {
 		loading: state.cart.loading,
 		checkout_list: state.cart.checkout_list,
-		total_price: state.cart.total_price
+		total_price: state.cart.total_price,
+		redirect_url: state.cart.redirect_url
 	};
 };
 
@@ -199,5 +232,6 @@ export default connect(mapStateToProps, {
 	updateCheckoutRestoShippingAddress,
 	updateQuantityCheckoutItem,
 	removeCheckout,
-	updateCheckoutShippingMethod
+	updateCheckoutShippingMethod,
+	payMidtransSingle
 })(CartScreen);

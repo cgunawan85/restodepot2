@@ -5,13 +5,13 @@ import { withNavigation } from 'react-navigation';
 
 class CategoryButton extends Component {
 	render() {
-		const { children, style, onPress, category } = this.props;
+		const { children, style, onPress, categoryID } = this.props;
 		const { linearGradientStyle, containerStyle, textStyle } = styles;
 		return (
 			<TouchableOpacity 
 				onPress={onPress} 
 				style={[containerStyle, style]}
-				onPress={() => this.props.navigation.navigate('CategoriesStack', { category: category })}
+				onPress={() => this.props.navigation.navigate('CategoriesStack', { categoryID: categoryID })}
 			>
 				<LinearGradient 
 					style={linearGradientStyle}

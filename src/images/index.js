@@ -20,3 +20,4 @@ export const REVIEWS_EMPTY_STATE_IMAGE = require('./reviews-empty-state-image.pn
 export const ORDERS_EMPTY_STATE_IMAGE = require('./orders-empty-state-image.png');
 export const CART_EMPTY_STATE_IMAGE = require('./cart-empty-state-image.png');
 export const ABOUT_US_COVER_IMAGE = require('./about-us-cover.png');
+export const BOX = require('./box.png');

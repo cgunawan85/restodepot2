@@ -17,7 +17,10 @@ import {
 	REMOVE_CHECKOUT_FAIL,
 	START_UPDATE_SHIPPING_NAME,
 	UPDATE_CHECKOUT_SHIPPING_NAME_SUCCESS,
-	UPDATE_CHECKOUT_SHIPPING_NAME_FAIL
+	UPDATE_CHECKOUT_SHIPPING_NAME_FAIL,
+	START_MIDTRANS_PAY,
+	MIDTRANS_PAY_SUCCESS,
+	MIDTRANS_PAY_FAIL
 } from './types';
 import NavigationService from '../services/NavigationService';
 
@@ -152,5 +155,21 @@ export const removeCheckout = (checkout) => {
 					console.log(error);
 				});
 			});
+	};
+};
+
+export const payMidtransSingle = (checkout) => {
+	return (dispatch) => {
+		dispatch({ type: START_MIDTRANS_PAY });
+		axios.request({
+			url: `http://localhost:8080/pay/midtrans-single-${checkout}`,
+			method: 'get'
+		}).then((response) => {
+			dispatch({ type: MIDTRANS_PAY_SUCCESS });
+			NavigationService.navigate('PaymentWebViewScreen', { url: response.data.data.redirectUrl });
+		}).catch((response) => {
+			dispatch({ type: MIDTRANS_PAY_FAIL });
+			console.log(response);
+		});
 	};
 };

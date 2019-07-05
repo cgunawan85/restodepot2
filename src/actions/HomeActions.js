@@ -12,8 +12,32 @@ import {
 	FETCH_SEARCH_RESULTS_FAIL,
 	START_SUBMIT_FEEDBACK,
 	SUBMIT_FEEDBACK_SUCCESS,
-	SUBMIT_FEEDBACK_FAIL
+	SUBMIT_FEEDBACK_FAIL,
+	START_FETCH_PRODUCTS,
+	FETCH_PRODUCTS_SUCCESS,
+	FETCH_PRODUCTS_FAIL
 } from './types';
+
+export const fetchProducts = (idCategory) => {
+	return (dispatch) => {
+		dispatch({ type: START_FETCH_PRODUCTS });
+		axios.request({
+			url: 'http://localhost:8080/products',
+			method: 'get',
+			params: {
+				id_category: idCategory
+			}
+		})
+			.then((response) => {
+				dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: response });
+				console.log(response);
+			})
+			.catch((error) => {
+				dispatch({ type: FETCH_PRODUCTS_FAIL });
+				console.log(error);
+			});
+	};
+};
 
 export const fetchHome = () => {
 	return (dispatch) => {

@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { 
 	Text, 
+	Button,
 	Card, 
 	CardItem, 
 	Left, 
 	CheckBox, 
+	Icon
 } from 'native-base';
 import ShippingAddressPicker from './ShippingAddressPicker';
-import ShippingMethodPicker from './ShippingMethodPicker';
+// import ShippingMethodPicker from './ShippingMethodPicker';
 import CartItemProductList from './CartItemProductList';
 import CartLineItem from './CartLineItem';
-
+import { withNavigation } from 'react-navigation';
 
 class CartItem extends Component {
 	renderNoShippingMethodAlert() {
@@ -22,6 +24,41 @@ class CartItem extends Component {
 			</View>
 		);
 	}
+
+	renderCheckmark() {
+		if (this.props.checkout.checkout.shipping_name !== null) {
+			return (
+				<Icon name='ios-checkmark' style={{ fontSize: 28 }} />
+			);
+		}
+	}
+
+	renderShippingMethodChooseButton() {
+		const { checkout, dataPrice } = this.props.checkout;
+		const { shippingAddressAlertTextStyle } = styles;
+
+		if (checkout.id_resto_shipping_address !== 0) {
+			return (
+				<Button
+					success={checkout.shipping_name !== null ? true : false}
+					block
+					onPress={() => this.props.navigation.navigate(
+						'ChooseShippingScreen', 
+						{ shippingMethods: dataPrice, idCheckout: checkout.id_checkout }
+					)}
+				>
+					{this.renderCheckmark()}
+					<Text>Choose Shipping Method</Text>
+				</Button>
+			);
+		}
+		return (
+			<View style={{ backgroundColor: 'yellow' }}>
+				<Text style={shippingAddressAlertTextStyle}>Please choose a shipping adddress</Text>
+			</View>
+			);
+	}
+
 	render() {
 		const { 
 			onUpdateCheckoutWithRestoShippingAddress, 
@@ -67,17 +104,25 @@ class CartItem extends Component {
 					checkout={checkout} 
 					onUpdateCheckoutWithRestoShippingAddress={onUpdateCheckoutWithRestoShippingAddress}
 				/>
+				{this.renderShippingMethodChooseButton()}
+				{/*
 				<ShippingMethodPicker 
 					checkout={checkout} 
 					shippingData={dataPrice} 
 					onUpdateCheckoutWithShippingMethod={onUpdateCheckoutWithShippingMethod}
 				/>
+				*/}
 			</Card>
 		);
 	}
 }
 
 const styles = {
+	shippingAddressAlertTextStyle: {
+		textAlign: 'center', 
+		fontSize: 12, 
+		paddingVertical: 5
+	},
 	deliveryAlertTextStyle: {
 		color: 'white',
 		fontSize: 14,
@@ -86,4 +131,4 @@ const styles = {
 	}
 };
 
-export default CartItem;
+export default withNavigation(CartItem);

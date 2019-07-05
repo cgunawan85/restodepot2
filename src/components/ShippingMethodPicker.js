@@ -10,6 +10,7 @@ import {
 	StyleProvider, 
 	getTheme 
 } from 'native-base';
+import CustomPickerItem from './CustomPickerItem';
 import { numberWithCommas } from '../services/utils';
 
 class ShippingMethodPicker extends Component {
@@ -19,7 +20,6 @@ class ShippingMethodPicker extends Component {
 	}
 
 	renderPicker() {
-		console.log(this.props.shippingData);
 		const { 
 			pickerTextStyle, 
 			containerStyle, 
@@ -30,7 +30,7 @@ class ShippingMethodPicker extends Component {
 		const renderShippingMethods = this.props.shippingData.map((shippingMethod) => {
 			//how to get shippingMethod.cost?
 			return (
-				<Picker.Item 
+				<CustomPickerItem 
 					label={`${shippingMethod.shippingName} - IDR ${numberWithCommas(shippingMethod.cost)}`} 
 					value={shippingMethod.shippingName} 
 					key={shippingMethod.shippingName}
@@ -59,11 +59,10 @@ class ShippingMethodPicker extends Component {
 								selectedValue={this.state.shipping_name}
 								textStyle={pickerTextStyle}
 								onValueChange={(itemValue) => {
-									console.log(itemValue);
 									this.props.onUpdateCheckoutWithShippingMethod(itemValue, 100000, this.props.checkout.id_checkout);
 								}}
 							>
-								<Picker.Item label="None" value={null} />
+								<CustomPickerItem label="None" value={null} />
 								{renderShippingMethods}
 							</Picker>
 						</Form>
