@@ -105,7 +105,7 @@ class OrderListItem extends Component {
 				</Left>
 				<Body>
 					<Text style={orderTextStyle}>
-						{`Order #${order.checkout_id_transaction}`}
+						{`Order #${order.id_order}`}
 					</Text>
 					{this.renderOrderItemsText()}
 					{this.renderStatusPaymentText()}

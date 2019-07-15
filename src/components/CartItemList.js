@@ -6,8 +6,7 @@ class CartItemList extends Component {
 	renderCartItem(item) {
 		const { 
 			checked, 
-			addOrRemoveFromChecked, 
-			onUpdateCheckoutWithRestoShippingAddress,
+			addOrRemoveFromChecked,
 			onUpdateQuantityItem,
 			onUpdateCheckoutWithShippingMethod 
 		} = this.props;
@@ -16,8 +15,8 @@ class CartItemList extends Component {
 			<CartItem 
 				checked={checked} 
 				checkout={item} 
+				shippingAddresses={this.props.shippingAddresses}
 				addOrRemoveFromChecked={addOrRemoveFromChecked}
-				onUpdateCheckoutWithRestoShippingAddress={onUpdateCheckoutWithRestoShippingAddress}
 				onUpdateQuantityItem={onUpdateQuantityItem}
 				onUpdateCheckoutWithShippingMethod={onUpdateCheckoutWithShippingMethod}
 			/>

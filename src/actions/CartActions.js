@@ -173,3 +173,20 @@ export const payMidtransSingle = (checkout) => {
 		});
 	};
 };
+
+export const payMidtrans = (idCheckouts) => {
+	return (dispatch) => {
+		dispatch({ type: START_MIDTRANS_PAY });
+		axios.request({
+			url: 'http://localhost:8080/pay/midtrans-list',
+			method: 'post',
+			data: idCheckouts
+		}).then((response) => {
+			dispatch({ type: MIDTRANS_PAY_SUCCESS });
+			NavigationService.navigate('PaymentWebViewScreen', { url: response.data.data.redirectUrl });
+		}).catch((response) => {
+			dispatch({ type: MIDTRANS_PAY_FAIL });
+			console.log(response);
+		});
+	};
+};

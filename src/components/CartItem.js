@@ -9,11 +9,9 @@ import {
 	CheckBox, 
 	Icon
 } from 'native-base';
-import ShippingAddressPicker from './ShippingAddressPicker';
-// import ShippingMethodPicker from './ShippingMethodPicker';
+import { withNavigation } from 'react-navigation';
 import CartItemProductList from './CartItemProductList';
 import CartLineItem from './CartLineItem';
-import { withNavigation } from 'react-navigation';
 
 class CartItem extends Component {
 	renderNoShippingMethodAlert() {
@@ -25,12 +23,36 @@ class CartItem extends Component {
 		);
 	}
 
-	renderCheckmark() {
-		if (this.props.checkout.checkout.shipping_name !== null) {
+	renderAddressCheckmark() {
+		const { checkout } = this.props.checkout;
+		if (checkout.id_resto_shipping_address !== 0) {
 			return (
 				<Icon name='ios-checkmark' style={{ fontSize: 28 }} />
 			);
 		}
+	}
+
+	renderShippingMethodCheckmark() {
+		const { checkout } = this.props.checkout;
+		if (checkout.shipping_name !== null) {
+			return (
+				<Icon name='ios-checkmark' style={{ fontSize: 28 }} />
+			);
+		}
+	}
+
+	renderButtonTextOrShippingMethod() {
+		if (this.props.checkout.checkout.shipping_name === null) {
+			return <Text>Choose Shipping Method</Text>;
+		}
+		return <Text>{this.props.checkout.checkout.shipping_name}</Text>;
+	}
+
+	renderButtonTextOrShippingAddress() {
+		if (this.props.checkout.checkout.id_resto_shipping_address === 0) {
+			return <Text>Choose Shipping Address</Text>;
+		}
+		return <Text>{this.props.checkout.checkout.id_resto_shipping_address}</Text>;
 	}
 
 	renderShippingMethodChooseButton() {
@@ -41,14 +63,15 @@ class CartItem extends Component {
 			return (
 				<Button
 					success={checkout.shipping_name !== null ? true : false}
-					block
+					bordered
+					full
 					onPress={() => this.props.navigation.navigate(
 						'ChooseShippingScreen', 
 						{ shippingMethods: dataPrice, idCheckout: checkout.id_checkout }
 					)}
 				>
-					{this.renderCheckmark()}
-					<Text>Choose Shipping Method</Text>
+					{this.renderShippingMethodCheckmark()}
+					{this.renderButtonTextOrShippingMethod()}
 				</Button>
 			);
 		}
@@ -59,17 +82,34 @@ class CartItem extends Component {
 			);
 	}
 
+	renderShippingAddressChooseButton() {
+		const { checkout } = this.props.checkout;
+		return (
+			<Button
+				success={checkout.id_resto_shipping_address !== 0 ? true : false}
+				bordered
+				full
+				onPress={() => this.props.navigation.navigate(
+					'ChooseShippingAddressScreen', 
+					{ 
+						idCheckout: checkout.id_checkout, 
+						shippingAddresses: this.props.shippingAddresses 
+					}
+				)}
+				style={{ marginBottom: 10 }}
+			>
+				{this.renderAddressCheckmark()}
+				{this.renderButtonTextOrShippingAddress()}
+			</Button>
+		);
+	}
+
 	render() {
-		const { 
-			onUpdateCheckoutWithRestoShippingAddress, 
-			onUpdateQuantityItem, 
-			onUpdateCheckoutWithShippingMethod 
-		} = this.props;
-		const { checkout, dataPrice } = this.props.checkout;
+		const { onUpdateQuantityItem } = this.props;
+		const { checkout } = this.props.checkout;
 		
 		return (
 			<Card style={checkout.id_resto_shipping_address !== 0 && checkout.shipping_name !== null ? { borderColor: 'green' } : {}}>
-				{/* Does this conditional style work? */}
 				<CardItem header bordered style={{ backgroundColor: '#F3F9FF' }}>
 					<Left>
 						<CheckBox
@@ -100,18 +140,8 @@ class CartItem extends Component {
 					name='Total Price' 
 					amount={checkout.total_price} 
 				/>
-				<ShippingAddressPicker 
-					checkout={checkout} 
-					onUpdateCheckoutWithRestoShippingAddress={onUpdateCheckoutWithRestoShippingAddress}
-				/>
+				{this.renderShippingAddressChooseButton()}
 				{this.renderShippingMethodChooseButton()}
-				{/*
-				<ShippingMethodPicker 
-					checkout={checkout} 
-					shippingData={dataPrice} 
-					onUpdateCheckoutWithShippingMethod={onUpdateCheckoutWithShippingMethod}
-				/>
-				*/}
 			</Card>
 		);
 	}

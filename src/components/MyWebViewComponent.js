@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import { WebView } from 'react-native-webview';
+import { withNavigation } from 'react-navigation';
 
 class MyWebViewComponent extends Component {
+	// http://dev.restodepot.id/checkout_thankyou.html?order_id=TR-CH-1907150589&status_code=200&transaction_status=capture (success credit card)
+	// http://dev.restodepot.id/checkout_thankyou.html?order_id=TR-CH-1907150591&status_code=201&transaction_status=pending (pending credit card)
+	// http://dev.restodepot.id/checkout_thankyou.html?order_id=TR-CH-1907150593&status_code=201&transaction_status=pending (pending bank transfer)
+
 	render() {
 		return (
 			<WebView 
 				source={{ uri: this.props.url }} 
 				onShouldStartLoadWithRequest={(request) => {
-					if (request.url.startsWith('http://dev.restodepot.id/profile-orders')) {
-						return false;
+					if (request.url.includes('pending')) {
+						this.props.navigation.navigate('PaymentPendingScreen');
+					} else if (request.url.includes('capture')) {
+						this.props.navigation.navigate('PaymentThankYouScreen');
 					}
 					return true;
 				}}
@@ -17,4 +24,4 @@ class MyWebViewComponent extends Component {
 	}
 }
 
-export default MyWebViewComponent;
+export default withNavigation(MyWebViewComponent);

@@ -12,7 +12,7 @@ class OrderList extends Component {
 			<FlatList 
 				data={this.props.orders}
 				renderItem={({ item }) => this.renderOrderListItem(item)}
-				keyExtractor={(order) => order.checkout_id_transaction}
+				keyExtractor={(order) => order.id_order}
 			/>
 		);
 	}

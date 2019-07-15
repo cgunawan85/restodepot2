@@ -21,3 +21,7 @@ export const ORDERS_EMPTY_STATE_IMAGE = require('./orders-empty-state-image.png'
 export const CART_EMPTY_STATE_IMAGE = require('./cart-empty-state-image.png');
 export const ABOUT_US_COVER_IMAGE = require('./about-us-cover.png');
 export const BOX = require('./box.png');
+export const LOCATION_MAP = require('./location-map.png');
+export const SUCCESS_CHECK_MARK = require('./white-checked-box-success.png');
+export const PENDING_CLOCK = require('./white-clock-pending.png');
+export const PAYMENT_FAILED = require('./white-payment-failed.png');

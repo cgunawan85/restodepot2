@@ -32,7 +32,11 @@ import SearchResultsScreen from './screens/SearchResultsScreen';
 import AllVendorsScreen from './screens/AllVendorsScreen';
 import ContactUsScreen from './screens/ContactUsScreen';
 import PaymentWebViewScreen from './screens/PaymentWebViewScreen';
+import ChooseShippingAddressScreen from './screens/ChooseShippingAddressScreen';
 import ChooseShippingScreen from './screens/ChooseShippingScreen';
+import PaymentThankYouScreen from './screens/PaymentThankYouScreen';
+import PaymentPendingScreen from './screens/PaymentPendingScreen';
+import PaymentFailedScreen from './screens/PaymentFailedScreen';
 import NavigationService from './services/NavigationService';
 import deviceStorage from './services/deviceStorage';
 import store from './store';
@@ -100,9 +104,8 @@ const HomeStack = createStackNavigator(
 );
 
 const OrdersStack = createStackNavigator({ 
-	OrdersScreen, 
-	PaymentWebViewScreen, 
-	OrderDetailsScreen 
+	OrdersScreen,
+	OrderDetailsScreen
 });
 
 const SettingsStack = createStackNavigator({ 
@@ -114,7 +117,15 @@ const SettingsStack = createStackNavigator({
 	PinLocationMapScreen, 
 });
 
-const CartStack = createStackNavigator({ CartScreen, ChooseShippingScreen });
+const CartStack = createStackNavigator({ 
+	CartScreen,
+	ChooseShippingAddressScreen,
+	ChooseShippingScreen,
+	PaymentWebViewScreen,
+	PaymentPendingScreen,
+	PaymentThankYouScreen,
+	PaymentFailedScreen,
+});
 
 const MainTabNavigator = createBottomTabNavigator({
 	Home: HomeStack,

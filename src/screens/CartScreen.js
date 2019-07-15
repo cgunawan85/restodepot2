@@ -2,17 +2,27 @@ import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions, StackActions, NavigationEvents } from 'react-navigation';
-import { Container, Content, Card, CardItem, Left, Button, Spinner, Text, Toast } from 'native-base';
+import { 
+	Container, 
+	Content, 
+	Card, 
+	CardItem, 
+	Left, 
+	Button, 
+	Spinner, 
+	Text, 
+	Toast 
+} from 'native-base';
 import CartFooter from '../components/CartFooter';
 import ConfirmPaymentModal from '../components/ConfirmPaymentModal';
 import CartItemList from '../components/CartItemList';
 import { 
-	fetchCheckout, 
-	updateCheckoutRestoShippingAddress, 
+	fetchCheckout,
 	updateQuantityCheckoutItem,
 	removeCheckout,
 	updateCheckoutShippingMethod,
-	payMidtransSingle
+	payMidtransSingle,
+	payMidtrans
 } from '../actions/';
 import { CART_EMPTY_STATE_IMAGE } from '../images/';
 
@@ -101,11 +111,9 @@ class CartScreen extends Component {
 	}
 
 	checkoutMidtrans() {
-		// call action creator here, navigate to PaymentWebViewScreen
-		// with redirect URL in params
-		const idCheckout = this.state.checked[0];
+		const idCheckouts = this.state.checked;
+		this.props.payMidtrans(idCheckouts);
 		this.setState({ checked: [] });
-		this.props.payMidtransSingle(idCheckout);
 	}
 
 	addOrRemoveFromChecked(idCheckout) {
@@ -169,8 +177,8 @@ class CartScreen extends Component {
 				<CartItemList 
 					checkoutList={checkout_list} 
 					checked={this.state.checked}
+					shippingAddresses={this.props.shipping_addresses}
 					addOrRemoveFromChecked={this.addOrRemoveFromChecked.bind(this)}
-					onUpdateCheckoutWithRestoShippingAddress={this.onUpdateCheckoutWithRestoShippingAddress.bind(this)}
 					onUpdateQuantityItem={this.onUpdateQuantityItem.bind(this)}
 					onUpdateCheckoutWithShippingMethod={this.onUpdateCheckoutWithShippingMethod.bind(this)}
 				/>
@@ -223,15 +231,16 @@ const mapStateToProps = state => {
 		loading: state.cart.loading,
 		checkout_list: state.cart.checkout_list,
 		total_price: state.cart.total_price,
-		redirect_url: state.cart.redirect_url
+		redirect_url: state.cart.redirect_url,
+		shipping_addresses: state.cart.shipping_addresses
 	};
 };
 
 export default connect(mapStateToProps, { 
 	fetchCheckout, 
-	updateCheckoutRestoShippingAddress,
 	updateQuantityCheckoutItem,
 	removeCheckout,
 	updateCheckoutShippingMethod,
-	payMidtransSingle
+	payMidtransSingle,
+	payMidtrans
 })(CartScreen);
