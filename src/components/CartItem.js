@@ -52,7 +52,7 @@ class CartItem extends Component {
 		if (this.props.checkout.checkout.id_resto_shipping_address === 0) {
 			return <Text>Choose Shipping Address</Text>;
 		}
-		return <Text>{this.props.checkout.checkout.id_resto_shipping_address}</Text>;
+		return <Text>{this.props.checkout.checkout.shippingAddress.name}</Text>;
 	}
 
 	renderShippingMethodChooseButton() {

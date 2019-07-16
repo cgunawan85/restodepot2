@@ -130,7 +130,15 @@ const CartStack = createStackNavigator({
 const MainTabNavigator = createBottomTabNavigator({
 	Home: HomeStack,
 	Orders: OrdersStack,
-	Cart: CartStack,
+	Cart: {
+		screen: CartStack,
+		navigationOptions: {
+			tabBarOnPress: ({ navigation, defaultHandler }) => {
+				navigation.navigate('CartScreen');
+				defaultHandler();
+			}
+		}
+	},
 	Settings: SettingsStack,
 },
 {

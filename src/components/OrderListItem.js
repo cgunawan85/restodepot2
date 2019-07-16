@@ -34,7 +34,7 @@ class OrderListItem extends Component {
 		let orderStatusText;
 		switch (order.status_delivery) {
 			case 0:
-				orderStatusText = 'Pending';
+				orderStatusText = 'Incomplete';
 				break;
 			case 1:
 				orderStatusText = 'Order Processing';
@@ -75,6 +75,26 @@ class OrderListItem extends Component {
 					>
 						{order.dt_created}
 					</Moment>
+				</View>
+			);
+		} else if (order.status_payment === 3) {
+			return (
+				<View style={{ flexDirection: 'row' }}>
+					<Icon 
+						name='ios-close-circle' 
+						style={{ fontSize: 16, color: 'tomato', marginRight: 5 }} 
+					/>
+					<Text style={dateTextStyle}>Failed</Text>
+				</View>
+			);
+		} else if (order.status_payment === 4) {
+			return (
+				<View style={{ flexDirection: 'row' }}>
+					<Icon 
+						name='ios-close-circle' 
+						style={{ fontSize: 16, color: 'red', marginRight: 5 }} 
+					/>
+					<Text style={dateTextStyle}>Pending</Text>
 				</View>
 			);
 		}

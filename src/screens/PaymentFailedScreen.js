@@ -37,13 +37,7 @@ class PaymentFailedScreen extends Component {
 
 					<View style={{ marginTop: 40 }}>
 						<Button
-							onPress={() => {
-								const resetAction = StackActions.reset({
-									index: 0,
-									actions: [NavigationActions.navigate({ routeName: 'CartScreen' })],
-								});
-								this.props.navigation.dispatch(resetAction);
-							}}
+							onPress={() => this.props.navigation.navigate('OrdersScreen')}
 						>
 							<Text>Manage Orders</Text>
 						</Button>

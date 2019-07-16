@@ -54,9 +54,6 @@ class HomeScreen extends Component {
 					/>
 					<BannerCarousel />
 					<Seperator />
-					<Button onPress={() => this.props.navigation.navigate('PaymentThankYouScreen')}>
-						<Text>Test</Text>
-					</Button>
 					<Text style={titleTextStyle}>Categories</Text>
 					<CategoryTable />
 					<Seperator />

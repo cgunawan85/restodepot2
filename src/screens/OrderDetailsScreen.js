@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
+import { connect } from 'react-redux';
 import { 
 	Card, 
 	Container, 
@@ -20,6 +21,7 @@ import {
 	ORDER_STATUS_4,
 	LOADING_IMAGE, 
 } from '../images';
+import { payMidtransSingle } from '../actions/';
 
 class OrderDetailsScreen extends Component {
 	static navigationOptions = {
@@ -28,6 +30,11 @@ class OrderDetailsScreen extends Component {
 			color: '#2077be',
 		},
 	};
+
+	onPayNowButtonPress() {
+		const order = this.props.navigation.getParam('order');
+		this.props.payMidtransSingle(order.id_checkout);
+	}
 
 	calculateDeliveryDuration() {
 		let deliveryDuration;
@@ -44,6 +51,9 @@ class OrderDetailsScreen extends Component {
 				break;
 			case 'Vendor Shipping':
 				deliveryDuration = 3;
+				break;
+			case 'Mr. Speedy':
+				deliveryDuration = 1;
 				break;
 			default:
 				deliveryDuration = 2;
@@ -62,10 +72,29 @@ class OrderDetailsScreen extends Component {
 					</Text>
 				</View>
 			);
+		} else if (order.status_payment === 3) {
+			return (
+				<View style={{ paddingTop: 20 }}>
+					<Text style={paidStatusText}>
+						Failed
+					</Text>
+				</View>
+			);
+		} else if (order.status_payment === 4) {
+			return (
+				<View style={{ paddingTop: 20 }}>
+					<Text style={paidStatusText}>
+						Pending
+					</Text>
+				</View>
+			);
 		}
 		return (
 			<View style={{ paddingTop: 20 }}>
-				<Button danger>
+				<Button 
+					danger
+					onPress={() => this.onPayNowButtonPress()}
+				>
 					<Text style={{ color: 'white' }}>Not Paid, Tap to Pay Now</Text>
 				</Button>
 			</View>
@@ -80,7 +109,7 @@ class OrderDetailsScreen extends Component {
 		switch (order.status_delivery) {
 			case 0:
 				imageName = ORDER_STATUS_1;
-				orderStatus = 'Pending';
+				orderStatus = 'Incomplete';
 				break;
 			case 1:
 				imageName = ORDER_STATUS_1;
@@ -123,6 +152,7 @@ class OrderDetailsScreen extends Component {
 
 	render() {
 		const order = this.props.navigation.getParam('order');
+		console.log(order);
 		const { 
 			orderTitleSectionStyle, 
 			vendorLogoContainerStyle, 
@@ -262,4 +292,4 @@ const styles = {
 	}
 };
 
-export default OrderDetailsScreen;
+export default connect(null, { payMidtransSingle })(OrderDetailsScreen);
