@@ -22,6 +22,7 @@ import {
 } from './types';
 
 import NavigationService from '../services/NavigationService';
+import { baseURL } from '../services/constants';
 
 const axios = require('axios');
 
@@ -70,7 +71,7 @@ export const updateAddressQuery = (text) => {
 export const shippingAddressesFetch = () => {
 	return function (dispatch) {
 		dispatch({ type: FETCH_SHIPPING_ADDRESSES });
-		axios.get('http://localhost:8080/shipping_addresses', {
+		axios.get(`${baseURL}shipping_addresses`, {
 			params: { 
 				id_resto: 87
 			}
@@ -96,7 +97,7 @@ export const createShippingAddress = ({ id_resto, title, address, province, city
 	return function (dispatch) {
 		dispatch({ type: ADD_SHIPPING_ADDRESS });
 		axios.request({
-			url: 'http://localhost:8080/shipping_address/create',
+			url: `${baseURL}shipping_address/create`,
 			method: 'post',
 			params: {
 				id_resto: id_resto,
@@ -129,7 +130,7 @@ export const deleteShippingAddress = (id) => {
 	return function (dispatch) {
 		dispatch({ type: DELETE_SHIPPING_ADDRESS });
 		axios.request({
-			url: 'http://localhost:8080/shipping_address/delete',
+			url: `${baseURL}shipping_address/delete`,
 			method: 'post',
 			params: {
 				id: id
@@ -152,7 +153,7 @@ export const updateShippingAddress = ({ id, title, address, province, city, post
 	return function (dispatch) {
 		dispatch({ type: UPDATE_SHIPPING_ADDRESS });
 		axios.request({
-			url: 'http://localhost:8080/shipping_address/edit',
+			url: `${baseURL}shipping_address/edit`,
 			method: 'post',
 			params: {
 				id: id,

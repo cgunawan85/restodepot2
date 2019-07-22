@@ -18,6 +18,7 @@ import {
 } from './types';
 import NavigationService from '../services/NavigationService';
 import deviceStorage from '../services/deviceStorage';
+import { baseURL } from '../services/constants';
 
 require('firebase/auth');
 
@@ -84,7 +85,7 @@ export const loginUser = ({ email, password }) => {
 export const loginUser = ({ email, password }) => {
 	return (dispatch) => {
 		dispatch({ type: LOGIN_USER });
-		axios.post('https://restodepot.id/api/auth/signin', { username: email, password: password })
+		axios.post(`${baseURL}auth/signin`, { username: email, password: password })
 			.then((response) => {
 				deviceStorage.saveItem('id_token', response.data.token);
 				dispatch({ type: LOGIN_USER_SUCCESS, payload: response });
@@ -119,7 +120,7 @@ export const registerUser = ({ firstName, lastName, email, password }) => {
 	return (dispatch) => {
 		dispatch({ type: REGISTER_USER });
 		// passing params in as 2nd argument of post() does not work ???
-		axios.post(`https://restodepot.id/api/auth/register?firstname=${firstName}&lastname=${lastName}&email=${email}&password=${password}`)
+		axios.post(`${baseURL}register?firstname=${firstName}&lastname=${lastName}&email=${email}&password=${password}`)
 		.then((user) => {
 			console.log(user);
 			dispatch({ type: REGISTER_USER_SUCCESS });
@@ -135,7 +136,7 @@ export const registerUser = ({ firstName, lastName, email, password }) => {
 
 export const resetPasswordEmailSend = ({ email }) => {
 	return (dispatch) => {
-		axios.post(`https://restodepot.id/api/auth/password-reset-send?email=${email}`)
+		axios.post(`${baseURL}password-reset-send?email=${email}`)
 			.then((response) => {
 				dispatch({ type: RESET_PASSWORD_EMAIL_SENT, payload: response });
 				renderMessage(response.message);

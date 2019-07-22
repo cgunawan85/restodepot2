@@ -7,12 +7,13 @@ import {
 	FETCH_ALL_VENDORS_SUCCESS,
 	FETCH_ALL_VENDORS_FAIL
 } from './types';
+import { baseURL } from '../services/constants';
 
 export const fetchVendor = (vendorId) => {
 	return (dispatch) => {
 		dispatch({ type: START_FETCH_VENDOR });
 		axios.request({
-			url: 'http://localhost:8080/vendor',
+			url: `${baseURL}vendor`,
 			type: 'get',
 			params: {
 				id_vendor: vendorId
@@ -32,7 +33,7 @@ export const fetchAllVendors = () => {
 	return (dispatch) => {
 		dispatch({ type: START_FETCH_ALL_VENDORS });
 		axios.request({
-			url: 'http://localhost:8080/vendors',
+			url: `${baseURL}vendors`,
 			type: 'get',
 		})
 			.then((response) => {

@@ -17,12 +17,13 @@ import {
 	FETCH_PRODUCTS_SUCCESS,
 	FETCH_PRODUCTS_FAIL
 } from './types';
+import { baseURL } from '../services/constants';
 
 export const fetchProducts = (idCategory) => {
 	return (dispatch) => {
 		dispatch({ type: START_FETCH_PRODUCTS });
 		axios.request({
-			url: 'http://localhost:8080/products',
+			url: `${baseURL}products`,
 			method: 'get',
 			params: {
 				id_category: idCategory
@@ -42,7 +43,7 @@ export const fetchProducts = (idCategory) => {
 export const fetchHome = () => {
 	return (dispatch) => {
 		dispatch({ type: START_FETCH_HOME });
-		axios.get('http://localhost:8080/home')
+		axios.get(`${baseURL}home`)
 			.then((response) => {
 				console.log(response);
 				dispatch({ type: FETCH_HOME_SUCCESS, payload: response });
@@ -57,7 +58,7 @@ export const fetchProductSuggestions = (text) => {
 	return (dispatch) => {
 		dispatch({ type: START_FETCH_PRODUCT_SUGGESTIONS });
 		axios.request({
-			url: 'http://localhost:8080/search',
+			url: `${baseURL}search`,
 			method: 'get',
 			params: {
 				keyword: text,
@@ -84,7 +85,7 @@ export const fetchSearchResults = (query, sort) => {
 	return (dispatch) => {
 		dispatch({ type: START_FETCH_SEARCH_RESULTS });
 		axios.request({
-			url: 'http://localhost:8080/search',
+			url: `${baseURL}search`,
 			method: 'get',
 			params: {
 				keyword: query,
@@ -107,7 +108,7 @@ export const submitFeedback = (name, email, message) => {
 	return (dispatch) => {
 		dispatch({ type: START_SUBMIT_FEEDBACK });
 		axios.request({
-			url: 'http://localhost:8080/send_feedback',
+			url: `${baseURL}send_feedback`,
 			method: 'post',
 			params: {
 				name: name,

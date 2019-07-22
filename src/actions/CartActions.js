@@ -23,12 +23,13 @@ import {
 	MIDTRANS_PAY_FAIL
 } from './types';
 import NavigationService from '../services/NavigationService';
+import { baseURL } from '../services/constants';
 
 export const fetchCheckout = () => {
 	return (dispatch) => {
 		dispatch({ type: START_FETCH_CHECKOUT });
 		axios.request({ 
-			url: 'http://localhost:8080/cart/list',
+			url: `${baseURL}cart/list`,
 			method: 'get'
 		})
 			.then((response) => {
@@ -46,7 +47,7 @@ export const updateCheckoutRestoShippingAddress = (id_resto_shipping_address, id
 		return new Promise((resolve) => {
 			dispatch({ type: START_UPDATE_CHECKOUT_RESTO_SHIPPING_ADDRESS });
 			axios.request({
-				url: 'http://localhost:8080/cart/update-shipping-address',
+				url: `${baseURL}cart/update-shipping-address`,
 				method: 'post',
 				params: {
 					id_resto_shipping_address: id_resto_shipping_address,
@@ -71,7 +72,7 @@ export const updateCheckoutShippingMethod = (shipping_name, cost, id_checkout) =
 		return new Promise((resolve) => {
 			dispatch({ type: START_UPDATE_SHIPPING_NAME });
 			axios.request({
-				url: 'http://localhost:8080/cart/update-shipping-name',
+				url: `${baseURL}cart/update-shipping-name`,
 				method: 'post',
 				params: {
 					shipping_name: shipping_name,
@@ -97,7 +98,7 @@ export const updateQuantityCheckoutItem = (idCheckoutItem, quantity) => {
 		return new Promise((resolve) => {
 			dispatch({ type: START_UPDATE_QUANTITY_ITEM });
 			axios.request({
-				url: `http://localhost:8080/cart/update-qty/${idCheckoutItem}/${quantity}`,
+				url: `${baseURL}cart/update-qty/${idCheckoutItem}/${quantity}`,
 				method: 'get'
 			})
 				.then((response) => {
@@ -118,7 +119,7 @@ export const addCheckout = (idProduct, quantity) => {
 		return new Promise((resolve) => {
 			dispatch({ type: START_ADD_TO_CART });
 			axios.request({
-				url: 'http://localhost:8080/cart/add-checkout',
+				url: `${baseURL}cart/add-checkout`,
 				method: 'post',
 				params: {
 					productId: idProduct,
@@ -142,7 +143,7 @@ export const removeCheckout = (checkout) => {
 		return new Promise((resolve) => {
 			dispatch({ type: START_REMOVE_CHECKOUT });
 			axios.request({ 
-				url: `http://localhost:8080/cart/del-checkout-${checkout}`,
+				url: `${baseURL}cart/del-checkout-${checkout}`,
 				method: 'get'
 			})
 				.then((response) => {
@@ -162,11 +163,12 @@ export const payMidtransSingle = (checkout) => {
 	return (dispatch) => {
 		dispatch({ type: START_MIDTRANS_PAY });
 		axios.request({
-			url: `http://localhost:8080/pay/midtrans-single-${checkout}`,
+			url: `${baseURL}mid-resinglepay-${checkout}`,
 			method: 'get'
 		}).then((response) => {
 			dispatch({ type: MIDTRANS_PAY_SUCCESS });
-			NavigationService.navigate('PaymentWebViewScreen', { url: response.data.data.redirectUrl });
+			console.log(response);
+			NavigationService.navigate('PaymentWebViewScreen', { url: response.data.data });
 		}).catch((response) => {
 			dispatch({ type: MIDTRANS_PAY_FAIL });
 			console.log(response);
@@ -178,7 +180,7 @@ export const payMidtrans = (idCheckouts) => {
 	return (dispatch) => {
 		dispatch({ type: START_MIDTRANS_PAY });
 		axios.request({
-			url: 'http://localhost:8080/pay/midtrans-list',
+			url: `${baseURL}pay/midtrans-list`,
 			method: 'post',
 			data: idCheckouts
 		}).then((response) => {

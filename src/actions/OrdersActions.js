@@ -6,6 +6,7 @@ import {
 	FETCH_ORDERS_SUCCESS,
 	FETCH_ORDERS_FAIL
 } from './types';
+import { baseURL } from '../services/constants';
 
 export const showThankYouModal = () => {
 	return {
@@ -23,7 +24,7 @@ export const fetchOrders = () => {
 	return (dispatch) => {
 		dispatch({ type: START_FETCH_ORDERS });
 		axios.request({
-			url: 'http://localhost:8080/orders'
+			url: `${baseURL}orders`
 		})
 		.then((response) => {
 			dispatch({ type: FETCH_ORDERS_SUCCESS, payload: response });

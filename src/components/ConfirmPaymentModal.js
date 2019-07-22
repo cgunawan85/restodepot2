@@ -40,10 +40,7 @@ class ConfirmPaymentModal extends Component {
 							<Button 
 								bordered 
 								style={buttonStyle}
-								onPress={() => {
-									onDecline();
-									this.props.navigation.navigate('OrdersScreen');
-								}}
+								disabled
 							>
 								<Text>Pay Later</Text>
 							</Button>

@@ -14,6 +14,7 @@ import {
 	DELETE_PRODUCT_REVIEW_FAIL
 } from './types';
 import NavigationService from '../services/NavigationService';
+import { baseURL } from '../services/constants';
 
 function renderMessage(message) {
 	return Toast.show({
@@ -40,7 +41,7 @@ export const fetchProductReviews = (id_product) => {
 	return (dispatch) => {
 		dispatch({ type: START_FETCH_PRODUCT_REVIEWS });
 		axios.request({
-			url: 'http://localhost:8080/product_reviews',
+			url: `${baseURL}product_reviews`,
 			params: {
 				id_product: id_product
 			}
@@ -59,7 +60,7 @@ export const createProductReview = ({ id_product, comments, rating }) => {
 	return (dispatch) => {
 		dispatch({ type: START_CREATE_PRODUCT_REVIEW });
 		axios.request({
-			url: 'http://localhost:8080/product_review/create',
+			url: `${baseURL}product_review/create`,
 			method: 'post',
 			params: {
 				id_product: id_product,
@@ -84,7 +85,7 @@ export const deleteProductReview = (idProductReview) => {
 	return (dispatch) => {
 		dispatch({ type: START_DELETE_PRODUCT_REVIEW });
 		axios.request({
-			url: 'http://localhost:8080/product_review/delete',
+			url: `${baseURL}product_review/delete`,
 			method: 'post',
 			params: {
 				id_product_review: idProductReview
