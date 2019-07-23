@@ -22,7 +22,7 @@ const INITIAL_STATE = {
 	email: '',
 	password: '',
 	forget_email: '',
-	user: '',
+	user: {},
 	jwt: null,
 	error: '',
 	loading: false
@@ -45,7 +45,7 @@ export default (state = INITIAL_STATE, action) => {
 		case LOGIN_USER_SUCCESS:
 			return { 
 				...INITIAL_STATE, 
-				user: action.payload.data.username, 
+				user: action.payload.data.user, 
 				jwt: action.payload.data.token, 
 				loading: false 
 			};

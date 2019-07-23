@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
-import { Button, Text, H3 } from 'native-base';
+import { Container, Content, Button, Text, H3 } from 'native-base';
 import { connect } from 'react-redux';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { updateCheckoutRestoShippingAddress } from '../actions';
@@ -51,31 +51,35 @@ class ChooseShippingAddressScreen extends Component {
 
 
 		return (
-			<View style={screenContainerStyle}>
-				<View style={{ paddingTop: 50 }}>
-					<View style={boxContainerStyle}>
-						<Image source={LOCATION_MAP} style={boxImageStyle} />
-					</View>
+			<Container>
+				<Content>
+					<View style={screenContainerStyle}>
+						<View style={{ paddingTop: 50 }}>
+							<View style={boxContainerStyle}>
+								<Image source={LOCATION_MAP} style={boxImageStyle} />
+							</View>
 
-					<View style={titleContainerStyle}>
-						<H3 style={{ textAlign: 'center' }}>Where would you like us to send your order?</H3>
-					</View>
+							<View style={titleContainerStyle}>
+								<H3 style={{ textAlign: 'center' }}>Where would you like us to send your order?</H3>
+							</View>
 
-					<View>
-						{renderShippingAddresses}
-					</View>
+							<View>
+								{renderShippingAddresses}
+							</View>
 
-					<View style={addShippingAddressButtonContainer}>
-						<Button 
-							bordered
-							onPress={() => this.props.navigation.navigate('AddShippingAddressScreen')}
-							style={buttonStyle}
-						>
-							<Text>Add Shipping Address</Text>
-						</Button>
+							<View style={addShippingAddressButtonContainer}>
+								<Button 
+									bordered
+									onPress={() => this.props.navigation.navigate('AddShippingAddressScreen')}
+									style={buttonStyle}
+								>
+									<Text>Add Shipping Address</Text>
+								</Button>
+							</View>
+						</View>
 					</View>
-				</View>
-			</View>
+				</Content>
+			</Container>
 		);
 	}
 }

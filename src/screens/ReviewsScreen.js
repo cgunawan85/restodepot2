@@ -48,6 +48,7 @@ class ReviewsScreen extends Component {
 	}
 
 	renderEmptyStateOrFlatList() {
+		console.log(this.props.product_reviews);
 		const { containerStyle, imageContainerStyle, imageStyle } = styles;
 		if (this.props.loading !== true) {
 			if (this.props.product_reviews.length === 0) {

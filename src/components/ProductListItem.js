@@ -15,7 +15,7 @@ class ProductListItem extends Component {
 	}
 
 	render() {
-		const { brand, product_photo, name, price_regular } = this.props.product;
+		const { brand, product_photo, name, price_regular, productPhotos } = this.props.product;
 
 		const { 
 			cardStyle, 
@@ -33,7 +33,7 @@ class ProductListItem extends Component {
 				<Card style={cardStyle}>
 					<CardItem cardBody>
 						<Image 
-							source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${product_photo}` }} 
+							source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${product_photo === null ? productPhotos[0].file : product_photo}` }} 
 							style={imageStyle}
 							defaultSource={LOADING_IMAGE} 
 						/>

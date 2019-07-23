@@ -57,6 +57,8 @@ class CartItem extends Component {
 
 	renderShippingMethodChooseButton() {
 		const { checkout, dataPrice } = this.props.checkout;
+		// filter id resto shipping address to match data price
+		const result = dataPrice.filter(data => data.addressId === checkout.id_resto_shipping_address);
 		const { shippingAddressAlertTextStyle } = styles;
 
 		if (checkout.id_resto_shipping_address !== 0) {
@@ -67,7 +69,7 @@ class CartItem extends Component {
 					full
 					onPress={() => this.props.navigation.navigate(
 						'ChooseShippingScreen', 
-						{ shippingMethods: dataPrice, idCheckout: checkout.id_checkout }
+						{ shippingMethods: result, idCheckout: checkout.id_checkout }
 					)}
 				>
 					{this.renderShippingMethodCheckmark()}

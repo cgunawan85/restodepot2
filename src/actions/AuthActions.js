@@ -136,7 +136,13 @@ export const registerUser = ({ firstName, lastName, email, password }) => {
 
 export const resetPasswordEmailSend = ({ email }) => {
 	return (dispatch) => {
-		axios.post(`${baseURL}password-reset-send?email=${email}`)
+		axios.request({
+			url: `${baseURL}password-reset-send`,
+			method: 'post',
+			params: {
+				email: email
+			}
+		})
 			.then((response) => {
 				dispatch({ type: RESET_PASSWORD_EMAIL_SENT, payload: response });
 				renderMessage(response.message);

@@ -30,7 +30,7 @@ class ShippingAddressScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.willFocus = this.props.navigation.addListener('willFocus', () => {
-			this.props.shippingAddressesFetch();
+			this.props.shippingAddressesFetch(this.props.user.id);
 		});
 	}
 
@@ -53,6 +53,7 @@ class ShippingAddressScreen extends Component {
 	}
 
 	render() {
+		console.log(this.props.user);
 		return (
 			<Container>
 				<Content contentContainerStyle={{ flex: 1 }}>

@@ -193,6 +193,7 @@ class CartScreen extends Component {
 
 	render() {
 		const { total_price, checkout_list } = this.props;
+		console.log(checkout_list);
 		return (
 			<Container>
 				<NavigationEvents onDidFocus={() => this.props.fetchCheckout()} />

@@ -47,6 +47,7 @@ export const fetchProductReviews = (id_product) => {
 			}
 		})
 		.then((response) => {
+			console.log(response);
 			dispatch({ type: FETCH_PRODUCT_REVIEWS_SUCCESS, payload: response });
 		})
 		.catch((error) => {

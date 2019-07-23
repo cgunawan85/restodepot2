@@ -1596,7 +1596,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.restomobile;
+				PRODUCT_BUNDLE_IDENTIFIER = id.restodepot.app;
 				PRODUCT_NAME = restomobile;
 				PROVISIONING_PROFILE_SPECIFIER = "rd-development";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1628,7 +1628,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.restomobile;
+				PRODUCT_BUNDLE_IDENTIFIER = id.restodepot.app;
 				PRODUCT_NAME = restomobile;
 				PROVISIONING_PROFILE_SPECIFIER = "rd-distribution";
 				TARGETED_DEVICE_FAMILY = 1;

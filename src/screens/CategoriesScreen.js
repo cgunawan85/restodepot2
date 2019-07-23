@@ -23,6 +23,7 @@ class CategoriesScreen extends Component {
 	}
 
 	renderContent() {
+		console.log(this.props.products);
 		if (this.props.loading) {
 			return <Spinner size='small' />;
 		}

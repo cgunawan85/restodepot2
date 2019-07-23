@@ -68,12 +68,14 @@ export const updateAddressQuery = (text) => {
 };
 
 // need to pass the id resto into fetch
-export const shippingAddressesFetch = () => {
+export const shippingAddressesFetch = (idResto) => {
 	return function (dispatch) {
 		dispatch({ type: FETCH_SHIPPING_ADDRESSES });
-		axios.get(`${baseURL}shipping_addresses`, {
-			params: { 
-				id_resto: 87
+		axios.request({
+			url: `${baseURL}shipping_addresses`,
+			method: 'get',
+			params: {
+				id_resto: idResto
 			}
 		})
 		.then((response) => {

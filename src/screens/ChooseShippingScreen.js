@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
-import { Button, Text, H3 } from 'native-base';
+import { Container, Content, Button, Text, H3 } from 'native-base';
 import { connect } from 'react-redux';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { updateCheckoutShippingMethod } from '../actions';
@@ -50,25 +50,29 @@ class ChooseShippingScreen extends Component {
 		});
 
 		return (
-			<View style={screenContainerStyle}>
-				<View style={{ paddingTop: 50 }}>
-					<View style={boxContainerStyle}>
-						<Image source={BOX} style={boxImageStyle} />
-					</View>
+			<Container>
+				<Content>
+					<View style={screenContainerStyle}>
+						<View style={{ paddingTop: 50 }}>
+							<View style={boxContainerStyle}>
+								<Image source={BOX} style={boxImageStyle} />
+							</View>
 
-					<View style={{ paddingVertical: 20, paddingHorizontal: 10 }}>
-						<H3 style={{ textAlign: 'center' }}>How would you like us to send your order to you?</H3>
-					</View>
+							<View style={{ paddingVertical: 20, paddingHorizontal: 10 }}>
+								<H3 style={{ textAlign: 'center' }}>How would you like us to send your order to you?</H3>
+							</View>
 
-					<View>
-						{renderShippingMethods}
-					</View>
+							<View>
+								{renderShippingMethods}
+							</View>
 
-					<View style={{ paddingHorizontal: 20 }}>
-						<Text note>Note: Some shipping methods may not be available to you due to size, weight and distance limitations</Text>
+							<View style={{ paddingHorizontal: 20 }}>
+								<Text note>Note: Some shipping methods may not be available to you due to size, weight and distance limitations</Text>
+							</View>
+						</View>
 					</View>
-				</View>
-			</View>
+				</Content>
+			</Container>
 		);
 	}
 }

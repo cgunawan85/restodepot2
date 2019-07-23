@@ -151,7 +151,7 @@ class ProductDetailScreen extends Component {
 		
 		return (
 			<Container>
-				<Header hasSegment style={{ height: 0 }}>
+				<Header hasSegment style={{ height: 70 }}>
 					<Left>
 						<Button 
 							transparent
