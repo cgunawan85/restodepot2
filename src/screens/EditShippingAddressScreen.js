@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Platform } from 'react-native';
 import { 
 	Icon, 
 	Container, 
@@ -100,7 +101,7 @@ class EditShippingAddressScreen extends Component {
 						</Button>
 					</Left>
 					<Body>
-						<Title style={{ color: '#2077be' }}>Edit Address</Title>
+						<Title style={{ color: Platform.OS === 'ios' ? '#2077be' : 'white' }}>Edit Address</Title>
 					</Body>
 					<Right>
 						{this.renderDeleteButtonOrSpinner()}

@@ -30,7 +30,7 @@ class ShippingAddressScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.willFocus = this.props.navigation.addListener('willFocus', () => {
-			this.props.shippingAddressesFetch(this.props.user.id);
+			this.props.shippingAddressesFetch(parseInt(this.props.user_id, 10));
 		});
 	}
 
@@ -53,7 +53,6 @@ class ShippingAddressScreen extends Component {
 	}
 
 	render() {
-		console.log(this.props.user);
 		return (
 			<Container>
 				<Content contentContainerStyle={{ flex: 1 }}>
@@ -77,6 +76,7 @@ const mapStateToProps = state => {
 	return {
 		shipping_addresses: state.shippingAddressForm.shipping_addresses,
 		user: state.auth.user,
+		user_id: state.auth.user_id,
 		jwt: state.auth.jwt,
 		loading: state.shippingAddressForm.loading
 	};

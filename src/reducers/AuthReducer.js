@@ -13,7 +13,9 @@ import {
 	REGISTER_USER_FAIL,
 	LOAD_JWT,
 	REMOVE_JWT,
-	RESET_PASSWORD_EMAIL_SENT
+	RESET_PASSWORD_EMAIL_SENT,
+	LOAD_USER_ID, 
+	REMOVE_USER_ID
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -23,6 +25,7 @@ const INITIAL_STATE = {
 	password: '',
 	forget_email: '',
 	user: {},
+	user_id: '',
 	jwt: null,
 	error: '',
 	loading: false
@@ -65,6 +68,10 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, jwt: null };
 		case RESET_PASSWORD_EMAIL_SENT:
 			return { ...INITIAL_STATE };
+		case LOAD_USER_ID:
+			return { ...state, user_id: action.payload };
+		case REMOVE_USER_ID:
+			return { ...state, user_id: '' };
 		default:
 			return state;
 	}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { 
 	Container, 
@@ -43,7 +44,7 @@ class SearchResultsScreen extends Component {
 						</Button>
 					</Left>
 					<Body>
-						<Title style={{ color: '#2077be' }}>Search Results</Title>
+						<Title style={{ color: Platform.OS === 'ios' ? '#2077be' : 'white' }}>Search Results</Title>
 					</Body>
 					<Right />
 				</Header>

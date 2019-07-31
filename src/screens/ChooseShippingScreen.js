@@ -15,6 +15,10 @@ class ChooseShippingScreen extends Component {
 		},
 	};
 
+	componentDidMount() {
+		//test
+	}
+
 	onUpdateCheckoutWithShippingMethod(itemValue, cost, idCheckout) {
 		this.props.updateCheckoutShippingMethod(itemValue, cost, idCheckout).then(() => {
 			const resetAction = StackActions.reset({

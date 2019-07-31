@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Platform } from 'react-native';
 import { 
 	Container, 
 	Content, 
@@ -87,7 +87,7 @@ class ReviewsScreen extends Component {
 						</Button>
 					</Left>
 					<Body>
-						<Title style={{ color: '#2077be' }}>Reviews</Title>
+						<Title style={{ color: Platform.OS === 'ios' ? '#2077be' : 'white' }}>Reviews</Title>
 					</Body>
 					<Right />
 				</Header>

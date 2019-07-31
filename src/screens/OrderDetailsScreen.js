@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Platform, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { 
 	Card, 

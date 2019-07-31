@@ -52,6 +52,7 @@
 		A60D8CE422B7C1D700293D36 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A60D8CE322B7C1D700293D36 /* LaunchScreen.xib */; };
 		A6B47409228AED8E00C6615A /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6B473DF228AED7600C6615A /* libAirMaps.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		A6DD8B54226B521D00AC236E /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6DD8B2A226B519E00AC236E /* libBVLinearGradient.a */; };
+		A6EA7A8022E829030014D3CB /* libRNCGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6EA7A7C22E828DE0014D3CB /* libRNCGeolocation.a */; };
 		A6EB196A2279257E00F89A2D /* GoogleMapsBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6EB19692279257E00F89A2D /* GoogleMapsBase.framework */; };
 		A6EB196D227925C300F89A2D /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6EB196B227925C100F89A2D /* GoogleMaps.framework */; };
 		A6EB196E227925C300F89A2D /* GoogleMapsCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6EB196C227925C300F89A2D /* GoogleMapsCore.framework */; };
@@ -351,6 +352,13 @@
 			remoteGlobalIDString = 64AA15081EF7F30100718508;
 			remoteInfo = "BVLinearGradient-tvOS";
 		};
+		A6EA7A7B22E828DE0014D3CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A6EA7A4F22E828DD0014D3CB /* RNCGeolocation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNCGeolocation;
+		};
 		A6FEEE52226211D60083BAC6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -457,6 +465,7 @@
 		A60D8CE322B7C1D700293D36 /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		A6B473DA228AED7500C6615A /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		A6DD8B24226B519E00AC236E /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
+		A6EA7A4F22E828DD0014D3CB /* RNCGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCGeolocation.xcodeproj; path = "../node_modules/@react-native-community/geolocation/ios/RNCGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		A6EB19692279257E00F89A2D /* GoogleMapsBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMapsBase.framework; sourceTree = "<group>"; };
 		A6EB196B227925C100F89A2D /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		A6EB196C227925C300F89A2D /* GoogleMapsCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMapsCore.framework; sourceTree = "<group>"; };
@@ -509,6 +518,7 @@
 				A6EB198E227927F900F89A2D /* UIKit.framework in Frameworks */,
 				A6EB198C227927F200F89A2D /* SystemConfiguration.framework in Frameworks */,
 				A6EB198A227927E900F89A2D /* QuartzCore.framework in Frameworks */,
+				A6EA7A8022E829030014D3CB /* libRNCGeolocation.a in Frameworks */,
 				A6EB1988227927E200F89A2D /* OpenGLES.framework in Frameworks */,
 				A6EB1986227927DB00F89A2D /* libz.tbd in Frameworks */,
 				A6EB1984227927D200F89A2D /* libc++.tbd in Frameworks */,
@@ -777,6 +787,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				A6EA7A4F22E828DD0014D3CB /* RNCGeolocation.xcodeproj */,
 				A6B473DA228AED7500C6615A /* AirMaps.xcodeproj */,
 				A6DD8B24226B519E00AC236E /* BVLinearGradient.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -854,6 +865,14 @@
 			children = (
 				A6DD8B2A226B519E00AC236E /* libBVLinearGradient.a */,
 				A6DD8B2C226B519E00AC236E /* libBVLinearGradient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A6EA7A5022E828DD0014D3CB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A6EA7A7C22E828DE0014D3CB /* libRNCGeolocation.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1056,6 +1075,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = A6EA7A5022E828DD0014D3CB /* Products */;
+					ProjectRef = A6EA7A4F22E828DD0014D3CB /* RNCGeolocation.xcodeproj */;
 				},
 				{
 					ProductGroup = A6CE6C6122DD9806001DAF2C /* Products */;
@@ -1327,6 +1350,13 @@
 			fileType = archive.ar;
 			path = libBVLinearGradient.a;
 			remoteRef = A6DD8B2B226B519E00AC236E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A6EA7A7C22E828DE0014D3CB /* libRNCGeolocation.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCGeolocation.a;
+			remoteRef = A6EA7A7B22E828DE0014D3CB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A6FEEE53226211D60083BAC6 /* libjsi.a */ = {

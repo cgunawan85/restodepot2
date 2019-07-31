@@ -94,7 +94,9 @@ class PinLocationMapScreen extends Component {
 			<Container>
 				<Content contentContainerStyle={{ flex: 1 }}>
 					<View style={{ flexDirection: 'row' }}>
-						<MapInput />
+						<MapInput 
+							renderNewRegionWithAddress={this.renderNewRegionWithAddress.bind(this)} 
+						/>
 						<View style={{ justifyContent: 'center' }}>
 							{this.renderSpinnerOrSearchButton()}
 						</View>

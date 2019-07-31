@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { 
 	Container, 
@@ -111,7 +111,11 @@ class ProductDetailScreen extends Component {
 
 	render() {
 		const product = this.props.navigation.getParam('product');
-		const { contentContainerStyle, addToCartButtonContainerStyle, segmentContentStyle } = styles;
+		const { 
+			contentContainerStyle, 
+			addToCartButtonContainerStyle, 
+			segmentContentStyle,
+		} = styles;
 		const page = this.state.page;
 
 		let segmentContent = null;
@@ -161,7 +165,7 @@ class ProductDetailScreen extends Component {
 						</Button>
 					</Left>
 					<Body>
-						<Title style={{ color: '#2077be' }}>Product Details</Title>
+						<Title style={{ color: Platform.OS === 'ios' ? '#2077be' : '#ffffff' }}>Product Details</Title>
 					</Body>
 					<Right />
 				</Header>
@@ -172,33 +176,32 @@ class ProductDetailScreen extends Component {
 						<Seperator />
 						<ProductVendor product={product} />
 						<Seperator />
-						
-						<Segment style={{ paddingTop: 10 }}>
-							<Button 
-								first 
-								active={this.state.descriptionSegmentActive}
-								onPress={this.showDescription.bind(this)}
-							>
-								<Text>Description</Text>
-							</Button>
-							<Button 
-								active={this.state.specsSegmentActive}
-								onPress={this.showSpecifications.bind(this)}
-							>
-								<Text>Specifications</Text>
-							</Button>
-							<Button 
-								last active={this.state.reviewsSegmentActive}
-								onPress={() => 
-									this.props.navigation.navigate('ReviewsScreen', { productId: product.id })
-								}
-							>
-								<Text>Reviews</Text>
-							</Button>
-						</Segment>
-						
+						<View style={{ marginTop: 10, backgroundColor: Platform.OS === 'ios' ? '' : '#3f51b5' }}>
+							<Segment>
+								<Button 
+									first 
+									active={this.state.descriptionSegmentActive}
+									onPress={this.showDescription.bind(this)}
+								>
+									<Text>Description</Text>
+								</Button>
+								<Button 
+									active={this.state.specsSegmentActive}
+									onPress={this.showSpecifications.bind(this)}
+								>
+									<Text>Specifications</Text>
+								</Button>
+								<Button 
+									last active={this.state.reviewsSegmentActive}
+									onPress={() => 
+										this.props.navigation.navigate('ReviewsScreen', { productId: product.id })
+									}
+								>
+									<Text>Reviews</Text>
+								</Button>
+							</Segment>
+						</View>
 						{segmentContent}
-
 					</View>
 				</Content>
 				<View style={addToCartButtonContainerStyle}>

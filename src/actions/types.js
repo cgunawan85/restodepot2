@@ -15,6 +15,8 @@ export const REGISTER_USER_FAIL = 'register_user_fail';
 export const LOAD_JWT = 'load_jwt';
 export const REMOVE_JWT = 'remove_jwt';
 export const RESET_PASSWORD_EMAIL_SENT = 'reset_password_email_sent';
+export const LOAD_USER_ID = 'load_user_id';
+export const REMOVE_USER_ID = 'remove_user_id';
 
 // shipping address actions
 

@@ -1,5 +1,4 @@
 import { Toast } from 'native-base';
-import firebase from 'firebase/app';
 import axios from 'axios';
 import { 
 	FIRST_NAME_CHANGED,
@@ -19,8 +18,6 @@ import {
 import NavigationService from '../services/NavigationService';
 import deviceStorage from '../services/deviceStorage';
 import { baseURL } from '../services/constants';
-
-require('firebase/auth');
 
 function renderMessage(message) {
 	return Toast.show({
@@ -65,29 +62,14 @@ export const forgetEmailChanged = (text) => {
 	};
 };
 
-/*
-export const loginUser = ({ email, password }) => {
-	return (dispatch) => {
-		dispatch({ type: LOGIN_USER });
-		firebase.auth().signInWithEmailAndPassword(email, password)
-			.then(user => {
-				dispatch({ type: LOGIN_USER_SUCCESS, payload: user });
-				NavigationService.navigate('Main');
-			})
-			.catch((error) => {
-				renderErrorMessage(error.message);
-				dispatch({ type: LOGIN_USER_FAIL });
-		});
-	};
-};
-*/
-
 export const loginUser = ({ email, password }) => {
 	return (dispatch) => {
 		dispatch({ type: LOGIN_USER });
 		axios.post(`${baseURL}auth/signin`, { username: email, password: password })
 			.then((response) => {
+				console.log(response);
 				deviceStorage.saveItem('id_token', response.data.token);
+				deviceStorage.saveItem('id_user', response.data.user.id.toString());
 				dispatch({ type: LOGIN_USER_SUCCESS, payload: response });
 				NavigationService.navigate('Home');
 			})
@@ -98,29 +80,11 @@ export const loginUser = ({ email, password }) => {
 	};
 };
 
-/*
-export const registerUser = ({ email, password }) => {
-	return (dispatch) => {
-		dispatch({ type: REGISTER_USER });
-		firebase.auth().createUserWithEmailAndPassword(email, password)
-		.then(user => { 
-			renderMessage('Please check your email for an account verification link!');
-			dispatch({ type: REGISTER_USER_SUCCESS, payload: user });
-			NavigationService.navigate('Main');
-		})
-		.catch((error) => {
-			renderMessage(error.message);
-			dispatch({ type: REGISTER_USER_FAIL });
-		});
-	};
-};
-*/
-
 export const registerUser = ({ firstName, lastName, email, password }) => {
 	return (dispatch) => {
 		dispatch({ type: REGISTER_USER });
 		// passing params in as 2nd argument of post() does not work ???
-		axios.post(`${baseURL}register?firstname=${firstName}&lastname=${lastName}&email=${email}&password=${password}`)
+		axios.post(`${baseURL}auth/register?firstname=${firstName}&lastname=${lastName}&email=${email}&password=${password}`)
 		.then((user) => {
 			console.log(user);
 			dispatch({ type: REGISTER_USER_SUCCESS });
@@ -137,7 +101,7 @@ export const registerUser = ({ firstName, lastName, email, password }) => {
 export const resetPasswordEmailSend = ({ email }) => {
 	return (dispatch) => {
 		axios.request({
-			url: `${baseURL}password-reset-send`,
+			url: `${baseURL}auth/password-reset-send`,
 			method: 'post',
 			params: {
 				email: email
@@ -157,6 +121,7 @@ export const signOut = () => {
 	return (dispatch) => {
 		dispatch({ type: LOGOUT_SUCCESS });
 		deviceStorage.removeJWT();
+		deviceStorage.removeUserId();
 		NavigationService.navigate('AuthStack');
 	};
 };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StackActions, NavigationActions } from 'react-navigation';
+import { Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { 
 	Container, 
@@ -44,7 +44,7 @@ class SortByScreen extends Component {
 						</Button>
 					</Left>
 					<Body>
-						<Title style={{ color: '#2077be' }}>Sort by</Title>
+						<Title style={{ color: Platform.OS === 'ios' ? '#2077be' : 'white' }}>Sort by</Title>
 					</Body>
 					<Right />
 				</Header>

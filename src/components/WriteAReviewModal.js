@@ -85,7 +85,7 @@ class WriteAReview extends Component {
 const styles = {
 	cardStyle: {
 		backgroundColor: 'white',
-		flex: 0.5,
+		flex: 1,
 	},
 	textStyle: {
 		fontSize: 18,
@@ -105,7 +105,7 @@ const styles = {
 	},
 	buttonContainerStyle: {
 		flexDirection: 'row',
-		flex: 1,
+		flex: 0.5,
 		justifyContent: 'space-around'
 	},
 	buttonStyle: {

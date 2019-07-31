@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Platform } from 'react-native';
 import { Container, Header, Left, Button, Icon, Body, Title, Right, Content } from 'native-base';
 import ProductList from '../components/ProductList';
 import FilterBar from '../components/common/FilterBar';
@@ -18,7 +19,13 @@ class AllProducts extends Component {
 						</Button>
 					</Left>
 					<Body>
-						<Title style={{ color: '#2077be' }}>{qv.title}</Title>
+						<Title 
+							style={{ 
+								color: Platform.OS === 'ios' ? '#2077be' : '#ffffff'
+							}}
+						>
+							{qv.title}
+						</Title>
 					</Body>
 					<Right />
 				</Header>

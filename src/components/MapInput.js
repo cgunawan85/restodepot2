@@ -23,7 +23,8 @@ class MapInput extends Component {
 				}}
 				currentLocation={false}
 				onPress={(data) => {
-					this.props.updateAddressQuery(data.description);
+					this.props.renderNewRegionWithAddress(data.description);
+					//this.props.updateAddressQuery(data.description);
 				}}
 				GooglePlacesSearchQuery={{
 					rankby: 'distance'

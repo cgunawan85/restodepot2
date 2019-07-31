@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Container, Content, Text, Button } from 'native-base';
 import { signOut } from '../actions';
 import SettingsListItem from '../components/SettingsListItem';
+import deviceStorage from '../services/deviceStorage';
+
 
 class SettingsScreen extends Component {
 	static navigationOptions = {
@@ -12,6 +14,10 @@ class SettingsScreen extends Component {
 			color: '#2077be',
 		},
 	};
+
+	componentDidMount() {
+		deviceStorage.loadUserId();
+	}
 
 	onLogoutButtonPress() {
 		this.props.signOut();

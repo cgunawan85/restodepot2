@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Platform } from 'react-native';
 import { Form, Item, Label, Input, Button, Text } from 'native-base';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
+import Geolocation from 'react-native-geolocation-service';
 import { shippingAddressFormUpdate, resetLocation, updateLongitudeAndLatitude } from '../actions';
 import { LOCATION_SUCCESS } from '../images/';
+import { requestLocationPermission } from '../services/permissions';
 
 
 class ShippingAddressForm extends Component {
+	onGetLocationButtonPressAndroid() {
+		requestLocationPermission();
+		Geolocation.getCurrentPosition(
+			(position) => {
+				this.props.updateLongitudeAndLatitude({ 
+					longitude: position.coords.longitude, 
+					latitude: position.coords.latitude 
+				});
+			}, (error) => console.log(error),
+		{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+		);
+	}
+
 	onGetLocationButtonPress() {
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
@@ -65,7 +80,13 @@ class ShippingAddressForm extends Component {
 					bordered 
 					success 
 					style={buttonStyle} 
-					onPress={() => this.onGetLocationButtonPress()}
+					onPress={() => {
+						if (Platform.OS === 'ios') {
+							this.onGetLocationButtonPress();
+						} else {
+							this.onGetLocationButtonPressAndroid();
+						}
+					}}
 				>
 					<Text>
 						Use your current location

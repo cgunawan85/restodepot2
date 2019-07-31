@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import { Header, Item, Icon, Input, Text, Button, Spinner } from 'native-base';
 
 class SearchBar extends Component {
@@ -16,7 +16,11 @@ class SearchBar extends Component {
 				</View>
 			);
 		}
-		return <Text>Search</Text>;
+		return (
+			<Text style={{ color: Platform.OS === 'ios' ? '' : 'black' }}>
+				Search
+			</Text>
+		);
 	}
 
 	renderCloseIcon() {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { 
 	Container, 
@@ -45,7 +46,9 @@ class CategoriesScreen extends Component {
 						</Button>
 					</Left>
 					<Body>
-						<Title style={{ color: '#2077be' }}>Products</Title>
+						<Title style={{ color: Platform.OS === 'ios' ? '#2077be' : '#ffffff' }}>
+							Products
+						</Title>
 					</Body>
 					<Right />
 				</Header>

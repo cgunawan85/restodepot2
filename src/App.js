@@ -8,6 +8,7 @@ import {
 } from 'react-navigation';
 import { Root, Icon, StyleProvider, getTheme } from 'native-base';
 import axios from 'axios';
+import { Platform, StatusBar } from 'react-native';
 
 import HomeScreen from './screens/HomeScreen';
 import OrdersScreen from './screens/OrdersScreen';
@@ -60,31 +61,58 @@ class App extends Component {
 
 const AuthStack = createStackNavigator({ LoginScreen, RegisterScreen });
 
-const VendorStack = createStackNavigator({ 
+const VendorStack = createStackNavigator(
+{ 
 	AllVendorsScreen,
 	VendorScreen, 
 	ProductDetailScreen,
 	ReviewsScreen
-});
+},
+{
+	cardStyle: {
+		paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
+	}
+},
+);
 
 const CategoriesStack = createStackNavigator(
 	{ CategoriesScreen, SortByScreen, ProductDetailScreen },
-	{ headerMode: 'none' }
+	{ 
+		cardStyle: {
+			paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
+		},
+		headerMode: 'none' 
+	}
 );
 
 const QVStack = createStackNavigator(
 	{ QVScreen, SortByScreen, ProductDetailScreen },
-	{ headerMode: 'none' }
+	{ 
+		cardStyle: {
+			paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
+		},
+		headerMode: 'none' 
+	}
 );
 
 const AllProductsStack = createStackNavigator(
 	{ AllProductsScreen, ProductDetailScreen },
-	{ headerMode: 'none' }
+	{ 
+		cardStyle: {
+			paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
+		},
+		headerMode: 'none' 
+	}
 );
 
 const SearchStack = createStackNavigator(
 	{ SearchResultsScreen, SortByScreen, ProductDetailScreen },
-	{ headerMode: 'none' }
+	{ 
+		cardStyle: {
+			paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
+		},
+		headerMode: 'none' 
+	}
 );
 
 const HomeStack = createStackNavigator(
@@ -103,21 +131,36 @@ const HomeStack = createStackNavigator(
 }
 );
 
-const OrdersStack = createStackNavigator({ 
+const OrdersStack = createStackNavigator(
+{ 
 	OrdersScreen,
 	OrderDetailsScreen
-});
+},
+{
+	cardStyle: {
+		paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
+	}
+},
+);
 
-const SettingsStack = createStackNavigator({ 
+const SettingsStack = createStackNavigator(
+{ 
 	SettingsScreen,
 	ContactUsScreen, 
 	ShippingAddressScreen,
 	EditShippingAddressScreen, 
 	AddShippingAddressScreen,
 	PinLocationMapScreen, 
-});
+},
+{
+	cardStyle: {
+		paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
+	}
+},
+);
 
-const CartStack = createStackNavigator({ 
+const CartStack = createStackNavigator(
+{ 
 	CartScreen,
 	ChooseShippingAddressScreen,
 	ChooseShippingScreen,
@@ -125,7 +168,13 @@ const CartStack = createStackNavigator({
 	PaymentPendingScreen,
 	PaymentThankYouScreen,
 	PaymentFailedScreen,
-});
+},
+{
+	cardStyle: {
+		paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
+	}
+},
+);
 
 const MainTabNavigator = createBottomTabNavigator({
 	Home: HomeStack,
@@ -168,7 +217,7 @@ const MainTabNavigator = createBottomTabNavigator({
 				</StyleProvider>
 			);
 		},
-	})
+	}),
 }
 );
 
