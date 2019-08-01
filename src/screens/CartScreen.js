@@ -81,11 +81,10 @@ class CartScreen extends Component {
 			});
 			this.props.navigation.dispatch(resetAction);
 		}));
-		console.log(mappedArray);
 	}
 
 	onSelectAllButtonPress() {
-		const mappedArray = this.props.checkout_list.map((checkout) => checkout.checkout.id_checkout);
+		const mappedArray = this.props.checkout_list.map((checkout) => checkout.id_checkout);
 		this.setState({ checked: mappedArray });
 	}
 
@@ -103,7 +102,7 @@ class CartScreen extends Component {
 
 	isValid() {
 		for (const checkout of this.props.checkout_list) {
-			if (checkout.checkout.id_resto_shipping_address === 0 || checkout.checkout.shipping_name === null) {
+			if (checkout.id_resto_shipping_address === 0 || checkout.shipping_name === null) {
 				return false;
 			}
 		}
@@ -193,7 +192,6 @@ class CartScreen extends Component {
 
 	render() {
 		const { total_price, checkout_list } = this.props;
-		console.log(checkout_list);
 		return (
 			<Container>
 				<NavigationEvents onDidFocus={() => this.props.fetchCheckout()} />

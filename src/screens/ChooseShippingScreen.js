@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
-import { Container, Content, Button, Text, H3 } from 'native-base';
+import { Container, Content, Button, Text, H3, Spinner } from 'native-base';
 import { connect } from 'react-redux';
 import { NavigationActions, StackActions } from 'react-navigation';
-import { updateCheckoutShippingMethod } from '../actions';
+import { updateCheckoutShippingMethod, fetchShippingMethods } from '../actions';
 import { numberWithCommas } from '../services/utils';
 import { BOX } from '../images/';
 
@@ -16,7 +16,9 @@ class ChooseShippingScreen extends Component {
 	};
 
 	componentDidMount() {
-		//test
+		const idCheckout = this.props.navigation.getParam('idCheckout');
+		const idVendor = this.props.navigation.getParam('idVendor');
+		this.props.fetchShippingMethods(idCheckout, idVendor);
 	}
 
 	onUpdateCheckoutWithShippingMethod(itemValue, cost, idCheckout) {
@@ -29,6 +31,30 @@ class ChooseShippingScreen extends Component {
 		});
 	}
 
+	renderLoading() {
+		const idCheckout = this.props.navigation.getParam('idCheckout');
+		const { buttonStyle } = styles;
+		const shippingMethods = this.props.shipping_methods;
+		if (this.props.loading) {
+			return (
+				<Spinner size='small' />
+			);
+		}
+		return shippingMethods.map((shippingMethod) => {	
+			return (
+				<Button 
+					key={shippingMethod.shippingName}
+					style={buttonStyle}
+					onPress={() => this.onUpdateCheckoutWithShippingMethod(shippingMethod.shippingName, shippingMethod.cost, idCheckout)}
+				>
+					<Text>
+						{`${shippingMethod.shippingName} - IDR ${numberWithCommas(shippingMethod.cost)}`}
+					</Text>
+				</Button>
+			);
+		});
+	}
+
 	render() {
 		const { 
 			buttonStyle, 
@@ -36,7 +62,7 @@ class ChooseShippingScreen extends Component {
 			boxContainerStyle,
 			boxImageStyle 
 		} = styles;
-		const shippingMethods = this.props.navigation.getParam('shippingMethods');
+		const shippingMethods = this.props.shipping_methods;
 		const idCheckout = this.props.navigation.getParam('idCheckout');
 
 		const renderShippingMethods = shippingMethods.map((shippingMethod) => {	
@@ -67,7 +93,7 @@ class ChooseShippingScreen extends Component {
 							</View>
 
 							<View>
-								{renderShippingMethods}
+								{this.renderLoading()}
 							</View>
 
 							<View style={{ paddingHorizontal: 20 }}>
@@ -99,4 +125,14 @@ const styles = {
 	}
 };
 
-export default connect(null, { updateCheckoutShippingMethod })(ChooseShippingScreen);
+const mapStateToProps = state => {
+	return {
+		shipping_methods: state.cart.shipping_methods,
+		loading: state.cart.loading
+	};
+};
+
+export default connect(mapStateToProps, { 
+	updateCheckoutShippingMethod, 
+	fetchShippingMethods 
+})(ChooseShippingScreen);

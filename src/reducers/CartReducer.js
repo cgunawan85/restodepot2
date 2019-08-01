@@ -19,14 +19,17 @@ import {
 	UPDATE_CHECKOUT_SHIPPING_NAME_FAIL,
 	START_MIDTRANS_PAY,
 	MIDTRANS_PAY_SUCCESS,
-	MIDTRANS_PAY_FAIL
+	MIDTRANS_PAY_FAIL,
+	START_FETCH_SHIPPING_METHODS,
+	FETCH_SHIPPING_METHODS_SUCCESS,
+	FETCH_SHIPPING_METHODS_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
 	loading: false,
 	checkout_list: [],
 	shipping_addresses: [],
-	shipping_methods: {},
+	shipping_methods: [],
 	total_price: 0,
 	redirect_url: {}
 };
@@ -80,6 +83,12 @@ export default (state = INITIAL_STATE, action) => {
 		case MIDTRANS_PAY_SUCCESS:
 			return { ...state, loading: false, redirect_url: action.payload };
 		case MIDTRANS_PAY_FAIL:
+			return { ...state, loading: false };
+		case START_FETCH_SHIPPING_METHODS:
+			return { ...state, loading: true };
+		case FETCH_SHIPPING_METHODS_SUCCESS:
+			return { ...state, loading: false, shipping_methods: action.payload.data.data.dataPrice };
+		case FETCH_SHIPPING_METHODS_FAIL:
 			return { ...state, loading: false };
 		default:
 			return state;

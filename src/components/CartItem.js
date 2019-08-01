@@ -24,7 +24,7 @@ class CartItem extends Component {
 	}
 
 	renderAddressCheckmark() {
-		const { checkout } = this.props.checkout;
+		const { checkout } = this.props;
 		if (checkout.id_resto_shipping_address !== 0) {
 			return (
 				<Icon name='ios-checkmark' style={{ fontSize: 28 }} />
@@ -33,7 +33,7 @@ class CartItem extends Component {
 	}
 
 	renderShippingMethodCheckmark() {
-		const { checkout } = this.props.checkout;
+		const { checkout } = this.props;
 		if (checkout.shipping_name !== null) {
 			return (
 				<Icon name='ios-checkmark' style={{ fontSize: 28 }} />
@@ -42,23 +42,22 @@ class CartItem extends Component {
 	}
 
 	renderButtonTextOrShippingMethod() {
-		if (this.props.checkout.checkout.shipping_name === null) {
+		if (this.props.checkout.shipping_name === null) {
 			return <Text>Choose Shipping Method</Text>;
 		}
-		return <Text>{this.props.checkout.checkout.shipping_name}</Text>;
+		return <Text>{this.props.checkout.shipping_name}</Text>;
 	}
 
 	renderButtonTextOrShippingAddress() {
-		if (this.props.checkout.checkout.id_resto_shipping_address === 0) {
+		if (this.props.checkout.id_resto_shipping_address === 0) {
 			return <Text>Choose Shipping Address</Text>;
 		}
-		return <Text>{this.props.checkout.checkout.shippingAddress.name}</Text>;
+		return <Text>{this.props.checkout.shippingAddress.name}</Text>;
 	}
 
 	renderShippingMethodChooseButton() {
-		const { checkout, dataPrice } = this.props.checkout;
-		// filter id resto shipping address to match data price
-		const result = dataPrice.filter(data => data.addressId === checkout.id_resto_shipping_address);
+		const { checkout } = this.props;
+		console.log(checkout);
 		const { shippingAddressAlertTextStyle } = styles;
 
 		if (checkout.id_resto_shipping_address !== 0) {
@@ -69,7 +68,10 @@ class CartItem extends Component {
 					full
 					onPress={() => this.props.navigation.navigate(
 						'ChooseShippingScreen', 
-						{ shippingMethods: result, idCheckout: checkout.id_checkout }
+						{ 
+							idCheckout: checkout.id_checkout, 
+							idVendor: checkout.id_vendor
+						}
 					)}
 				>
 					{this.renderShippingMethodCheckmark()}
@@ -85,7 +87,7 @@ class CartItem extends Component {
 	}
 
 	renderShippingAddressChooseButton() {
-		const { checkout } = this.props.checkout;
+		const { checkout } = this.props;
 		return (
 			<Button
 				success={checkout.id_resto_shipping_address !== 0 ? true : false}
@@ -108,7 +110,7 @@ class CartItem extends Component {
 
 	render() {
 		const { onUpdateQuantityItem } = this.props;
-		const { checkout } = this.props.checkout;
+		const { checkout } = this.props;
 		
 		return (
 			<Card style={checkout.id_resto_shipping_address !== 0 && checkout.shipping_name !== null ? { borderColor: 'green' } : {}}>

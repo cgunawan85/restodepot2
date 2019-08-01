@@ -19,7 +19,8 @@ class ProductVendor extends Component {
 						<Thumbnail 
 							square
 							defaultSource={LOADING_IMAGE}
-							source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${product.vendor_logo}` }} 
+							source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${product.vendor_logo}` }}
+							style={{ resizeMode: 'contain' }} 
 						/>
 					</View>
 					<View style={vendorNameSectionStyle}>

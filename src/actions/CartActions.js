@@ -20,7 +20,10 @@ import {
 	UPDATE_CHECKOUT_SHIPPING_NAME_FAIL,
 	START_MIDTRANS_PAY,
 	MIDTRANS_PAY_SUCCESS,
-	MIDTRANS_PAY_FAIL
+	MIDTRANS_PAY_FAIL,
+	START_FETCH_SHIPPING_METHODS,
+	FETCH_SHIPPING_METHODS_SUCCESS,
+	FETCH_SHIPPING_METHODS_FAIL
 } from './types';
 import NavigationService from '../services/NavigationService';
 import { baseURL } from '../services/constants';
@@ -189,6 +192,28 @@ export const payMidtrans = (idCheckouts) => {
 		}).catch((response) => {
 			dispatch({ type: MIDTRANS_PAY_FAIL });
 			console.log(response);
+		});
+	};
+};
+
+export const fetchShippingMethods = (idCheckout, idVendor) => {
+	return (dispatch) => {
+		dispatch({ type: START_FETCH_SHIPPING_METHODS });
+		axios.request({
+			url: `${baseURL}cart/shipping/checkprice`,
+			method: 'get',
+			params: {
+				idCheckout: idCheckout,
+				idVendor: idVendor
+			}
+		})
+		.then((res) => {
+			console.log(res);
+			dispatch({ type: FETCH_SHIPPING_METHODS_SUCCESS, payload: res });
+		})
+		.catch((error) => {
+			console.log(error);
+			dispatch({ type: FETCH_SHIPPING_METHODS_FAIL });
 		});
 	};
 };

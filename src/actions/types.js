@@ -109,3 +109,6 @@ export const UPDATE_CHECKOUT_SHIPPING_NAME_FAIL = 'update_checkout_shipping_name
 export const START_MIDTRANS_PAY = 'start_midtrans_pay';
 export const MIDTRANS_PAY_SUCCESS = 'midtrans_pay_success';
 export const MIDTRANS_PAY_FAIL = 'midtrans_pay_fail';
+export const START_FETCH_SHIPPING_METHODS = 'start_fetch_shipping_methods';
+export const FETCH_SHIPPING_METHODS_SUCCESS = 'fetch_shipping_methods_success';
+export const FETCH_SHIPPING_METHODS_FAIL = 'fetch_shipping_methods_fail';

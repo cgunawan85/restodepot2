@@ -61,6 +61,7 @@ class HorizontalVendorFlatListItem extends Component {
 							square 
 							source={{ uri: `https://s3-ap-southeast-1.amazonaws.com/restodepotbucket/${logo}` }} 
 							defaultSource={LOADING_IMAGE}
+							style={{ resizeMode: 'contain' }}
 						/>
 					</View>
 					<View style={textContainerStyle}>
