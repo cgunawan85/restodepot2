@@ -51,7 +51,7 @@ const styles = {
 		justifyContent: 'space-between',
 		borderTopWidth: 0.2,
 		borderColor: '#444444',
-		backgroundColor: 'white'
+		backgroundColor: '#F5F5F5'
 	},
 	totalTextStyle: {
 		fontSize: 14,

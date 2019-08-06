@@ -13,7 +13,10 @@ class FilterBar extends Component {
 					style={buttonStyle}
 					onPress={() => this.props.navigation.navigate(
 						'SortByScreen', 
-						{ query: this.props.query }
+						{ 
+							query: this.props.query, 
+							categoryID: this.props.categoryID
+						}
 					)}
 				>
 					<Text style={textStyle}>Sort by</Text>

@@ -22,8 +22,10 @@ function ForgetYourPasswordModal({ modalVisible, onAccept, onDecline, onForgetEm
 		>
 			<View style={containerStyle}>
 				<Card style={cardStyle}>
-					<Text style={textStyle}>Oops! Did you forget your password?</Text>
-					<Text style={{ textAlign: 'center' }}>Please enter your email and we'll send an email with instructions on how to reset your password</Text>
+					<View style={{ paddingTop: 25, paddingHorizontal: 5 }}>
+						<Text style={textStyle}>Oops! Did you forget your password?</Text>
+						<Text style={{ textAlign: 'center' }}>Please enter your email and we'll send an email with instructions on how to reset your password</Text>
+					</View>
 					<Form style={{ paddingVertical: 20 }}>
 						<Item stackedLabel>
 							<Label>Email</Label>
@@ -59,7 +61,7 @@ function ForgetYourPasswordModal({ modalVisible, onAccept, onDecline, onForgetEm
 const styles = {
 	cardStyle: {
 		backgroundColor: 'white',
-		flex: 0.4,
+		flex: 0.6
 	},
 	textStyle: {
 		fontSize: 18,
@@ -75,7 +77,7 @@ const styles = {
 	},
 	buttonContainerStyle: {
 		flexDirection: 'row',
-		flex: 1,
+		flex: 0.5,
 		justifyContent: 'space-around'
 	},
 	buttonStyle: {

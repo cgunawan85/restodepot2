@@ -25,13 +25,20 @@ class SortByScreen extends Component {
 		this.state = { itemSelected: null };
 	}
 
-	onFilterResults(query, sort) {
-		this.props.fetchSearchResults(query, sort);
-		this.props.navigation.navigate('SearchResultsScreen');
+	onFilterResults(query, categoryID = 0, sort) {
+		if (categoryID === 0) {
+			this.props.fetchSearchResults(query, sort);
+			this.props.navigation.navigate('SearchResultsScreen');
+		} else if (categoryID !== 0) {
+			//fetch products by categories with sort
+			this.props.navigation.navigate('CategoriesScreen');
+			console.log('conditional works!');
+		}
 	}
 
 	render() {
 		const query = this.props.navigation.getParam('query');
+		const categoryID = this.props.navigation.getParam('categoryID');
 		return (
 			<Container>
 				<Header>
@@ -90,6 +97,7 @@ class SortByScreen extends Component {
 					onFilterResults={this.onFilterResults.bind(this)}
 					sort={this.state.itemSelected}
 					query={query}
+					categoryID={categoryID}
 				/>
 			</Container>
 		);

@@ -20,6 +20,10 @@ import { resetReviewForm, fetchProductReviews, createProductReview } from '../ac
 import { REVIEWS_EMPTY_STATE_IMAGE } from '../images/';
 
 class ReviewsScreen extends Component {
+	static navigationOptions = {
+		header: null,
+	};
+
 	constructor(props) {
 		super(props);
 		this.state = { 

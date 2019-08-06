@@ -71,8 +71,8 @@ export const createProductReview = ({ id_product, comments, rating }) => {
 		})
 		.then((response) => {
 			dispatch({ type: CREATE_PRODUCT_REVIEW_SUCCESS, payload: response });
+			NavigationService.navigate('HomeScreen');
 			renderMessage(response.data.message);
-			NavigationService.navigate('ProductDetailScreen');
 		})
 		.catch((error) => {
 			console.log(error.response);

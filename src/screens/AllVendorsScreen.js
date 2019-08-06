@@ -5,7 +5,7 @@ import {
 	Content, 
 	Spinner,
 	Icon,
-	Button 
+	Button
 } from 'native-base';
 import VendorList from '../components/VendorList';
 import { fetchAllVendors } from '../actions';

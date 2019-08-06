@@ -24,7 +24,6 @@ class CategoriesScreen extends Component {
 	}
 
 	renderContent() {
-		console.log(this.props.products);
 		if (this.props.loading) {
 			return <Spinner size='small' />;
 		}
@@ -34,6 +33,7 @@ class CategoriesScreen extends Component {
 	}
 
 	render() {
+		const categoryID = this.props.navigation.getParam('categoryID');
 		return (
 			<Container>
 				<Header>
@@ -55,7 +55,7 @@ class CategoriesScreen extends Component {
 				<Content>
 					{this.renderContent()}
 				</Content>
-				<FilterBar />
+				<FilterBar categoryID={categoryID} />
 			</Container>
 		);
 	}

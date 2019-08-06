@@ -67,20 +67,12 @@ const VendorStack = createStackNavigator(
 	VendorScreen, 
 	ProductDetailScreen,
 	ReviewsScreen
-},
-{
-	cardStyle: {
-		paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
-	}
-},
+}
 );
 
 const CategoriesStack = createStackNavigator(
 	{ CategoriesScreen, SortByScreen, ProductDetailScreen },
 	{ 
-		cardStyle: {
-			paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
-		},
 		headerMode: 'none' 
 	}
 );
@@ -88,9 +80,6 @@ const CategoriesStack = createStackNavigator(
 const QVStack = createStackNavigator(
 	{ QVScreen, SortByScreen, ProductDetailScreen },
 	{ 
-		cardStyle: {
-			paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
-		},
 		headerMode: 'none' 
 	}
 );
@@ -98,9 +87,6 @@ const QVStack = createStackNavigator(
 const AllProductsStack = createStackNavigator(
 	{ AllProductsScreen, ProductDetailScreen },
 	{ 
-		cardStyle: {
-			paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
-		},
 		headerMode: 'none' 
 	}
 );
@@ -108,9 +94,6 @@ const AllProductsStack = createStackNavigator(
 const SearchStack = createStackNavigator(
 	{ SearchResultsScreen, SortByScreen, ProductDetailScreen },
 	{ 
-		cardStyle: {
-			paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
-		},
 		headerMode: 'none' 
 	}
 );
@@ -122,11 +105,16 @@ const HomeStack = createStackNavigator(
 	CategoriesStack, 
 	QVStack, 
 	VendorStack, 
-	AllProductsStack, 
+	AllProductsStack,
 	ProductDetailScreen,
-	ReviewsScreen 
+	ReviewsScreen
 }, 
-{ 
+{
+	cardStyle: {
+		...Platform.select({
+			android: { paddingTop: StatusBar.currentHeight }
+		})
+	},
 	headerMode: 'none' 
 }
 );
@@ -138,8 +126,10 @@ const OrdersStack = createStackNavigator(
 },
 {
 	cardStyle: {
-		paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
-	}
+		...Platform.select({
+			android: { paddingTop: StatusBar.currentHeight }
+		})
+	},
 },
 );
 
@@ -154,8 +144,10 @@ const SettingsStack = createStackNavigator(
 },
 {
 	cardStyle: {
-		paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
-	}
+		...Platform.select({
+			android: { paddingTop: StatusBar.currentHeight }
+		})
+	},
 },
 );
 
@@ -171,8 +163,10 @@ const CartStack = createStackNavigator(
 },
 {
 	cardStyle: {
-		paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
-	}
+		...Platform.select({
+			android: { paddingTop: StatusBar.currentHeight }
+		})
+	},
 },
 );
 

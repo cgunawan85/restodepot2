@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, Platform, StatusBar } from 'react-native';
+import { View, Image, Text } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { Container, Content, Tab, Tabs, Spinner } from 'native-base';
 import { connect } from 'react-redux';

@@ -169,7 +169,7 @@ class ProductDetailScreen extends Component {
 					</Body>
 					<Right />
 				</Header>
-				<Content padder style={{ flex: 1 }}>
+				<Content style={{ flex: 1 }}>
 					<View style={contentContainerStyle}>
 						<ProductImage product={product} />
 						<ProductTitle product={product} />
@@ -223,7 +223,8 @@ class ProductDetailScreen extends Component {
 const styles = {
 	segmentContentStyle: {
 		paddingTop: 10, 
-		paddingBottom: 30
+		paddingBottom: 30,
+		paddingHorizontal: 10
 	},
 	contentContainerStyle: {
 		flex: 1, 

@@ -8,7 +8,7 @@ import {
 	Text,
 	Icon,
 	Button,
-	Spinner,
+	Spinner
 } from 'native-base';
 import { connect } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
@@ -167,6 +167,7 @@ const styles = {
 		alignSelf: 'center',
 		width: 140,	
 		height: 140,
+		resizeMode: 'contain'
 	},
 	vendorNameTitleContainerStyle: {
 		paddingTop: 15,

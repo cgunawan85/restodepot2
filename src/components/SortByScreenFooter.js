@@ -6,14 +6,14 @@ import { withNavigation } from 'react-navigation';
 class SortByScreenFooter extends Component {
 	render() {
 		const { buttonContainerStyle, buttonTextStyle } = styles;
-		const { query, sort } = this.props;
+		const { query, sort, categoryID } = this.props;
 
 		return (
 			<View style={buttonContainerStyle}>
 				<Button 
 					full 
 					onPress={() => {
-						this.props.onFilterResults(query, sort);		
+						this.props.onFilterResults(query, categoryID, sort);		
 					}}
 				>
 					<Text style={buttonTextStyle}>Filter Results</Text>

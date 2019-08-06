@@ -240,7 +240,8 @@ class OrderDetailsScreen extends Component {
 const styles = {
 	statusImageContainerStyle: {
 		flexDirection: 'row', 
-		flex: 1 
+		flex: 1,
+		paddingHorizontal: 10 
 	},
 	orderTitleSectionStyle: {
 		alignItems: 'center',

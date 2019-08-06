@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Platform } from 'react-native';
+import { View, Platform, StatusBar } from 'react-native';
 import { Header, Item, Icon, Input, Text, Button, Spinner } from 'native-base';
 
 class SearchBar extends Component {
@@ -17,7 +17,7 @@ class SearchBar extends Component {
 			);
 		}
 		return (
-			<Text style={{ color: Platform.OS === 'ios' ? '' : 'black' }}>
+			<Text style={{ color: Platform.OS === 'ios' ? 'white' : 'white', fontSize: Platform.OS === 'ios' ? 14 : 12 }}>
 				Search
 			</Text>
 		);
@@ -43,7 +43,8 @@ class SearchBar extends Component {
 				transparent 
 				searchBar 
 				rounded
-			>	
+				style={{ backgroundColor: '#1f77bd', paddingBottom: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight }}
+			>
 				<Item>
 					<Icon name="ios-search" />
 					<Input

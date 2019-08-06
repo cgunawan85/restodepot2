@@ -15,7 +15,6 @@ import SearchAutocompleteList from '../components/SearchAutocompleteList';
 
 class HomeScreen extends Component {
 	static navigationOptions = {
-		header: null,
 		title: 'RestoDepot'
 	};
 
